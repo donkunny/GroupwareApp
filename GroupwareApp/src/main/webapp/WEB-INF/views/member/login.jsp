@@ -34,8 +34,10 @@
 						아이디,비밀번호 저장
 					</label>
 				</div>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
 				<div style="color: red" >${error}</div>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+				<h5><i class="fa fa-user" aria-hidden="true"></i>
+				아직 회원이 아니세요? <a href="/member/register">회원가입</a></h5>
 		</div><!-- /container -->
 	</form>
 </body>

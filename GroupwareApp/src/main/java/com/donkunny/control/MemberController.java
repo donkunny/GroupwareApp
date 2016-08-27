@@ -44,13 +44,17 @@ public class MemberController {
 		}
 	}
 	
-
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session, RedirectAttributes rttr) throws Exception {
 		session.removeAttribute("memberVO");
 		session.invalidate();
 		rttr.addFlashAttribute("error", "로그아웃 되었습니다.");
 		return "redirect:/member/login";
+	}
+	
+	@RequestMapping(value="/register", method=RequestMethod.GET)
+	public void registerMember(){
+		logger.info("register members");
 	}
 	
 	
