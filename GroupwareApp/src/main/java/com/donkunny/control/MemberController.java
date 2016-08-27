@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.donkunny.member.MemberVO;
 import com.donkunny.member.login.LoginDTO;
@@ -25,22 +26,31 @@ public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public void loginGET(@ModelAttribute("dto") LoginDTO dto){
+	public void loginGET(@ModelAttribute("dto") LoginDTO dto, Model model){
 		logger.info("login get...");
 	}
 	
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST)
-	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception{
+	public String loginPOST(LoginDTO dto, HttpSession session, RedirectAttributes rttr) throws Exception{
 		logger.info("login post...");
 		
 		MemberVO vo = service.confirmLogin(dto);
-		
-		logger.info(vo.getId() +"," + vo.getPwd());
-		if(vo == null){
-			return;
+		if(vo == null) {
+			rttr.addFlashAttribute("error", "아이디 또는 비밀번호를 다시 확인하세요.");
+			return "redirect:/member/login"; 
+		} else {
+			session.setAttribute("memberVO", vo); // 로그인이 필요한 페이지에서 session으로 로그인 확인
+			return "redirect:../main/mainPage";
 		}
-		
-		model.addAttribute("memberVO", vo);
+	}
+	
+
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String logout(HttpSession session, RedirectAttributes rttr) throws Exception {
+		session.removeAttribute("memberVO");
+		session.invalidate();
+		rttr.addFlashAttribute("error", "로그아웃 되었습니다.");
+		return "redirect:/member/login";
 	}
 	
 	

@@ -22,14 +22,12 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.donkunny.control" />
-	<context:component-scan base-package="com.donkunny.member.controller"></context:component-scan>
 	
 	<beans:bean id="loginInterceptor" class="com.donkunny.interceptor.LoginInterceptor"></beans:bean>
-	
 	<interceptors>
 		<interceptor>
 			<!-- 매핑 필요한 url 추가 -->
-			<mapping path="/member/loginPost" />
+			<mapping path="/main/mainPage" />
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 	</interceptors>
