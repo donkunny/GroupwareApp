@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.donkunny.member.MemberVO;
+import com.donkunny.member.TempMemberVO;
 import com.donkunny.member.login.LoginDTO;
 import com.donkunny.member.service.MemberService;
 
@@ -57,5 +58,11 @@ public class MemberController {
 		logger.info("register members");
 	}
 	
+	@RequestMapping(value="/registerPost", method=RequestMethod.POST)
+	public String registerPost(TempMemberVO tvo) throws Exception{
+		service.register(tvo);
+		logger.info(tvo.getT_id()+","+tvo.getT_id() +"," + tvo.getT_pwd() +"," + tvo.getT_email());
+		return "member/registerPost";
+	}
 	
 }

@@ -16,7 +16,6 @@
   		width: 100%;
   		margin: 0 auto 100px;
 	}
-	
 </style>
 </head>
 <body>
