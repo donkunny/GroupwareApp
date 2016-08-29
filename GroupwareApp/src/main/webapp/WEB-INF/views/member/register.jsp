@@ -23,10 +23,10 @@
 </style>
 </head>
 <body>
-	<form class="form-horizontal" form="role" method="POST">
+	<form class="form-horizontal" role="form" method="POST">
 	<fieldset>
 	<div id="legend">
-    	<legend class="" align="center"><strong>회원가입</strong></legend>
+    	<legend align="center"><strong>회원가입</strong></legend>
     </div>
     <div class="panel panel-default" >
 	<div class="control-group">
@@ -104,7 +104,8 @@ $(document).ready(function() {
 		if($('#t_pwd').val() != $('#t_pwd_confirm').val()){
 			
 		}
-		formObj.attr("action", "/member/registerPost");
+		alert("등록되었습니다."+ $('#t_id').val() +"님");
+		formObj.attr("action", "/member/register");
 		formObj.attr("method", "post");
 		formObj.submit();
 	});

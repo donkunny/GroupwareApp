@@ -45,4 +45,10 @@ public class MemberServiceImpl implements MemberService{
 	public void updateGrade(MemberVO mvo) throws Exception {
 		dao.updateGrade(mvo);
 	}
+
+	@Override
+	public void readTMember(int tno) throws Exception {
+		dao.readTMember(tno);
+	}
+	
 }

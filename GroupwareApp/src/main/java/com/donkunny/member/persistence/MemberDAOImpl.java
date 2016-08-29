@@ -51,4 +51,10 @@ public class MemberDAOImpl implements MemberDAO{
 	public void updateGrade(MemberVO mvo) throws Exception {
 		session.update(namespace+".updateGrade", mvo);
 	}
+
+	@Override
+	public void readTMember(int tno) throws Exception {
+		session.selectOne(namespace+".selectTMember", tno);
+	}
+	
 }

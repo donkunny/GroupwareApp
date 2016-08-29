@@ -8,6 +8,18 @@
 		insert into tbl_temp_member (t_id, t_pwd, t_name, t_email, t_tel, t_birth)
 		values(#{t_id}, #{t_pwd}, #{t_name}, #{t_email}, #{t_tel}, #{t_birth})
 	</insert>
+	
+	<!-- 준회원정보 확인 -->
+	<select id="readTMember" resultType="TempMemberVO" >
+		select tno, t_id, t_pwd, t_name, t_email, t_regdate, t_birth, t_tel
+		from tbl_temp_member
+		where tno = #{tno}	
+	</select>
+	
+	<select id="readMember" resultType="MemberVO" >
+		select mno, id, pwd, name, email, grade, regdate, birth, tel
+		from tbl_member
+	</select>
 
 	<!-- 회원가입 승인(Subquery 이용) -->
 	<insert id="confirmMember">

@@ -58,11 +58,17 @@ public class MemberController {
 		logger.info("register members");
 	}
 	
-	@RequestMapping(value="/registerPost", method=RequestMethod.POST)
+	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String registerPost(TempMemberVO tvo) throws Exception{
 		service.register(tvo);
-		logger.info(tvo.getT_id()+","+tvo.getT_id() +"," + tvo.getT_pwd() +"," + tvo.getT_email());
-		return "member/registerPost";
+		// logger.info(tvo.getT_id()+","+tvo.getT_id() +"," + tvo.getT_pwd() +"," + tvo.getT_email());
+		return "/member/registerConfirm";
 	}
 	
+	@RequestMapping(value="/registerConfirm", method=RequestMethod.GET)
+	public void registerConfirm(int tno, Model model) throws Exception{
+		model.addAttribute("tempMemberVO", tno);
+	}
+	
+
 }

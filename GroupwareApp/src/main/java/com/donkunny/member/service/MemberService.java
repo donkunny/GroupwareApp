@@ -11,4 +11,5 @@ public interface MemberService {
 	public void updateMemberInfo(MemberVO mvo) throws Exception;
 	public void deleteMember(int rno) throws Exception;
 	public void updateGrade(MemberVO mvo) throws Exception;
+	public void readTMember(int tno) throws Exception;
 }
