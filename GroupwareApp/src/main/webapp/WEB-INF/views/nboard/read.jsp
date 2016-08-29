@@ -68,7 +68,6 @@
   		</div>
 	</div>
 
-	
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
 	<script type="text/javascript">
 	

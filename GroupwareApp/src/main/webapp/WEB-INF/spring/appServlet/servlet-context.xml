@@ -30,7 +30,7 @@
 			<mapping path="/main/mainPage" />
 			<mapping path="/nboard/listAll"/>
 			<mapping path="/nboard/read"/>
-			
+			<mapping path="/nboard/modify"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 	</interceptors>

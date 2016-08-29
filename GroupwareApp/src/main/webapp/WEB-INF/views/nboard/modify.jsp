@@ -14,8 +14,15 @@
 			padding-top: 10px;
 		}
 		
-		#modifyId {
-			width: 70%;
+		#modify-title {
+			max-width: 400px;
+			width: 100%;
+			margin-top: 8px;
+		}
+		
+		#modify-content {
+			width: 100%;
+			margin-top: 8px;
 		}
 	</style>
 </head>
@@ -46,35 +53,51 @@
 			</ul>
 		</div>
 	</nav>
-	
+	<form role="form">
+	<input type="hidden" name="nno" value="${noticeBoardVO.nno}">
+	<input type="hidden" name="n_id" value="${noticeBoardVO.n_id}">
 	<div class="card">
 		<div class="card-block">
 			<h4 class="card-title">${noticeBoardVO.nno}번 게시물</h4>
 		</div>
 		<ul class="list-group list-group-flush">
-    		<li class="list-group-item"><strong>제목:</strong> 
-    			<input type="text" id="modifyId" class="form-control" value="${noticeBoardVO.n_title}">
+    		<li class="list-group-item">
+    			<strong>제목</strong> 
+    			<input type="text" id="modify-title" name="n_title" class="form-control" value="${noticeBoardVO.n_title}">
     		</li>
     		
     		<li class="list-group-item"><strong>내용</strong>
-    			 <p class="card-text">${noticeBoardVO.n_content}</p>
+    			<textarea rows="5" class="form-control" name="n_content" id="modify-content" >${noticeBoardVO.n_content}</textarea>
+    			<!-- <input type="text" id="modify-content" class="form-control" value="${noticeBoardVO.n_content}"> -->
     		</li>
     		<li class="list-group-item"><strong>작성자: </strong>${noticeBoardVO.n_id}</li>
   		</ul>
   		<div class="card-block" align="left">
-    		<button class="btn btn-default" id="btn_previous" type="submit">이전</button>
+    		<a href="/nboard/read?nno=${noticeBoardVO.nno}" class="btn btn-default" id="btn_previous" type="submit" >이전</a>
    			<button class="btn btn-default" id="btn_modify" type="submit">수정</button>
-   			<button class="btn btn-default" id="btn_delete" type="submit">삭제</button>
   		</div>
 	</div>
-
+	</form>
 
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
 	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		var formObj = $("form[role='form']");
+		console.log(formObj);
+		
 		$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
 			self.location = "/member/logout";
 		});
+		
+		$("#btn_modify").on("click", function(){
+			alert("수정되었습니다.");
+			formObj.attr("action", "/nboard/modify");
+			formObj.attr("method", "post");
+			formObj.submit();
+		});
+	});	
 	</script>
 </body>
 </html>
