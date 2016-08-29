@@ -6,6 +6,13 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/include/style.jsp" %>
+	<style type="text/css">
+		.table {
+			position: relative;
+			width: 80%;	
+			margin: 0 auto;
+		}
+	</style>
 </head>
 <body>
 	<div class="header">
@@ -13,10 +20,11 @@
 		<h5 class="logout" align="right" style="cursor:pointer">
 			로그아웃하기 <i class="fa fa-sign-out" aria-hidden="true"></i> </h5>
 	</div>
+	
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Groupware</a>
+				<a class="navbar-brand" href="/main/mainPage">Groupware</a>
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="#">소개</a></li>
@@ -33,7 +41,32 @@
 			</ul>
 		</div>
 	</nav>
-
+	
+	<!-- Notice Board -->
+	<table class="table table-hover">
+	<h4 align="center"><strong>공지 게시판</strong></h4>
+	<thread>
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>날짜</th>
+			<th>조회수</th>
+		</tr>
+	</thread>
+	<tbody>
+		<c:forEach items="${list}" var="noticeBoardVO">
+			<tr>
+				<td>${noticeBoardVO.nno}</td>
+				<td><a href='/nboard/read?nno=${noticeBoardVO.nno}'>
+						${noticeBoardVO.n_title}</a></td>
+				<td>${noticeBoardVO.n_id}</td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${noticeBoardVO.n_regdate}" /></td>
+				<td style="width: 60px">${noticeBoardVO.n_cnt}</td>
+			</tr>
+		</c:forEach>
+	</tbody>
+	</table>
 
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
 	<script type="text/javascript">

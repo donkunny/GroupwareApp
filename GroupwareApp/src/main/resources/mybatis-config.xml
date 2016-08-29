@@ -3,7 +3,8 @@
 <configuration>
 
   <typeAliases>
-    <package name="com.donkunny.member"/>    
+    <package name="com.donkunny.member"/>
+    <package name="com.donkunny.board"/>    
   </typeAliases>
 
 </configuration>

@@ -70,7 +70,8 @@ public class MemberVO {
 	
 	@Override
 	public String toString() {
-		return "[mno: " + mno + "]," + " [id: " + id + "]," + " [pwd: " + pwd + "]," 
+		return 
+				"[mno: " + mno + "]," + " [id: " + id + "]," + " [pwd: " + pwd + "]," 
 				+ " [name: " + name + "]," + " [email: " + email + "]," + " [tel" + tel + "],"
 				+ " [birth: " + birth + "]," + " [grade: " + grade + "]," + "[regdate: " + regdate + "]";
 	}

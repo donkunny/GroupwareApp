@@ -70,5 +70,4 @@ public class MemberController {
 		model.addAttribute("tempMemberVO", tno);
 	}
 	
-
 }
