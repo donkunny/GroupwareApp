@@ -78,7 +78,7 @@
     		<li class="list-group-item"><strong>작성자: </strong><%=obj.getId() %></li>
   		</ul>
   		<div class="card-block" align="left">
-    		<a href="/nboard/listAll" class="btn btn-default" id="btn_previous" type="submit" >이전</a>
+    		<a href="/nboard/listPage?page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >이전</a>
    			<button class="btn btn-default" id="btn_registerConfirm" type="submit">확인</button>
   		</div>
 	</div>

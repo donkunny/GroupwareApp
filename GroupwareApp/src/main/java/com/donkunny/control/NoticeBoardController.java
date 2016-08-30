@@ -74,15 +74,17 @@ public class NoticeBoardController {
 	}
 	
 	@RequestMapping(value="register", method=RequestMethod.GET)
-	public void register(NoticeBoardVO nvo) throws Exception {
+	public void register(NoticeBoardVO nvo, @ModelAttribute("cri")Criteria cri) throws Exception {
 		logger.info("register get...");
 	}
 	
 	@RequestMapping(value="register", method=RequestMethod.POST)
-	public String registerPOST(NoticeBoardVO nvo) throws Exception{
+	public String registerPOST(NoticeBoardVO nvo, Criteria cri, RedirectAttributes rttr) throws Exception{
 		logger.info("register post...");
 		service.write(nvo);
-		return "redirect:/nboard/listAll";
+		rttr.addAttribute("page", 1);
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		return "redirect:/nboard/listPage";
 	}
 	
 }

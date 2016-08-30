@@ -39,7 +39,7 @@
 						<li><a href="#">회원 탈퇴하기</a></li>
 					</ul>
 				</li>
-				<li><a href="/nboard/listAll">공지 게시판</a></li>
+				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="#">업무 일정</a></li>
 				<li><a href="#">출퇴근 관리</a></li>
 			</ul>
@@ -95,7 +95,7 @@
 			</ul>
 		</div>
 		<div id="btn_register">
-			<a href="/nboard/register" class="btn btn-default"  type="submit">글쓰기</a>
+			<a href="/nboard/register?page=${cri.page}" class="btn btn-default"  type="submit">글쓰기</a>
 		</div>
 	</div>
 	
