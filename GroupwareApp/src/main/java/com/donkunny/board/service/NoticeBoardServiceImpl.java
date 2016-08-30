@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.donkunny.board.NoticeBoardVO;
+import com.donkunny.board.paging.Criteria;
 import com.donkunny.board.persistence.NoticeBoardDAO;
 
 @Service
@@ -26,8 +27,8 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	}
 
 	@Override
-	public void delete(NoticeBoardVO nvo) throws Exception {
-		dao.delete(nvo);
+	public void delete(int nno) throws Exception {
+		dao.delete(nno);
 	}
 
 	@Override
@@ -39,6 +40,15 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	public List<NoticeBoardVO> listAll() throws Exception {
 		return dao.listAll();
 	}
-	
 
+	@Override
+	public List<NoticeBoardVO> listPage(Criteria cri) throws Exception {
+		return dao.listPage(cri);
+	}
+
+	@Override
+	public int countPaging() throws Exception {
+		return dao.countPaging();
+	}
+	
 }

@@ -1,3 +1,4 @@
+<%@page import="com.donkunny.member.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 <%@ page session="true" %>
@@ -10,7 +11,7 @@
 		.header {
 			padding-right: 10px;		
 		}
-	
+		
 		.card {
 			position: relative;
 			width: 80%;	
@@ -51,58 +52,62 @@
 						<li><a href="#">회원 탈퇴하기</a></li>
 					</ul>
 				</li>
-				<li><a href="/nboard/listPage">공지 게시판</a></li>
+				<li><a href="/nboard/listAll">공지 게시판</a></li>
 				<li><a href="#">업무 일정</a></li>
 				<li><a href="#">출퇴근 관리</a></li>
 			</ul>
 		</div>
 	</nav>
 	<form role="form">
-	<input type="hidden" name="nno" value="${noticeBoardVO.nno}">
-	<input type="hidden" name="page" value="${cri.page}">
-	<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
+	<input type="hidden" name="n_id" value="<%=obj.getId() %>" >
 	<div class="card">
 		<div class="card-block">
-			<h4 class="card-title">${noticeBoardVO.nno}번 게시물</h4>
+			<h4 class="card-title"><strong>게시물 등록</strong></h4>
 		</div>
 		<ul class="list-group list-group-flush">
     		<li class="list-group-item">
     			<strong>제목</strong> 
-    			<input type="text" id="modify-title" name="n_title" class="form-control" value="${noticeBoardVO.n_title}">
+    			<input type="text" id="register-title" name="n_title" class="form-control" value="" required="required">
     		</li>
     		
     		<li class="list-group-item"><strong>내용</strong>
-    			<textarea rows="5" class="form-control" name="n_content" id="modify-content" >${noticeBoardVO.n_content}</textarea>
+    			<textarea rows="5" class="form-control" name="n_content" id="register-content" required="required"></textarea>
     			<!-- <input type="text" id="modify-content" class="form-control" value="${noticeBoardVO.n_content}"> -->
     		</li>
-    		<li class="list-group-item"><strong>작성자: </strong>${noticeBoardVO.n_id}</li>
+    		<li class="list-group-item"><strong>작성자: </strong><%=obj.getId() %></li>
   		</ul>
   		<div class="card-block" align="left">
-    		<a href="/nboard/read?nno=${noticeBoardVO.nno}&page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >이전</a>
-   			<button class="btn btn-default" id="btn_modify" type="submit">수정</button>
+    		<a href="/nboard/listAll" class="btn btn-default" id="btn_previous" type="submit" >이전</a>
+   			<button class="btn btn-default" id="btn_registerConfirm" type="submit">확인</button>
   		</div>
 	</div>
 	</form>
 	
-
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
 	<script type="text/javascript">
 	
 	$(document).ready(function(){
 		
 		var formObj = $("form[role='form']");
-		console.log(formObj);
-		
+
 		$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
 			self.location = "/member/logout";
 		});
 		
-		$("#btn_modify").on("click", function(){
-			alert("수정되었습니다.");
-			formObj.attr("action", "/nboard/modify");
-			formObj.attr("method", "post");
-			formObj.submit();
+		$("#btn_registerConfirm").on("click", function(){
+			var title = $('#register-title').val();
+			var contents = $('#register-content').val();
+			//alert(title.length + ": " + contents.length);
+			if(title.length == 0 || contents.length == 0){
+				alert("제목 또는 내용을 입력해주세요.");
+			} else {
+				alert("등록되었습니다.");
+				formObj.attr("action", "/nboard/register");
+				formObj.attr("method", "post");
+				formObj.submit();
+			}
 		});
 	});	
 	</script>

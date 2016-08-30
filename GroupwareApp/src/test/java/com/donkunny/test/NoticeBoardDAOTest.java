@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.donkunny.board.NoticeBoardVO;
+import com.donkunny.board.paging.Criteria;
 import com.donkunny.board.persistence.NoticeBoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -58,7 +59,7 @@ public class NoticeBoardDAOTest {
 		nvo.setN_id("test");
 		nvo.setNno(3);
 		
-		dao.delete(nvo);
+		dao.delete(nvo.getNno());
 	}
 	
 	//@Test
@@ -71,4 +72,21 @@ public class NoticeBoardDAOTest {
 		
 	}
 	
+	// @Test
+	public void testListPage() throws Exception {
+		Criteria cri = new Criteria();
+		cri.setPage(1);
+		cri.setPerPageNum(10);
+		
+		List<NoticeBoardVO> list = dao.listPage(cri);
+		
+		for(NoticeBoardVO nvo : list) {
+			logger.info(nvo.getNno() + ": " + nvo.getN_title());
+		}
+	}
+	
+	@Test
+	public void testCountPaging() throws Exception {
+		logger.info(dao.countPaging() +"");
+	}
 }

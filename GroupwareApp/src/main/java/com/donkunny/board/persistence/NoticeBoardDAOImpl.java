@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.donkunny.board.NoticeBoardVO;
+import com.donkunny.board.paging.Criteria;
 
 @Repository
 public class NoticeBoardDAOImpl implements NoticeBoardDAO{
@@ -28,8 +29,8 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 	}
 
 	@Override
-	public void delete(NoticeBoardVO nvo) throws Exception {
-		session.delete(namespace+".delete", nvo);
+	public void delete(int nno) throws Exception {
+		session.delete(namespace+".delete", nno);
 	}
 
 	@Override
@@ -40,6 +41,16 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 	@Override
 	public List<NoticeBoardVO> listAll() throws Exception {
 		return session.selectList(namespace+".listAll");
+	}
+
+	@Override
+	public List<NoticeBoardVO> listPage(Criteria cri) throws Exception {
+		return session.selectList(namespace+".listPage", cri);
+	}
+
+	@Override
+	public int countPaging() throws Exception {
+		return session.selectOne(namespace+".countPaging");
 	}
 	
 }

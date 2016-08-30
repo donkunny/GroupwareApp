@@ -6,6 +6,11 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/include/style.jsp" %>
+	<style type="text/css">
+		.header {
+			padding-right: 10px;		
+		}
+	</style>
 </head>
 <body>
 	<div class="header">
@@ -16,7 +21,7 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Groupware</a>
+				<a class="navbar-brand" href="/main/mainPage">Groupware</a>
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="#">소개</a></li>
@@ -27,7 +32,7 @@
 						<li><a href="#">회원 탈퇴하기</a></li>
 					</ul>
 				</li>
-				<li><a href="/nboard/listAll">공지 게시판</a></li>
+				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="#">업무 일정</a></li>
 				<li><a href="#">출퇴근 관리</a></li>
 			</ul>

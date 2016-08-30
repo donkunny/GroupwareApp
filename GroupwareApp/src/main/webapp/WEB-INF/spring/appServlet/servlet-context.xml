@@ -28,9 +28,11 @@
 		<interceptor>
 			<!-- 매핑 필요한 url 추가 -->
 			<mapping path="/main/mainPage" />
-			<mapping path="/nboard/listAll"/>
+			<!-- <mapping path="/nboard/listAll"/>  -->
+			<mapping path="/nboard/listPage"/>
 			<mapping path="/nboard/read"/>
 			<mapping path="/nboard/modify"/>
+			
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 	</interceptors>

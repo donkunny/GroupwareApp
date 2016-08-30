@@ -5,15 +5,15 @@
 	
 	<!-- 글 작성하기 -->
 	<insert id="write">
-		insert into tbl_notice (n_title, n_content)
-		values (#{n_title}, #{n_content})
+		insert into tbl_notice (n_title, n_content, n_id)
+		values (#{n_title}, #{n_content}, #{n_id})
 	</insert>
 
-	<!-- 글 수정하기(본인만 할 수 있음) -->
+	<!-- 글 수정하기 -->
 	<update id="modify">
 		update tbl_notice
 		set n_title = #{n_title}, n_content=#{n_content}
-		where nno = #{nno} and n_id = #{n_id}
+		where nno = #{nno}
 	</update>
 	
 	<!-- 하나의 글 읽기 -->
@@ -22,12 +22,12 @@
 		where nno = #{nno}
 	</select>
 	
-	<!-- 글 삭제하기(본인만 할 수 있음) -->
+	<!-- 글 삭제하기 -->
 	<delete id="delete">
-		delete from tbl_notice where nno = #{nno} and n_id = #{n_id}
+		delete from tbl_notice where nno = #{nno}
 	</delete>
 	
-	<!-- 모든 게시글 한번에 보기(나중에 삭제) -->
+	<!-- 모든 게시글 한번에 보기(사용하지 않음) -->
 	<select id="listAll" resultType="NoticeBoardVO">
 		select * from tbl_notice
 		where nno > 0

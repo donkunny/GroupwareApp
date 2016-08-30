@@ -8,6 +8,10 @@
 <head>
 	<%@ include file="/WEB-INF/views/include/style.jsp" %>
 	<style type="text/css">
+		.header {
+			padding-right: 10px;		
+		}
+
 		.card {
 			position: relative;
 			width: 80%;	
@@ -36,7 +40,7 @@
 						<li><a href="#">회원 탈퇴하기</a></li>
 					</ul>
 				</li>
-				<li><a href="/nboard/listAll">공지 게시판</a></li>
+				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="#">업무 일정</a></li>
 				<li><a href="#">출퇴근 관리</a></li>
 			</ul>
@@ -48,6 +52,8 @@
 
 	<form role="form">
 		<input type="hidden" name="nno" value="${noticeBoardVO.nno}">
+		<input type="hidden" name="page" value="${cri.page}">
+		<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
 	</form>
 	
 	<div class="card">
@@ -62,7 +68,7 @@
     		<li class="list-group-item"><strong>작성자: </strong>${noticeBoardVO.n_id}</li>
   		</ul>
   		<div class="card-block" align="left">
-    		<button class="btn btn-default" id="btn_previous" type="submit">이전</button>
+    		<a href="listPage?page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous">이전</a>
    			<button class="btn btn-default" id="btn_modify" type="submit">수정</button>
    			<button class="btn btn-default" id="btn_delete" type="submit">삭제</button>
   		</div>
@@ -87,11 +93,6 @@
 			self.location = "/member/logout";
 		});
 		
-		$("#btn_previous").on("click", function(){
-			console.log("이전!");
-			self.location = "/nboard/listAll";
-		});
-		
 		$("#btn_modify").on("click", function(){
 			console.log("수정");
 			if(session != "${noticeBoardVO.n_id}"){
@@ -112,7 +113,10 @@
 				console.log("${noticeBoardVO.n_id}");
 				alert("작성자가 다릅니다.");
 			} else {
-				
+				alert("${noticeBoardVO.nno}번 게시물이"+" 삭제되었습니다.");
+				formObj.attr("action", "/nboard/delete");
+				formObj.attr("method", "post");
+				formObj.submit();
 			}
 		});
 	});

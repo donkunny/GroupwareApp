@@ -62,8 +62,10 @@
 		<c:forEach items="${list}" var="noticeBoardVO">
 			<tr>
 				<td>${noticeBoardVO.nno}</td>
-				<td><a href='/nboard/read?nno=${noticeBoardVO.nno}'>
-						${noticeBoardVO.n_title}</a></td>
+				<td><a href="/nboard/read?nno=${noticeBoardVO.nno}&page=${pageMaker.cri.page}&perPageNum=${cri.getPerPageNum()}">
+						${noticeBoardVO.n_title}
+					</a>
+				</td>
 				<td>${noticeBoardVO.n_id}</td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${noticeBoardVO.n_regdate}" /></td>
 				<td style="width: 60px">${noticeBoardVO.n_cnt}</td>
@@ -71,7 +73,30 @@
 		</c:forEach>
 	</tbody>
 	</table>
-		<a href="/nboard/register" class="btn btn-default" id="btn_register" type="submit">글쓰기</a>
+		<div id="paging" align="center">
+			<ul class="pagination">
+				<c:if test="${pageMaker.prev}">
+					<li class="page-item"><a class="page-link"
+						href="listPage?page=${pageMaker.startPage -1}&perPageNum=${cri.getPerPageNum()}"> &laquo;</a>
+					</li>
+				</c:if>
+				<c:forEach begin="${pageMaker.startPage }"
+					end="${pageMaker.endPage }" var="idx">
+					<li class="page-item"
+						<c:out value="${pageMaker.cri.page == idx?'class =active':'' }" />>
+						<a class="page-link" href="listPage?page=${idx}&perPageNum=${cri.getPerPageNum()}">${idx}</a>
+					</li>
+				</c:forEach>
+				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+					<li class="page-item"><a class="page-link"
+						href="listPage?page=${pageMaker.endPage+1}&perPageNum=${cri.getPerPageNum()}">&raquo;</a>
+					</li>
+				</c:if>
+			</ul>
+		</div>
+		<div id="btn_register">
+			<a href="/nboard/register" class="btn btn-default"  type="submit">글쓰기</a>
+		</div>
 	</div>
 	
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
