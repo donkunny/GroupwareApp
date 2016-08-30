@@ -27,7 +27,7 @@
 				<li><a href="#">소개</a></li>
 				<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">회원정보</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">회원정보 보기</a></li>
+						<li><a href="/member/memberInfo">회원정보 보기</a></li>
 						<li><a href="#">회원정보 수정</a>
 						<li><a href="#">회원 탈퇴하기</a></li>
 					</ul>

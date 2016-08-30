@@ -50,5 +50,9 @@ public class MemberServiceImpl implements MemberService{
 	public void readTMember(int tno) throws Exception {
 		dao.readTMember(tno);
 	}
-	
+
+	@Override
+	public MemberVO checkMemberInfo(MemberVO mvo) throws Exception {
+		return dao.checkMemberInfo(mvo);
+	}
 }

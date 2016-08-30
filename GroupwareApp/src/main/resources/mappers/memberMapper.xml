@@ -16,6 +16,13 @@
 		where tno = #{tno}	
 	</select>
 	
+	<!-- 정회원정보 확인 -->
+	<select id="memberInfo" resultType="MemberVO">
+		select *
+		from tbl_member
+		where id = #{id}
+	</select>
+	
 	<select id="readMember" resultType="MemberVO" >
 		select mno, id, pwd, name, email, grade, regdate, birth, tel
 		from tbl_member

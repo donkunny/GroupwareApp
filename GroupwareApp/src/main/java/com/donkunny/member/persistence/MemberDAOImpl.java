@@ -56,5 +56,10 @@ public class MemberDAOImpl implements MemberDAO{
 	public void readTMember(int tno) throws Exception {
 		session.selectOne(namespace+".selectTMember", tno);
 	}
+
+	@Override
+	public MemberVO checkMemberInfo(MemberVO vo) throws Exception {
+		return session.selectOne(namespace+".memberInfo", vo);
+	}
 	
 }

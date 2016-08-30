@@ -70,4 +70,11 @@ public class MemberController {
 		model.addAttribute("tempMemberVO", tno);
 	}
 	
+	@RequestMapping(value="/memberInfo", method=RequestMethod.GET)
+	public void checkMemberInfo(HttpSession session, Model model) throws Exception {
+		logger.info("member info...");
+		
+		model.addAttribute("memberVO", service.checkMemberInfo((MemberVO)session.getAttribute("memberVO")));
+	}
+	
 }

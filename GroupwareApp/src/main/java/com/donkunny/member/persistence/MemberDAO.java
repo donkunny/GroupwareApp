@@ -13,4 +13,5 @@ public interface MemberDAO {
 	public void deleteMember(int rno) throws Exception;
 	public void updateGrade(MemberVO vo) throws Exception;
 	public void readTMember(int tno) throws Exception;
+	public MemberVO checkMemberInfo(MemberVO vo) throws Exception;
 }
