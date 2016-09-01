@@ -67,6 +67,7 @@
     <div class="panel panel-default" >
 	<div class="control-group">
 		<!-- Username -->
+		<i class="fa fa-lightbulb-o" aria-hidden="true"></i>
 		<label class="control-label" for="username">사용자 ID</label>
 		<div class="controls">
 			<input type="text" id="t_id" name="t_id" placeholder=""	class="form-control input-sm" value="${memberVO.id}" readonly="readonly">
@@ -74,6 +75,7 @@
 	</div>
 	<!-- E-mail -->
 	<div class="control-group">
+		<i class="fa fa-envelope-o" aria-hidden="true"></i>
 		<label class="control-label" for="email">E-mail</label>
 		<div class="controls">
 			<input type="email" id="t_email" name="t_email" placeholder="이메일"	class="form-control input-sm" value="${memberVO.email}" readonly="readonly">
@@ -82,6 +84,7 @@
 	
 	<!-- Password -->
 	<div class="control-group">
+		<i class="fa fa-key" aria-hidden="true"></i>
     	<label class="control-label" for="password">비밀번호</label>
     	<div class="controls">
     		<input type="password" id="t_pwd" name="t_pwd" class="form-control input-sm" value="${memberVO.pwd}" readonly="readonly">
@@ -91,17 +94,20 @@
     
 	 <div class="panel panel-default" >
 	 <div class="control-group">
+	 	<i class="fa fa-users" aria-hidden="true"></i>
 	 	<label class="control-label" for="name">이름</label>
 	 	<input type="text" id="t_name" name="t_name" class="form-control input-sm" value="${memberVO.name}" readonly="readonly">
 	 </div>
 	 
 	
     <div class="control-group">
+    	<i class="fa fa-birthday-cake" aria-hidden="true"></i>
     	<label>생일</label>
     	<input type="date" id="t_birth" name="t_birth" class="form-control" value="${memberVO.birth}" readonly="readonly">
     </div>
     
     <div class="control-group">
+    	<i class="fa fa-mobile" aria-hidden="true"></i>
     	<label>전화번호</label>
     	<input type="text" id="t_tel" name="t_tel" class="form-control input-sm" value="${memberVO.tel}" readonly="readonly">
     </div>
