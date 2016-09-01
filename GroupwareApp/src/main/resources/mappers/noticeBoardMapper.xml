@@ -46,6 +46,6 @@
 	<select id="countPaging" resultType="int">
 		select count(nno)
 		from tbl_notice
-		where nno>0
+		where nno > 0
 	</select>
 </mapper>

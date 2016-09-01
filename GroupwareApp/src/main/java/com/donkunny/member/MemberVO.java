@@ -3,7 +3,6 @@ package com.donkunny.member;
 import java.sql.Date;
 
 public class MemberVO {
-	private int mno;
 	private String id;
 	private String pwd;
 	private String name;
@@ -13,12 +12,6 @@ public class MemberVO {
 	private int grade;
 	private Date regdate;
 	
-	public int getMno() {
-		return mno;
-	}
-	public void setMno(int mno) {
-		this.mno = mno;
-	}
 	public String getId() {
 		return id;
 	}
@@ -71,7 +64,7 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return 
-				"[mno: " + mno + "]," + " [id: " + id + "]," + " [pwd: " + pwd + "]," 
+				" [id: " + id + "]," + " [pwd: " + pwd + "]," 
 				+ " [name: " + name + "]," + " [email: " + email + "]," + " [tel" + tel + "],"
 				+ " [birth: " + birth + "]," + " [grade: " + grade + "]," + "[regdate: " + regdate + "]";
 	}

@@ -11,9 +11,9 @@
 	
 	<!-- 준회원정보 확인 -->
 	<select id="readTMember" resultType="TempMemberVO" >
-		select tno, t_id, t_pwd, t_name, t_email, t_regdate, t_birth, t_tel
+		select t_id, t_pwd, t_name, t_email, t_regdate, t_birth, t_tel
 		from tbl_temp_member
-		where tno = #{tno}	
+		where t_id = #{t_id}	
 	</select>
 	
 	<!-- 정회원정보 확인 -->
@@ -23,23 +23,18 @@
 		where id = #{id}
 	</select>
 	
-	<select id="readMember" resultType="MemberVO" >
-		select mno, id, pwd, name, email, grade, regdate, birth, tel
-		from tbl_member
-	</select>
-
 	<!-- 회원가입 승인(Subquery 이용) -->
 	<insert id="confirmMember">
 		insert into tbl_member(id, pwd, name, email, tel, birth, regdate)
 		select t_id, t_pwd, t_name, t_email, t_tel, t_birth, t_regdate
 		from tbl_temp_member
-		where tno = #{tno}
+		where t_id = #{t_id}
 	</insert>
 	
 	<!-- 대기명단에서 삭제 -->
 	<delete id="deleteWatingMember">
 		delete from tbl_temp_member
-		where tno = #{tno}
+		where t_id = #{t_id}
 	</delete>
 
 	<!-- 로그인 시 사용자 정보 확인 -->
@@ -53,19 +48,19 @@
 	<update id="updateMemberInfo">
 		update tbl_member set id = #{id}, pwd = #{pwd}, name = #{name}, email = #{email},
 		birth = #{birth}, tel = #{tel}
-		where mno = #{mno}
+		where m_id = #{m_id}
 	</update>
 	
 	<!-- 회원정보 삭제 -->
 	<delete id="deleteMember">
 		delete from tbl_member
-		where mno = #{mno}
+		where m_id = #{m_id}
 	</delete>
 	
 	<!-- 권한등급 변경 -->
 	<update id="updateGrade">
 		update tbl_member set grade = #{grade}
-		where mno = #{mno}
+		where m_id = #{m_id}
 	</update>
 	
 </mapper>

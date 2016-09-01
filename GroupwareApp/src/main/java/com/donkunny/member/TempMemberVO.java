@@ -3,7 +3,6 @@ package com.donkunny.member;
 import java.sql.Date;
 
 public class TempMemberVO {
-	private int tno;
 	private String t_id;
 	private String t_pwd;
 	private String t_name;
@@ -12,12 +11,6 @@ public class TempMemberVO {
 	private String t_birth;
 	private Date t_regdate;
 
-	public int getTno() {
-		return tno;
-	}
-	public void setTno(int tno) {
-		this.tno = tno;
-	}
 	public String getT_id() {
 		return t_id;
 	}
@@ -63,7 +56,7 @@ public class TempMemberVO {
 	
 	@Override
 	public String toString() {
-		return "[mno: " + tno + "]," + " [id: " + t_id + "]," + " [pwd: " + t_pwd + "]," 
+		return " [id: " + t_id + "]," + " [pwd: " + t_pwd + "]," 
 				+ " [name: " + t_name + "]," + " [email: " + t_email + "]," + " [tel" + t_tel + "],"
 				+ " [birth: " + t_birth + "]," + "[regdate: " + t_regdate + "]";
 	}

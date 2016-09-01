@@ -4,7 +4,8 @@
 
   <typeAliases>
     <package name="com.donkunny.member"/>
-    <package name="com.donkunny.board"/>    
+    <package name="com.donkunny.board"/>
+    <package name="com.donkunny.schedule"/>
   </typeAliases>
 
 </configuration>

@@ -50,15 +50,15 @@ public class MemberDAOTest {
 	// 관리자가 회원가입 승인 요청 확인하는 테스트
 	// @Test
 	public void testMemberConfirm() throws Exception {
-		dao.confirmMember(1);
-		dao.deleteWaitingMember(1);
+		// dao.confirmMember(1);
+		// dao.deleteWaitingMember(1);
 	}
 	
 	// 회원 정보 수정 확인하는 테스트
 	// @Test
 	public void testUPdateMemberInfo() throws Exception {
 		MemberVO member = new MemberVO();
-		member.setMno(2);
+		// member.setMno(2);
 		member.setId("edited");
 		member.setPwd("edited");
 		member.setName("edited");
@@ -72,14 +72,14 @@ public class MemberDAOTest {
 	//회원 탈퇴 확인하는 테스트
 	// @Test
 	public void testDeleteUpdate() throws Exception {
-		dao.deleteMember(2);
+		//dao.deleteMember(2);
 	}
 	
 	// 회원 등급 변경하는 테스트
 	// @Test
 	public void testUpdateGrade() throws Exception {
 		MemberVO member = new MemberVO();
-		member.setMno(1);
+		// member.setMno(1);
 		member.setGrade(1);
 		dao.updateGrade(member);
 	}

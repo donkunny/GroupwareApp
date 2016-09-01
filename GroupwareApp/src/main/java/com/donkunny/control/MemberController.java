@@ -64,11 +64,13 @@ public class MemberController {
 		// logger.info(tvo.getT_id()+","+tvo.getT_id() +"," + tvo.getT_pwd() +"," + tvo.getT_email());
 		return "/member/registerConfirm";
 	}
-	
+
+	/*	
 	@RequestMapping(value="/registerConfirm", method=RequestMethod.GET)
 	public void registerConfirm(int tno, Model model) throws Exception{
-		model.addAttribute("tempMemberVO", tno);
+		// model.addAttribute("tempMemberVO", tno);
 	}
+	*/	
 	
 	@RequestMapping(value="/memberInfo", method=RequestMethod.GET)
 	public void checkMemberInfo(HttpSession session, Model model) throws Exception {

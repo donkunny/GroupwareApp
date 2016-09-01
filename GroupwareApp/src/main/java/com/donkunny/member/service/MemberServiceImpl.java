@@ -26,9 +26,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void approveMember(int tno) throws Exception {
-		dao.confirmMember(tno);
-		dao.deleteWaitingMember(tno);
+	public void approveMember(String t_id) throws Exception {
+		dao.confirmMember(t_id);
+		dao.deleteWaitingMember(t_id);
 	}
 
 	@Override
@@ -37,18 +37,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void deleteMember(int rno) throws Exception {
-		dao.deleteMember(rno);
+	public void deleteMember(String id) throws Exception {
+		dao.deleteMember(id);
 	}
 
 	@Override
 	public void updateGrade(MemberVO mvo) throws Exception {
 		dao.updateGrade(mvo);
-	}
-
-	@Override
-	public void readTMember(int tno) throws Exception {
-		dao.readTMember(tno);
 	}
 
 	@Override

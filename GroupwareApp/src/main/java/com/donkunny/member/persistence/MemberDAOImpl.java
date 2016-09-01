@@ -28,13 +28,13 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void confirmMember(int tno) throws Exception {
-		session.insert(namespace+".confirmMember", tno);
+	public void confirmMember(String t_id) throws Exception {
+		session.insert(namespace+".confirmMember", t_id);
 	}
 
 	@Override
-	public void deleteWaitingMember(int tno) throws Exception {
-		session.delete(namespace+".deleteWatingMember", tno);
+	public void deleteWaitingMember(String t_id) throws Exception {
+		session.delete(namespace+".deleteWatingMember", t_id);
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void deleteMember(int rno) throws Exception {
-		session.delete(namespace+".deleteMember", rno);
+	public void deleteMember(String id) throws Exception {
+		session.delete(namespace+".deleteMember", id);
 	}
 
 	@Override
@@ -53,13 +53,8 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void readTMember(int tno) throws Exception {
-		session.selectOne(namespace+".selectTMember", tno);
-	}
-
-	@Override
-	public MemberVO checkMemberInfo(MemberVO vo) throws Exception {
-		return session.selectOne(namespace+".memberInfo", vo);
+	public MemberVO checkMemberInfo(MemberVO mvo) throws Exception {
+		return session.selectOne(namespace+".memberInfo", mvo);
 	}
 	
 }
