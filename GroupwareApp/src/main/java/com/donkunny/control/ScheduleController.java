@@ -38,7 +38,6 @@ public class ScheduleController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return svo;
 	}
 

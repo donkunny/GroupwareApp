@@ -10,19 +10,31 @@
 		.header {
 			padding-right: 10px;		
 		}
-		
 		#schedulerTab, .tab-content {
 			position: relative;
 			width: 80%;	
 			margin: 0 auto;
 			margin-left: 200px;
 		}
-		
 		#shedulerBar {
 			position: absolute;
 			width: 180px;
 			margin-left: 10px;
 			padding-top: 30px;
+		}
+		
+		.table {
+			position: relative;
+			width: 80%;
+			margin-top: 30px;
+		}
+		
+		#publicOpt {
+			margin-left: 5px;
+		}
+		
+		#input_title, #input_place, #input_attendee {
+			width: 200px;
 		}
 	</style>
 </head>
@@ -90,9 +102,63 @@
 		});
 		
 		$("#registerMySchedule").bind("click", function(){
+			$("#register_table").remove();
+			$("#register_title").remove();
+			$("#btn_registerConfirm").remove();
 			var html = '';
-			html += '<input type ="text" class="form-control" name="id" value="" >';
+			html += '<table align="center" id="register_table" class="table table-bordered">';
+			html += '<h3 align="center" id="register_title">일정 등록하기</h3>';
+			html += '<tbody>';
+			html += '<tr>';
+			html += '<th scope="row"><i class="fa fa-lightbulb-o" aria-hidden="true"></i> 제목</th>';
+			html += '<td><input id="input_title" type ="text" class="form-control" name="s_title" value="" ></td>';
+			html += '</tr>';
+			html += '<tr>';
+			html += '<th scope="row"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> 내용</th>';
+			html += '<td><textarea id="input_content" row="10" class="form-control" name="s_content" value="" ></textarea></td>';
+			html += '</tr>';
+			html += '<tr>';
+			html += '<th scope="row"><i class="fa fa-map-marker" aria-hidden="true"></i> 장소</th>';
+			html += '<td><input id="input_place" type ="text" class="form-control" name="s_place" value="" ></td>';
+			html += '</tr>';
+			html += '<tr>';
+			html += '<th scope="row"><i class="fa fa-users" aria-hidden="true"></i> 참석자</th>';
+			html += '<td><input id="input_attendee" type ="text" class="form-control" name="s_attendee" value="" ></td>';
+			html += '</tr>';
+			html += '<tr>';
+			html += '<th scope="row"><i class="fa fa-eye" aria-hidden="true"></i> 일정 구분</th>';
+			html += '<td>';
+			html += '<div class="radio">';
+			html += '<label id="privateOpt"><input type="radio" name="optradio" val="1">개인 일정</label>';
+			html += '<label id="publicOpt"><input type="radio" name="optradio" val="2">공유 일정</label>';
+			html += '</div>';
+			html += '</td>';
+			html += '</tr>';
+			html += '<tr>';
+			html += '<th scope="row"><i class="fa fa-calendar-o" aria-hidden="true"></i> 기간</th>'
+			html += '<td>';
+			html += '<div class="col-xs-6" id="input-fromDate">';
+			html += '<input id="input_fromDate" type ="datetime-local" class="form-control" name="s_fromDate" value="" >';
+			html += '</div>';
+			html += '<div class="col-xs-6" id="input-toDate">';
+			html += '<input id="input_toDate" type ="datetime-local" class="form-control" name="s_toDate" value="" >';
+			html += '</div>';
+			html += '</td>';
+			html += '</tr>';
+			html += '</tbody>';
+			html += '</table>';
+			html += '<div align="center">';
+			html += '<button class="btn btn-default" id="btn_registerConfirm" type="submit">등록</button>';
+			html += '</div>';
 			$("#main").after(html);
+			$("#btn_registerConfirm").bind("click", function(){
+				var title = $("#input_title").val();
+				var toDate = $("#input_toDate").val(),
+				var content = $("#input_content").val(),
+				var attendee = $("#input_attendee").val(),
+				var s_place = $("#input_place").val(),
+				alert(data);
+			});
 		});
 	</script>
 </body>
