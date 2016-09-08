@@ -13,12 +13,39 @@ public class PageMaker {
 	
 	private int displayPageNum = 5; // 페이지 번호 숫자 개수
 	private Criteria cri;
+	private CriForSchedule criSchedule;
 	
+	public CriForSchedule getCriSchedule() {
+		return criSchedule;
+	}
+
+	public void setCriSchedule(CriForSchedule criSchedule) {
+		this.criSchedule = criSchedule;
+	}
+
 	public void setCri(Criteria cri) {
 		this.cri = cri;
 	}
 	
+	// For Notice Board
 	public void setPagination(int totalCount) {
+		this.totalCount = totalCount;
+		// cri.getPage() = 현재 페이지
+		endPage = (int) (Math.ceil(cri.getPage() / (double)displayPageNum) * displayPageNum);
+		startPage = (endPage - displayPageNum) + 1;
+		
+		// endPage 값보다 더 작은 경우 변경
+		int tempEndPage = (int)(Math.ceil(totalCount / (double)cri.getPerPageNum()));
+		if(endPage > tempEndPage){
+			endPage = tempEndPage;
+		}
+		
+		prev = startPage == 1 ? false : true;
+		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
+	}
+	
+	// For Schedule table
+	public void setPaginationForSchedule(int totalCount){
 		this.totalCount = totalCount;
 		// cri.getPage() = 현재 페이지
 		endPage = (int) (Math.ceil(cri.getPage() / (double)displayPageNum) * displayPageNum);

@@ -6,6 +6,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.donkunny.board.paging.CriForSchedule;
+import com.donkunny.board.paging.Criteria;
 import com.donkunny.schedule.ScheduleVO;
 import com.donkunny.schedule.persistence.ScheduleDAO;
 
@@ -38,6 +40,16 @@ public class ScheduleServiceImpl implements ScheduleService{
 	@Override
 	public List<ScheduleVO> readAllMySchedule() throws Exception {
 		return dao.readMySchedule();
+	}
+
+	@Override
+	public List<ScheduleVO> listPage(CriForSchedule cri) throws Exception {
+		return dao.listPage(cri);
+	}
+
+	@Override
+	public int countPaging() throws Exception {
+		return dao.countPaging();
 	}
 
 }

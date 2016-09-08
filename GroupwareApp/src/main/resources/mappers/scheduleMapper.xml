@@ -36,6 +36,21 @@
 		order by sno desc
 	</select>
 	
+	<!-- 나의 목록 리스트 화면 보이기 -->
+	<select id="listPage" resultType="ScheduleVO">
+		select * from tbl_schedule
+		where sno > 0 and s_id = #{s_id}
+		order by sno desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- 게시글 개수 확인 -->
+	<select id="countPaging" resultType="int">
+		select count(sno)
+		from tbl_schedule
+		where sno > 0 and s_id = #{s_id}
+	</select>
+	
 	<!-- 한달 스케줄 보기(Monthly) -->
 	
 	<!-- 사용자별 스케줄 보기 -->

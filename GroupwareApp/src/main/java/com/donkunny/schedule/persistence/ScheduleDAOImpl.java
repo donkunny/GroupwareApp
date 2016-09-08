@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.donkunny.board.paging.CriForSchedule;
+import com.donkunny.board.paging.Criteria;
 import com.donkunny.schedule.ScheduleVO;
 
 @Repository
@@ -40,4 +42,15 @@ public class ScheduleDAOImpl implements ScheduleDAO {
 	public List<ScheduleVO> readMySchedule() throws Exception {
 		return session.selectList(namespace+".readMySchedule");
 	}
+
+	@Override
+	public List<ScheduleVO> listPage(CriForSchedule cri) throws Exception {
+		return session.selectList(namespace+".listPage", cri);
+	}
+
+	@Override
+	public int countPaging() throws Exception {
+		return session.selectOne(namespace+".countPaging");
+	}
+	
 }
