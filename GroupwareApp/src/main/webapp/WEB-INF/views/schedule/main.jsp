@@ -79,7 +79,7 @@
  		<a class="list-group-item active">나의 일정</a>
   		<a href="#register" id="registerMySchedule" class="list-group-item list-group-item-action" >일정 등록</a>
   		<a href="#modify" class="list-group-item list-group-item-action">일정 수정</a>
-  		<a id="scheduleList" class="list-group-item list-group-item-action">일정 목록</a>
+  		<a id="myscheduleList" class="list-group-item list-group-item-action">일정 목록</a>
 	</div>
 	
 	<!-- contents of tab bar -->
@@ -108,90 +108,11 @@
 		});
 		
 		$("#registerMySchedule").bind("click", function(){
-			$("#register_table").remove();
-			$("#register_title").remove();
-			$("#btn_registerConfirm").remove();
-			var html = '';
-			html += '<form role="form" id="schedule">';
-			html += '<input type="hidden" id="s_id" name="s_id" value="${memberVO.id}" >';
-			html += '<table align="center" id="register_table" class="table table-bordered">';
-			html += '<h3 align="center" id="register_title">일정 등록하기</h3>';
-			html += '<tbody>';
-			html += '<tr>';
-			html += '<th scope="row"><i class="fa fa-lightbulb-o" aria-hidden="true"></i> 제목</th>';
-			html += '<td><input id="s_title" type ="text" class="form-control" name="s_title" value="" ></td>';
-			html += '</tr>';
-			html += '<tr>';
-			html += '<th scope="row"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> 내용</th>';
-			html += '<td><textarea id="s_content" row="10" class="form-control" name="s_content" value="" ></textarea></td>';
-			html += '</tr>';
-			html += '<tr>';
-			html += '<th scope="row"><i class="fa fa-map-marker" aria-hidden="true"></i> 장소</th>';
-			html += '<td><input id="s_place" type ="text" class="form-control" name="s_place" value="" ></td>';
-			html += '</tr>';
-			html += '<tr>';
-			html += '<th scope="row"><i class="fa fa-users" aria-hidden="true"></i> 참석자</th>';
-			html += '<td><input id="s_attendee" type ="text" class="form-control" name="s_attendee" value="" ></td>';
-			html += '</tr>';
-			html += '<tr>';
-			html += '<th scope="row"><i class="fa fa-eye" aria-hidden="true"></i> 일정 구분</th>';
-			html += '<td>';
-			html += '<div class="radio">';
-			html += '<label id="privateOpt"><input type="radio" name="optradio" value="1">개인 일정</label>';
-			html += '<label id="publicOpt"><input type="radio" name="optradio" value="0">공유 일정</label>';
-			html += '</div>';
-			html += '</td>';
-			html += '</tr>';
-			html += '<tr>';
-			html += '<th scope="row"><i class="fa fa-calendar-o" aria-hidden="true"></i> 기간</th>'
-			html += '<td>';
-			html += '<div class="col-xs-6" id="input-fromDate">';
-			html += '<input id="s_fromDate" type ="text" class="form-control" name="s_fromDate" value="" placeholder="시작일자: yyyy-mm-dd" >';
-			html += '</div>';
-			html += '<div class="col-xs-6" id="input-toDate">';
-			html += '<input id="s_toDate" type ="text" class="form-control" name="s_toDate" value="" placeholder="마감일자: yyyy-mm-dd" >';
-			html += '</div>';
-			html += '</td>';
-			html += '</tr>';
-			html += '</tbody>';
-			html += '</table>';
-			html += '<div align="center">';
-			html += '<button class="btn btn-default" id="btn_registerConfirm" type="submit">등록</button>';
-			html += '</div>';
-			html += '</form>';
-			$("#main").after(html);
-			$(document).ready(function() {
-				var formObj = $("form[role='form']");
-				$("#btn_registerConfirm").on("click", function(e){
-					var id = $("#s_id").val();
-					var title = $("#s_title").val();
-					var content = $("#s_content").val();
-					var place = $("#s_place").val();
-					var attendee = $("#s_attendee").val();
-					var checked = $(':radio[name="optradio"]:checked').val();
-					var fromDate = $("#s_fromDate").val();
-					var toDate = $("#s_toDate").val();
-					e.preventDefault();
-					if(title.length == 0){
-						alert("제목을 입력하세요");
-					} else if(content.length == 0){
-						alert("내용을 입력하세요.");
-					} else if(place.length==0){
-						alert("장소를 입력하세요.");
-					} else if(attendee.length == 0){
-						alert("참석자를 입력하세요.");
-					} else if(checked != "0" && checked != "1"){
-						alert("일정 구분을 체크하세요.");
-					} else if(!isValidDate(fromDate) || !isValidDate(toDate)){
-						alert("일정 날짜를 yyyy-mm-dd로 입력하세요");
-					} else {
-						alert(id +"님 등록되었습니다.");
-						formObj.attr("action", "/schedule/register");
-						formObj.attr("method", "post");
-						formObj.submit();
-					}
-				});
-			});
+			window.open('/schedule/myRegister', 'testWindow', 'wdith=300, height=200', '_blank');
+		});
+		
+		$("#myscheduleList").click(function(){
+			window.open('/schedule/slist', 'testWindow', 'width=300, height=200', '_blank');
 		});
 		
 		function isValidDate(dateString)

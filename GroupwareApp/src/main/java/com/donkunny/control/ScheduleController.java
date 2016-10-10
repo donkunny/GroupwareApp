@@ -61,4 +61,9 @@ public class ScheduleController {
 		model.addAttribute("pageMaker", pageMaker);
 	}
 	
+	@RequestMapping(value="/myRegister", method=RequestMethod.GET)
+	public void myscheduleRegister(){
+		
+	}
+	
 }
