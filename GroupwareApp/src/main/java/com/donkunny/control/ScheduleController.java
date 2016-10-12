@@ -66,4 +66,14 @@ public class ScheduleController {
 		
 	}
 	
+	@RequestMapping(value="/scheduleCalendar", method=RequestMethod.GET)
+	public void setscheduleCalendar(){
+		
+	}
+	
+	@RequestMapping(value="/scheduleCalendar", method=RequestMethod.POST)
+	public void setscheduleCalendarPOST(){
+		
+	}
+	
 }

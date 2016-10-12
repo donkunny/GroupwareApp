@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@ page import="com.donkunny.schedule.ScheduleVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
@@ -5,26 +6,107 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page session="true" %>
 <%
-	// Calendar 클래스를 이용한 달력 만들기 JSP, 자바킹님의 네이버 블로그 참조
-	Calendar cal = Calendar.getInstance();
-	int year = cal.get(Calendar.YEAR);
-	int month = cal.get(Calendar.MONTH);
-	int date = cal.get(Calendar.DATE);
-	
-	cal.set(year, month, 1);
-	
-	//년도/월 셋팅
-	cal.set(year, month, 1);
-	 
-	int startDay = cal.getMinimum(java.util.Calendar.DATE);
-	int endDay = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-	int start = cal.get(java.util.Calendar.DAY_OF_WEEK);
-	int newLine = 0;
-	 
-	//오늘 날짜 저장
-	Calendar todayCal = Calendar.getInstance();
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-	int intToday = Integer.parseInt(sdf.format(todayCal.getTime()));
+// Global Vars
+int action = 0;  // incoming request for moving calendar up(1) down(0) for month
+int currYear = 0; // if it is not retrieved from incoming URL (month=) then it is set to current year
+int currMonth = 0; // same as year
+String boxSize = "70";  // how big to make the box for the calendar
+//build 2 calendars
+Calendar c = Calendar.getInstance();
+Calendar cal = Calendar.getInstance();
+
+	if (request.getParameter("action") == null) // Check to see if we should set the year and month to the current
+	{
+		currMonth = c.get(c.MONTH);
+		currYear = c.get(c.YEAR);
+		cal.set(currYear, currMonth,1);
+	}
+
+	else
+	{
+		if (!(request.getParameter("action") == null)) // Hove the calendar up or down in this if block
+		{
+			currMonth = Integer.parseInt(request.getParameter("month"));
+			currYear = Integer.parseInt(request.getParameter("year"));
+
+				if (Integer.parseInt( request.getParameter("action")) == 1 )
+				{
+					cal.set(currYear, currMonth, 1);
+					cal.add(cal.MONTH, 1);
+					currMonth = cal.get(cal.MONTH);
+					currYear = cal.get(cal.YEAR);
+				}
+				else
+				{
+					cal.set(currYear, currMonth ,1);
+					cal.add(cal.MONTH, -1);
+					currMonth = cal.get(cal.MONTH);
+					currYear = cal.get(cal.YEAR);
+				}
+		}
+	} 
+%>
+
+<%!
+    public boolean isDate(int m, int d, int y) // This method is used to check for a VALID date
+    {
+        m -= 1;
+        Calendar c = Calendar.getInstance();
+        c.setLenient(false);
+        try{
+                c.set(y,m,d);
+                Date dt = c.getTime();
+        } catch (IllegalArgumentException e){
+                return false;
+        }
+                return true;
+    }
+%>
+<%!
+   public String getDateName (int monthNumber) // This method is used to quickly return the proper name of a month
+   {
+		String strReturn = "";
+		switch (monthNumber)
+		{ 
+	case 0:
+		strReturn = "1월";
+		break;
+	case 1:
+		strReturn = "2월";
+		break;
+	case 2:
+		strReturn = "3월";
+		break;
+	case 3:
+		strReturn = "4월";
+		break;
+	case 4:
+		strReturn = "5월";
+		break;
+	case 5:
+		strReturn = "6월";
+		break;
+	case 6:
+		strReturn = "7월";
+		break;
+	case 7:
+		strReturn = "8월";
+		break;
+	case 8:
+		strReturn = "9월";
+		break;
+	case 9:
+		strReturn = "10월";
+		break;
+	case 10:
+		strReturn = "11월";
+		break;
+	case 11:
+		strReturn = "12월";
+		break;
+	}
+	return strReturn;
+    }
 %>
 
 <!doctype html>
@@ -108,10 +190,85 @@
 	
 	<!-- contents of tab bar -->
 	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane active" id="main">
+		<div role="tabpanel" class="tab-pane active" id="main" align="center"><br>
 			<!-- 테이블 만들기 -->
-			
-			
+			<!--날짜 네비게이션  -->
+			<table border='1' width='519' celpadding='0' cellspacing='0'>
+  				<tr>
+					<td width='150' align='right' valign='middle'><a href="scheduleCalendar?month=<%=currMonth%>&year=<%=currYear%>&action=0"><font size="1">이전 달</font></a></td>
+					<td width='260' align='center' valign='middle'><b><%=getDateName (cal.get(cal.MONTH)) + " " + cal.get(cal.YEAR)%></b></td>
+					<td width='173' align='left' valign='middle'><a href="scheduleCalendar?month=<%=currMonth%>&year=<%=currYear%>&action=1"><font size="1">다음 달</font></a></td>
+  				</tr>
+			</table>
+			<table border="0" width="520" bordercolorlight="#C0C0C0" bordercolordark="#808080" style="border-collapse: collapse" bordercolor="#111111" cellpadding="0" cellspacing="0">
+  				<td width="100%">
+    			<table border="2" width="519" bordercolorlight="#C0C0C0" bordercolordark="#000000" style="border-collapse: collapse" bordercolor="#000000" cellpadding="0" cellspacing="0" bgcolor="#DFDCD8">
+  					<tr>
+    					<td width="<%=boxSize%>" align="center" nowrap bordercolor="#666666" bgcolor="#666666">
+    					<font color="#FFFFFF"><b>일</b></font></td>
+    					<td width="<%=boxSize%>" align="center" nowrap bordercolor="#666666" bgcolor="#666666">
+    					<font color="#FFFFFF"><b>월</b></font></td>
+    					<td width="<%=boxSize%>" align="center" nowrap bordercolor="#666666" bgcolor="#666666">
+    					<font color="#FFFFFF"><b>화</b></font></td>
+    					<td width="<%=boxSize%>" align="center" nowrap bordercolor="#666666" bgcolor="#666666">
+   						<font color="#FFFFFF"><b>수</b></font></td>
+    					<td width="<%=boxSize%>" align="center" nowrap bordercolor="#666666" bgcolor="#666666">
+    					<font color="#FFFFFF"><b>목</b></font></td>
+    					<td width="<%=boxSize%>" align="center" nowrap bordercolor="#666666" bgcolor="#666666">
+    					<font color="#FFFFFF"><b>금</b></font></td>
+    					<td width="<%=boxSize%>" align="center" nowrap bordercolor="#666666" bgcolor="#666666">
+    					<font color="#FFFFFF"><b>토</b></font></td>
+  				</tr>
+<%
+//Calendar loop
+	int currDay;
+	String todayColor;
+	int count = 1;
+	int dispDay = 1;
+	for (int w = 1; w < 7; w++)
+	{
+%>
+  	<tr>
+<% 
+  		for (int d = 1; d < 8; d++)
+		{
+			if (! (count >= cal.get(c.DAY_OF_WEEK))){ 
+
+%>
+		<td width="<%=boxSize%>" height="<%=boxSize%>" valign="top" align="left">&nbsp;</td>
+<%
+				count += 1;
+			} 
+			else{
+				if (isDate ( currMonth + 1, dispDay, currYear)){  // use the isDate method
+					if ( dispDay == c.get(c.DAY_OF_MONTH) && c.get(c.MONTH) == cal.get(cal.MONTH) && c.get(c.YEAR) == cal.get(cal.YEAR)){ // Here we check to see if the current day is today
+							todayColor = "#6C7EAA";
+						}
+						else {
+							todayColor = "#ffffff";
+						}
+%> 
+		<td bgcolor ="<%=todayColor%>" width="<%=boxSize%>" align="left" height="<%=boxSize%>" valign="top"><%=dispDay%><br>
+		</td>
+<%
+					count += 1;
+					dispDay += 1;
+				} else {
+%>
+		<td width="<%=boxSize%>" align="left" height="<%=boxSize%>" valign="top">&nbsp;</td>
+<%
+				} 
+			}
+       } 
+%>
+  	</tr> 
+<% 
+}
+%>
+</table>
+</td>
+<tr><td>
+</table>
 		</div>
     	<div role="tabpanel" class="tab-pane" id="daily">2</div>
     	<div role="tabpanel" class="tab-pane" id="weekly">3</div>
