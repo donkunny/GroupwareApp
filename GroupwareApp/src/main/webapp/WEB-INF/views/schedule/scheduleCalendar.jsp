@@ -1,3 +1,5 @@
+<%@page import="java.awt.DisplayMode"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.Date"%>
 <%@ page import="com.donkunny.schedule.ScheduleVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -14,21 +16,18 @@ String boxSize = "70";  // how big to make the box for the calendar
 //build 2 calendars
 Calendar c = Calendar.getInstance();
 Calendar cal = Calendar.getInstance();
-
 	if (request.getParameter("action") == null) // Check to see if we should set the year and month to the current
 	{
 		currMonth = c.get(c.MONTH);
 		currYear = c.get(c.YEAR);
 		cal.set(currYear, currMonth,1);
 	}
-
 	else
 	{
 		if (!(request.getParameter("action") == null)) // Hove the calendar up or down in this if block
 		{
 			currMonth = Integer.parseInt(request.getParameter("month"));
 			currYear = Integer.parseInt(request.getParameter("year"));
-
 				if (Integer.parseInt( request.getParameter("action")) == 1 )
 				{
 					cal.set(currYear, currMonth, 1);
@@ -225,15 +224,17 @@ Calendar cal = Calendar.getInstance();
 	String todayColor;
 	int count = 1;
 	int dispDay = 1;
-	for (int w = 1; w < 7; w++)
-	{
+	List<ScheduleVO> list = (List<ScheduleVO>)request.getAttribute("scheduleList");
+	String[] cal_list = new String[list.size()];
+	for(int i = 0; i<list.size(); i++){
+		cal_list[i] = list.get(i).getS_fromDate();
+	}
+	for (int w = 1; w < 7; w++) {
 %>
   	<tr>
 <% 
-  		for (int d = 1; d < 8; d++)
-		{
+  		for (int d = 1; d < 8; d++){
 			if (! (count >= cal.get(c.DAY_OF_WEEK))){ 
-
 %>
 		<td width="<%=boxSize%>" height="<%=boxSize%>" valign="top" align="left">&nbsp;</td>
 <%
@@ -243,12 +244,12 @@ Calendar cal = Calendar.getInstance();
 				if (isDate ( currMonth + 1, dispDay, currYear)){  // use the isDate method
 					if ( dispDay == c.get(c.DAY_OF_MONTH) && c.get(c.MONTH) == cal.get(cal.MONTH) && c.get(c.YEAR) == cal.get(cal.YEAR)){ // Here we check to see if the current day is today
 							todayColor = "#6C7EAA";
-						}
-						else {
-							todayColor = "#ffffff";
-						}
+					} else {
+						todayColor = "#ffffff";
+					}
+					String id_schedule = String.valueOf(cal.get(cal.YEAR)) + "-" + String.valueOf(cal.get(cal.MONTH)+1) + "-" + String.valueOf(dispDay); 
 %> 
-		<td bgcolor ="<%=todayColor%>" width="<%=boxSize%>" align="left" height="<%=boxSize%>" valign="top"><%=dispDay%><br>
+		<td id=<%=id_schedule %> bgcolor ="<%=todayColor%>" width="<%=boxSize%>" align="left" height="<%=boxSize%>" valign="top"><%=dispDay%><br>
 		</td>
 <%
 					count += 1;
@@ -293,6 +294,11 @@ Calendar cal = Calendar.getInstance();
 		$("#myscheduleList").click(function(){
 			window.open('/schedule/slist', '나의 일정 보기', 'width=800, height=700');
 		});
+		
+		var list = new Array();
+		<% for(int i =0; i< list.size();i++){ %>
+			list.push('<%=cal_list[i]%>');
+		<%} %>
 	</script>
 </body>
 </html>
