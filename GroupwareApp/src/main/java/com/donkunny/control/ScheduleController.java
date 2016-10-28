@@ -72,9 +72,9 @@ public class ScheduleController {
 		
 	}
 	
-	@RequestMapping(value="/scheduleCalendar", method=RequestMethod.POST)
-	public void setscheduleCalendarPOST(){
-		
+	@RequestMapping(value="/detailSchedule", method=RequestMethod.GET)
+	public void showDetailSchedule(int sno, Model model) throws Exception{
+		model.addAttribute(service.readOneSchedule(sno));
 	}
 	
 }

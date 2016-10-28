@@ -60,7 +60,7 @@ public class ScheduleDAOTest {
 		svo.setS_type(0);
 		svo.setSno(3);
 		
-		dao.readOneSchedule(svo);
+		// dao.readOneSchedule(svo);
 	}
 	
 	// @Test

@@ -53,7 +53,7 @@
 					</ul>
 				</li>
 				<li><a href="/nboard/listAll">공지 게시판</a></li>
-				<li><a href="#">업무 일정</a></li>
+				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
 				<li><a href="#">출퇴근 관리</a></li>
 			</ul>
 		</div>

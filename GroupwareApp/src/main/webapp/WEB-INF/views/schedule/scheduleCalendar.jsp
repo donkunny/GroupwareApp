@@ -12,7 +12,7 @@
 int action = 0;  // incoming request for moving calendar up(1) down(0) for month
 int currYear = 0; // if it is not retrieved from incoming URL (month=) then it is set to current year
 int currMonth = 0; // same as year
-String boxSize = "70";  // how big to make the box for the calendar
+String boxSize = "100";  // how big to make the box for the calendar
 //build 2 calendars
 Calendar c = Calendar.getInstance();
 Calendar cal = Calendar.getInstance();
@@ -224,6 +224,8 @@ Calendar cal = Calendar.getInstance();
 	String todayColor;
 	int count = 1;
 	int dispDay = 1;
+	int num = -1;
+	String id_schedule = null;
 	List<ScheduleVO> list = (List<ScheduleVO>)request.getAttribute("scheduleList");
 	String[] cal_list = new String[list.size()];
 	for(int i = 0; i<list.size(); i++){
@@ -243,15 +245,35 @@ Calendar cal = Calendar.getInstance();
 			else{
 				if (isDate ( currMonth + 1, dispDay, currYear)){  // use the isDate method
 					if ( dispDay == c.get(c.DAY_OF_MONTH) && c.get(c.MONTH) == cal.get(cal.MONTH) && c.get(c.YEAR) == cal.get(cal.YEAR)){ // Here we check to see if the current day is today
-							todayColor = "#6C7EAA";
+						todayColor = "#6C7EAA";
 					} else {
 						todayColor = "#ffffff";
 					}
-					String id_schedule = String.valueOf(cal.get(cal.YEAR)) + "-" + String.valueOf(cal.get(cal.MONTH)+1) + "-" + String.valueOf(dispDay); 
+					if(dispDay < 10){		
+						id_schedule = String.valueOf(cal.get(cal.YEAR)) + "-" + String.valueOf(cal.get(cal.MONTH)+1) + "-0" + String.valueOf(dispDay); 
+					} else{
+						id_schedule = String.valueOf(cal.get(cal.YEAR)) + "-" + String.valueOf(cal.get(cal.MONTH)+1) + "-" + String.valueOf(dispDay);
+					}
+					num = -1;
+					for(int i=0;i<cal_list.length;i++){
+						if(id_schedule.equals(cal_list[i])){
+							num = i;
+							break;
+						}
+					}
+					
+					if(num != -1){
 %> 
+		<td id=<%=id_schedule %> bgcolor ="<%=todayColor%>" width="<%=boxSize%>" align="left" height="<%=boxSize%>" valign="top"><%=dispDay%><br>
+			<a id="detailSchedule" href="/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><%=list.get(num).getS_title() %></a>
+		</td>
+<%
+					} else {
+%>
 		<td id=<%=id_schedule %> bgcolor ="<%=todayColor%>" width="<%=boxSize%>" align="left" height="<%=boxSize%>" valign="top"><%=dispDay%><br>
 		</td>
 <%
+					}
 					count += 1;
 					dispDay += 1;
 				} else {
@@ -295,10 +317,9 @@ Calendar cal = Calendar.getInstance();
 			window.open('/schedule/slist', '나의 일정 보기', 'width=800, height=700');
 		});
 		
-		var list = new Array();
-		<% for(int i =0; i< list.size();i++){ %>
-			list.push('<%=cal_list[i]%>');
-		<%} %>
+		$("#detailSchedule").click(function(){
+		});
+		
 	</script>
 </body>
 </html>

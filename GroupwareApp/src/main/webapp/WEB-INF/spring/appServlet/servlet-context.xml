@@ -33,6 +33,10 @@
 			<mapping path="/nboard/read"/>
 			<mapping path="/nboard/register"/>
 			<mapping path="/nboard/modify"/>
+			<mapping path="/schedule/scheduleCalendar"/>
+			<mapping path="/schedule/myRegister"/>
+			<mapping path="/schedule/slist"/>
+			<mapping path="/schedule/detailSchedule"/>
 			
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>

@@ -20,7 +20,7 @@
 	<select id="readOneSchedule" resultType="ScheduleVO">
 		select * 
 		from tbl_schedule
-		where sno =#{sno} and s_type = #{s_type}
+		where sno =#{sno}
 	</select>
 	
 	<!-- 스케줄 삭제 -->

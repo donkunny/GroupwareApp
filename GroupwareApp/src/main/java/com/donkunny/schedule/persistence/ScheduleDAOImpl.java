@@ -34,8 +34,8 @@ public class ScheduleDAOImpl implements ScheduleDAO {
 	}
 
 	@Override
-	public ScheduleVO readOneSchedule(ScheduleVO svo) throws Exception {
-		return session.selectOne(namespace+".readOneSchedule", svo);
+	public ScheduleVO readOneSchedule(int sno) throws Exception {
+		return session.selectOne(namespace+".readOneSchedule", sno);
 	}
 
 	@Override

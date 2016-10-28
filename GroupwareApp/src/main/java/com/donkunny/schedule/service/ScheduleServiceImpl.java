@@ -33,8 +33,8 @@ public class ScheduleServiceImpl implements ScheduleService{
 	}
 
 	@Override
-	public ScheduleVO readOneSchedule(ScheduleVO svo) throws Exception {
-		return dao.readOneSchedule(svo);
+	public ScheduleVO readOneSchedule(int sno) throws Exception {
+		return dao.readOneSchedule(sno);
 	}
 
 	@Override
