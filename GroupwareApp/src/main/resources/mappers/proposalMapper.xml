@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.donkunny.mapper.proposalMapper">
+	<!-- 목록 화면 보이기 -->
+	<select id="proposal_list">
+		select pno, p_id, p_writer, p_title, p_staus, p_acceptDate
+		from tbl_proposal
+		order by pno desc
+	</select>
+
+	<!-- 기안 문서 작성하기 -->
+	
+
+	<!-- 기안 문서 삭제하기 -->
+	
+	<!-- 기안 문서 수정하기 -->
+	
+	<!-- 기안 문서 모두 보기 -->
+	
+	<!-- 기안 문서 하나 보기 -->
+</mapper>
