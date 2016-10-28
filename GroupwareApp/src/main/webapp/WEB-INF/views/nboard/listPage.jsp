@@ -41,7 +41,7 @@
 				</li>
 				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="#">출퇴근 관리</a></li>
+				<li><a href="#">결재 관리</a></li>
 			</ul>
 		</div>
 	</nav>
