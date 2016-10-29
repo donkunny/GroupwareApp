@@ -2,21 +2,85 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.donkunny.mapper.proposalMapper">
-	<!-- 목록 화면 보이기 -->
-	<select id="proposal_list">
+	
+	<!-- 메인 결재 목록 화면 보이기 -->
+	<select id="proposal_list" resultType="ProposalVO">
 		select pno, p_id, p_writer, p_title, p_staus, p_acceptDate
 		from tbl_proposal
 		order by pno desc
 	</select>
+	
+	<!-- 상세 결재 화면 보이기 -->
+	<select id="proposal_detail_list" resultType="ProposalVO">
+		select * from tbl_proposal
+		where pno = #{pno}
+	</select>
 
 	<!-- 기안 문서 작성하기 -->
-	
+	<insert id="writeProposal">
+		insert into tbl_proposal(p_id, p_writer, p_title, p_content, p_reportOpinion, p_acceptor)
+		values(#{p_id}, #{p_writer}, #{p_title}, #{p_content}, #{p_reportOpinion}, #{p_acceptor})
+	</insert>
 
 	<!-- 기안 문서 삭제하기 -->
+	<delete id="deleteProposal">
+		delete from tbl_board
+		where pno = #{pno}
+	</delete>
 	
 	<!-- 기안 문서 수정하기 -->
+	<update id="updateProposal">
+		update tbl_proposal
+		set p_writer= #{p_writer}, p_title=#{p_title}, p_content=#{p_content}, p_reportOpinion=#{p_reportOpinion}, p_acceptor=#{p_acceptor} 
+		where pno = #{pno} and (p_status = '기안' or p_status = '반려') 
+	</update>
 	
-	<!-- 기안 문서 모두 보기 -->
+	<!-- 기안 문서 검색하기 -->
+	<sql id="search">
+		<if test="searchType != null" >
+			<if test="searchType == 't'.toString()">
+				and p_title like CONCAT('%', #{keyword}, '%')			
+			</if>
+			
+			<if test="searchType == 'c'.toString()">
+				and p_content like CONCAT('%', #{keyword}, '%')			
+			</if>
+			
+			<if test="searchType == 'w'.toString()">
+				and p_id like CONCAT('%', #{keyword}, '%')			
+			</if>
+			
+			<if test="searchType == 'tc'.toString()">
+				and ( p_title like CONCAT('%', #{keyword}, '%')
+				OR p_content like CONCAT('%', #{keyword}, '%'))			
+			</if>
+			
+			<if test="searchType == 'cw'.toString()">
+				and ( p_content like CONCAT('%', #{keyword}, '%')
+				OR p_writer like CONCAT('%', #{keyword}, '%'))			
+			</if>
+			
+			<if test="searchType == 'tcw'.toString()">
+				and ( p_title like CONCAT('%', #{keyword}, '%')
+				OR p_content like CONCAT('%', #{keyword}, '%')
+				OR p_writer like CONCAT('%', #{keyword}, '%'))			
+			</if>
+		</if>
+	</sql>
 	
-	<!-- 기안 문서 하나 보기 -->
+	<select id="searchProposal" resultType="ProposalVO">
+		select *
+		from tbl_proposal
+		where pno > 0
+		<include refid="search"></include>
+		order by pno desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="search_proposalCount" resultType="int">
+		select count(pno)
+		from tbl_proposal
+		where pno > 0
+		<include refid="search"></include>
+	</select>
 </mapper>
