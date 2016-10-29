@@ -8,6 +8,7 @@
 		select pno, p_id, p_writer, p_title, p_staus, p_acceptDate
 		from tbl_proposal
 		order by pno desc
+		limit #{pageStart}, #{perPageNum}
 	</select>
 	
 	<!-- 상세 결재 화면 보이기 -->
