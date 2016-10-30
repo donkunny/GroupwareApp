@@ -5,7 +5,7 @@
 	
 	<!-- 메인 결재 목록 화면 보이기 -->
 	<select id="proposal_list" resultType="ProposalVO">
-		select pno, p_id, p_writer, p_title, p_staus, p_acceptDate
+		select pno, p_id, p_writer, p_title, p_status, p_acceptDate
 		from tbl_proposal
 		order by pno desc
 		limit #{pageStart}, #{perPageNum}
@@ -35,6 +35,11 @@
 		set p_writer= #{p_writer}, p_title=#{p_title}, p_content=#{p_content}, p_reportOpinion=#{p_reportOpinion}, p_acceptor=#{p_acceptor} 
 		where pno = #{pno} and (p_status = '기안' or p_status = '반려') 
 	</update>
+	
+	<select id="countPaging" resultType="int">
+		select count(pno) from tbl_proposal
+		where pno > 0
+	</select>
 	
 	<!-- 기안 문서 검색하기 -->
 	<sql id="search">

@@ -1,5 +1,7 @@
 package com.donkunny.member.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -55,6 +57,11 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberVO checkMemberInfo(MemberVO mvo) throws Exception {
 		return session.selectOne(namespace+".memberInfo", mvo);
+	}
+
+	@Override
+	public List<MemberVO> listmembers() throws Exception {
+		return session.selectList(namespace+".listMembers");
 	}
 	
 }

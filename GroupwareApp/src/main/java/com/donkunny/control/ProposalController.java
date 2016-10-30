@@ -6,9 +6,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.donkunny.board.paging.Criteria;
+import com.donkunny.board.paging.PageMaker;
+import com.donkunny.board.paging.SearchCriteria;
+import com.donkunny.member.service.MemberService;
+import com.donkunny.proposal.ProposalVO;
 import com.donkunny.proposal.service.ProposalService;
 
 @Controller
@@ -17,12 +24,36 @@ public class ProposalController {
 
 	@Inject
 	ProposalService service;
+
+	@Inject
+	private MemberService memberService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
-
+	
 	@RequestMapping(value="/main", method=RequestMethod.GET)
-	public void listMainProposal(Model model) throws Exception{
-		// model.addAttribute(arg0, arg1)
+	public void listMainProposal(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception{
+		logger.info("proposal main...");
+		
+		model.addAttribute("list", service.listProposalPage(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setPagination(service.proposalSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
 	}
-
+	
+	@RequestMapping(value="/registerProposal", method=RequestMethod.GET)
+	public void registerProposal(Model model, @ModelAttribute("cri") SearchCriteria cri) throws Exception {
+		logger.info("proposal register get...");
+		model.addAttribute("acceptors", memberService.listMembers());
+	}
+	
+	@RequestMapping(value="registerProposal", method=RequestMethod.POST)
+	public String registerProposalPOST(ProposalVO pvo, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
+		logger.info("proposal register post..");
+		
+		service.writeProposal(pvo);
+		rttr.addAttribute("page", 1);
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		return "redirect:/proposal/main";
+	}
 }

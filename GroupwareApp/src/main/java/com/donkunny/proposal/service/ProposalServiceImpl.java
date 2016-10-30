@@ -51,4 +51,9 @@ public class ProposalServiceImpl implements ProposalService{
 	public int proposalSearchCount(SearchCriteria cri) throws Exception {
 		return dao.proposalSearchCount(cri);
 	}
+
+	@Override
+	public int countPaging() throws Exception {
+		return dao.countPaging();
+	}
 }

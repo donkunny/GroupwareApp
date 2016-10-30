@@ -51,6 +51,11 @@ public class ProposalDAOImpl implements ProposalDAO{
 
 	@Override
 	public int proposalSearchCount(SearchCriteria cri) throws Exception {
-		return session.selectOne(namespace+".search_proposalCount", cri);
+		return session.selectOne(namespace+".search_proposalCount");
+	}
+
+	@Override
+	public int countPaging() throws Exception {
+		return session.selectOne(namespace+".countPaging");
 	}
 }

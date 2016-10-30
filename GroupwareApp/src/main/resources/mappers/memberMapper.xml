@@ -3,6 +3,11 @@
 
 <mapper namespace="com.donkunny.mapper.MemberMapper">
 
+	<!-- 승인자 확인하기 -->
+	<select id="listMembers" resultType="MemberVO">
+		select * from tbl_member
+	</select>
+
 	<!-- 회원가입 등록 -->
 	<insert id="register">
 		insert into tbl_temp_member (t_id, t_pwd, t_name, t_email, t_tel, t_birth)
