@@ -54,15 +54,16 @@
 				</li>
 				<li><a href="/nboard/listAll">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="#">결재 관리</a></li>
+				<li><a href="/proposal/main">결재 관리</a></li>
 			</ul>
 		</div>
 	</nav>
 	<form role="form">
 	<div class="card">
 		<div class="card-block">
-			<h4 class="card-title"><strong>결제 상세</strong></h4>
+			<h3 class="card-title" align="center"><strong>결제 상세</strong></h3>
 		</div>
+		<br>
 		<ul class="list-group list-group-flush">
     		<li class="list-group-item"> <strong>기안자: ${proposalVO.p_writer}</strong> </li>
     		<li class="list-group-item"><strong>기안자ID: ${proposalVO.p_id}</strong></li>
@@ -75,27 +76,40 @@
     		</li>
     		
     		<li class="list-group-item">
-    			<strong>상태: ${proposalVO.p_status}</strong> 
+    			<strong>상태 <i style="color: red">${proposalVO.p_status}</i></strong> 
+    		</li>
+    		
+    		<li class="list-group-item"><strong>기안 날짜: </strong>
+    			<fmt:formatDate pattern="yyyy-MM-dd" value="${proposalVO.p_reportDate}" />
     		</li>
 
-    		<li class="list-group-item">
-    			<strong>기안의견</strong> 
-    			<textarea rows="5" class="form-control" name="p_opinion" id="register-opinion" required="required"></textarea>
+    		<li class="list-group-item"><strong>기안 의견</strong>
+				<textarea rows="5" class="form-control" name="p_content" id="register-content" readonly="readonly">${proposalVO.p_reportOpinion}</textarea>
+			</li>
+			<br><br>
+			<li class="list-group-item">
+				<strong>승인자: ${proposalVO.p_acceptor}</strong>
     		</li>
-
-    		<li class="list-group-item">
-				<strong>승인자</strong>
-				<div style="color: red" >${error}</div>
-				 <select class="form-control" id="sel1">
-				 	<c:forEach items="${acceptors}" var="acceptor">
-			 			<option>${acceptor.name}</option>
-				 	</c:forEach>
-				 </select>
-    		</li>
+    		<li class="list-group-item"><strong>승인/반려 의견</strong>
+				<textarea rows="5" class="form-control" name="p_content" id="register-content" readonly="readonly">${proposalVO.p_acceptOpinion}</textarea>
+			</li>
+			<li class="list-group-item">
+				<strong>승인 날짜: </strong>
+				<c:choose>
+					<c:when test="${proposalVO.p_status eq '기안' }">
+						<strong><i style="color: red">승인 대기 중입니다.</i></strong>
+					</c:when>
+					<c:when test="${proposalVO.p_status eq '보류' }">
+						<strong><i style="color: red">승인 보류 중입니다.</i></strong>
+					</c:when>
+					<c:otherwise>
+						<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${proposalVO.p_acceptDate}" />
+					</c:otherwise>
+				</c:choose>			
+			</li>
   		</ul>
   		<div class="card-block" align="left">
-    		<a href="/proposal/main?page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >이전</a>
-   			<button class="btn btn-default" id="btn_registerConfirm" type="submit">제출</button>
+    		<a href="/proposal/main?page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >목록</a>
   		</div>
 	</div>
 	

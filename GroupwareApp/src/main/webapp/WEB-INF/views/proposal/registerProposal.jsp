@@ -54,7 +54,7 @@
 				</li>
 				<li><a href="/nboard/listAll">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="#">결재 관리</a></li>
+				<li><a href="/proposal/main">결재 관리</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -83,15 +83,18 @@
 
     		<li class="list-group-item">
     			<strong>기안의견</strong> 
-    			<textarea rows="5" class="form-control" name="p_opinion" id="register-opinion" required="required"></textarea>
+    			<textarea rows="5" class="form-control" name="p_reportOpinion" id="register-opinion" required="required"></textarea>
     		</li>
 
     		<li class="list-group-item">
-				<strong>승인자</strong> (승인자는 기안자와 달라야 합니다.)
+				<strong>승인자</strong>
 				<div style="color: red" >${error}</div>
 				 <select class="form-control" id="sel1">
 				 	<c:forEach items="${acceptors}" var="acceptor">
-			 			<option>${acceptor.name}</option>
+					<c:set var="writer" value="<%=obj.getName() %>" />
+		 			<c:if test="${acceptor.name != writer}">
+		 				<option>${acceptor.name}</option>
+		 			</c:if>
 				 	</c:forEach>
 				 </select>
     		</li>
@@ -101,7 +104,6 @@
    			<button class="btn btn-default" id="btn_registerConfirm" type="submit">제출</button>
   		</div>
 	</div>
-	
 	</form>
 	
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>

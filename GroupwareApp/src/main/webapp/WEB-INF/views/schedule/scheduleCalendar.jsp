@@ -166,7 +166,7 @@ Calendar cal = Calendar.getInstance();
 				</li>
 				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="#">결재 관리</a></li>
+				<li><a href="/proposal/main">결재 관리</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -190,20 +190,19 @@ Calendar cal = Calendar.getInstance();
 	<!-- contents of tab bar -->
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane active" id="main" align="center"><br>
+			<h3><strong>월간 업무 일정</strong></h3>
 			<!-- 테이블 만들기 -->
 			<!--날짜 네비게이션  -->
-			<table border='1' width='519' celpadding='0' cellspacing='0'>
-  				<tr>
-					<td width='150' align='right' valign='middle'><a href="scheduleCalendar?month=<%=currMonth%>&year=<%=currYear%>&action=0"><font size="1">이전 달</font></a></td>
-					<td width='260' align='center' valign='middle'><b><%=getDateName (cal.get(cal.MONTH)) + " " + cal.get(cal.YEAR)%></b></td>
-					<td width='173' align='left' valign='middle'><a href="scheduleCalendar?month=<%=currMonth%>&year=<%=currYear%>&action=1"><font size="1">다음 달</font></a></td>
-  				</tr>
-			</table>
+			<a href="scheduleCalendar?month=<%=currMonth%>&year=<%=currYear%>&action=0"><font size="3">&#60;&#60;</font></a>
+			<b style="font-size: 20px"><%=getDateName (cal.get(cal.MONTH)) + " " + cal.get(cal.YEAR)%></b>
+			<a href="scheduleCalendar?month=<%=currMonth%>&year=<%=currYear%>&action=1"><font size="3">&#62;&#62;</font></a>
+			
+			<br><br>
 			<table border="0" width="520" bordercolorlight="#C0C0C0" bordercolordark="#808080" style="border-collapse: collapse" bordercolor="#111111" cellpadding="0" cellspacing="0">
   				<td width="100%">
     			<table border="2" width="519" bordercolorlight="#C0C0C0" bordercolordark="#000000" style="border-collapse: collapse" bordercolor="#000000" cellpadding="0" cellspacing="0" bgcolor="#DFDCD8">
   					<tr>
-    					<td width="<%=boxSize%>" align="center" nowrap bordercolor="#666666" bgcolor="#666666">
+    					<td height="35" width="<%=boxSize%>" align="center" nowrap bordercolor="#666666" bgcolor="#666666">
     					<font color="#FFFFFF"><b>일</b></font></td>
     					<td width="<%=boxSize%>" align="center" nowrap bordercolor="#666666" bgcolor="#666666">
     					<font color="#FFFFFF"><b>월</b></font></td>
@@ -245,35 +244,34 @@ Calendar cal = Calendar.getInstance();
 			else{
 				if (isDate ( currMonth + 1, dispDay, currYear)){  // use the isDate method
 					if ( dispDay == c.get(c.DAY_OF_MONTH) && c.get(c.MONTH) == cal.get(cal.MONTH) && c.get(c.YEAR) == cal.get(cal.YEAR)){ // Here we check to see if the current day is today
-						todayColor = "#6C7EAA";
+						todayColor = "#FFE4E1";
 					} else {
 						todayColor = "#ffffff";
 					}
-					if(dispDay < 10){		
-						id_schedule = String.valueOf(cal.get(cal.YEAR)) + "-" + String.valueOf(cal.get(cal.MONTH)+1) + "-0" + String.valueOf(dispDay); 
-					} else{
+					if(dispDay < 10 && cal.get(cal.MONTH)+1 < 10){		
+						id_schedule = String.valueOf(cal.get(cal.YEAR)) + "-0" + String.valueOf(cal.get(cal.MONTH)+1) + "-0" + String.valueOf(dispDay); 
+					} else if(dispDay >= 10 && cal.get(cal.MONTH)+1 < 10){
+						id_schedule = String.valueOf(cal.get(cal.YEAR)) + "-0" + String.valueOf(cal.get(cal.MONTH)+1) + "-" + String.valueOf(dispDay);
+					} else if(dispDay < 10 && cal.get(cal.MONTH)+1 >= 10){
+						id_schedule = String.valueOf(cal.get(cal.YEAR)) + "-" + String.valueOf(cal.get(cal.MONTH)+1) + "-0" + String.valueOf(dispDay);
+					} else {
 						id_schedule = String.valueOf(cal.get(cal.YEAR)) + "-" + String.valueOf(cal.get(cal.MONTH)+1) + "-" + String.valueOf(dispDay);
 					}
+%>
+		<td id=<%=id_schedule %> bgcolor ="<%=todayColor%>" width="<%=boxSize%>" align="left" height="<%=boxSize%>" valign="top"><%=dispDay%><br>
+<%
 					num = -1;
 					for(int i=0;i<cal_list.length;i++){
 						if(id_schedule.equals(cal_list[i])){
 							num = i;
-							break;
+%>
+			<a id="detailSchedule" href="/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a>
+<%
 						}
 					}
-					
-					if(num != -1){
-%> 
-		<td id=<%=id_schedule %> bgcolor ="<%=todayColor%>" width="<%=boxSize%>" align="left" height="<%=boxSize%>" valign="top"><%=dispDay%><br>
-			<a id="detailSchedule" href="/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><%=list.get(num).getS_title() %></a>
-		</td>
-<%
-					} else {
 %>
-		<td id=<%=id_schedule %> bgcolor ="<%=todayColor%>" width="<%=boxSize%>" align="left" height="<%=boxSize%>" valign="top"><%=dispDay%><br>
 		</td>
 <%
-					}
 					count += 1;
 					dispDay += 1;
 				} else {

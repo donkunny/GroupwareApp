@@ -42,7 +42,7 @@
 				</li>
 				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="#">결재 관리</a></li>
+				<li><a href="/proposal/main">결재 관리</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -89,7 +89,8 @@
 	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
 	<br>
 	<table class="table table-hover">
-		<h4 align="center"><strong>결재 목록</strong></h4>
+		<h3 align="center"><strong>전체 결재 목록</strong></h3>
+		<br>
 		<thread>
 			<tr>
 				<th>순번</th>
@@ -108,9 +109,7 @@
 				<td>${proposalVO.pno}</td>
 				<td>${proposalVO.p_id}</td>
 				<td>${proposalVO.p_writer}</td>
-				<td><a href="/propoal/readProposal?pno=${proposalVO.pno}&page=${pageMaker.cri.page}&perPageNum=${cri.getPerPageNum()}">
-						${proposalVO.p_title}
-					</a>
+				<td><a href="/proposal/readProposal?page=${cri.page}&perPageNum=${cri.perPageNum}&pno=${proposalVO.pno}">${proposalVO.p_title}</a>
 				</td>
 				<td>${proposalVO.p_status}</td>
 				<c:choose>
