@@ -37,7 +37,9 @@
 			<mapping path="/schedule/myRegister"/>
 			<mapping path="/schedule/slist"/>
 			<mapping path="/schedule/detailSchedule"/>
-			
+			<mapping path="/proposal/main"/>
+			<mapping path="/proposal/registerProposal11"/>
+						
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 	</interceptors>

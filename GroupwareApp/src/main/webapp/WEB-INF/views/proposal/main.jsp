@@ -93,7 +93,6 @@
 				<th>ID</th>
 				<th>기안자</th>
 				<th>제목</th>
-				<th>기안내용</th>
 				<th>기안상태</th>
 				<th>승인일시</th>
 			</tr>
@@ -102,15 +101,24 @@
 			<c:forEach items="${list}" var="proposalVO">
 				<tr>
 				<td>${proposalVO.pno}</td>
+				<td>${proposalVO.p_id}</td>
+				<td>${proposalVO.p_writer}</td>
 				<td><a href="/propoal/readProposal?pno=${proposalVO.pno}&page=${pageMaker.cri.page}&perPageNum=${cri.getPerPageNum()}">
 						${proposalVO.p_title}
 					</a>
 				</td>
-				<td>${proposalVO.p_id}</td>
-				<td>${proposalVO.p_writer}</td>
-				<td>${proposalVO.p_title}</td>
 				<td>${proposalVO.p_status}</td>
-				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${proposalVO.p_acceptDate}" /></td>
+				<c:choose>
+					<c:when test="${proposalVO.p_status eq '기안' }">
+						<td>-</td>
+					</c:when>
+					<c:when test="${proposalVO.p_status eq '보류' }">
+						<td>-</td>
+					</c:when>
+					<c:otherwise>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${proposalVO.p_acceptDate}" /></td>
+					</c:otherwise>
+				</c:choose>
 				</tr>
 			</c:forEach>
 		</tbody>

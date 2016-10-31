@@ -87,12 +87,13 @@
     		</li>
     		
     		<li class="list-group-item">
-				<strong>승인자</strong>
+				<strong>승인자</strong> (승인자는 기안자와 달라야 합니다.)
 				 <select class="form-control" id="sel1">
 				 	<c:forEach items="${acceptors}" var="acceptor">
 			 			<option>${acceptor.name}</option>
 				 	</c:forEach>
-				 </select>   			
+				 </select>
+				 <div style="color: red" >${error}</div>   			
     		</li>
   		</ul>
   		<div class="card-block" align="left">
@@ -104,9 +105,9 @@
 	
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
 	<script type="text/javascript">
-	
 	$(document).ready(function(){
 		var formObj = $("form[role='form']");
+		
 		$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
 			self.location = "/member/logout";
@@ -118,12 +119,13 @@
 			var writer = '<%=obj.getName() %>';
 			var opinion = $('#register-opinion').val();
 			var option = $("#sel1 option:selected").text();
+			
 			$("register-acceptor").html("<input type='hidden' id='register-acceptor' name='p_acceptor' value='" + option + "'>");
 			//alert(title.length + ": " + contents.length);
-			if(title.length == 0 || contents.length == 0 || writer.length == 0 || opinion.length == 0){
+			if(option === writer){
+				alert("기안자와 승인자가 같습니다.");
+			} else if (title.length == 0 || contents.length == 0 || writer.length == 0 || opinion.length == 0){
 				alert("내용을 입력해주세요.");
-			} else if(option == writer){
-				alert("기안자와 승인자의 이름이 같습니다.");
 			} else {
 				alert("기안문이 전송되었습니다.");
 				formObj.attr("action", "/proposal/registerProposal");

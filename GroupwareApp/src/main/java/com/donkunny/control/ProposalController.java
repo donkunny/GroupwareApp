@@ -42,7 +42,7 @@ public class ProposalController {
 	}
 	
 	@RequestMapping(value="/registerProposal", method=RequestMethod.GET)
-	public void registerProposal(Model model, @ModelAttribute("cri") SearchCriteria cri) throws Exception {
+	public void registerProposal(ProposalVO pvo, Model model, @ModelAttribute("cri") SearchCriteria cri, RedirectAttributes rttr) throws Exception {
 		logger.info("proposal register get...");
 		model.addAttribute("acceptors", memberService.listMembers());
 	}
