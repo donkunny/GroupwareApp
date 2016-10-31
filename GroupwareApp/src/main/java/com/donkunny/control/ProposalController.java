@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.donkunny.board.paging.Criteria;
@@ -47,13 +48,22 @@ public class ProposalController {
 		model.addAttribute("acceptors", memberService.listMembers());
 	}
 	
-	@RequestMapping(value="registerProposal", method=RequestMethod.POST)
+	@RequestMapping(value="registerProposalPOST", method=RequestMethod.POST)
 	public String registerProposalPOST(ProposalVO pvo, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
 		logger.info("proposal register post..");
-		
-		service.writeProposal(pvo);
-		rttr.addAttribute("page", 1);
-		rttr.addAttribute("perPageNum", cri.getPerPageNum());
-		return "redirect:/proposal/main";
+		if(pvo.getP_acceptor().equals(pvo.getP_writer())){
+			rttr.addFlashAttribute("error", "기안자와 승인자가 같습니다.");
+			return "redirect:/proposal/registerProposal";
+		} else{
+			service.writeProposal(pvo);
+			rttr.addAttribute("page", 1);
+			rttr.addAttribute("perPageNum", cri.getPerPageNum());
+			return "redirect:/proposal/main";
+		}
+	}
+	
+	@RequestMapping(value="/readProposal", method=RequestMethod.GET)
+	public void readProposal(@RequestParam("pno")int pno, @ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception{
+		model.addAttribute(service.detailProposal(pno));
 	}
 }

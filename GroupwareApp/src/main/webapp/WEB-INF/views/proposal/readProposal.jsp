@@ -59,26 +59,23 @@
 		</div>
 	</nav>
 	<form role="form">
-	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
-	<input type="hidden" name="p_id" value="<%=obj.getId() %>" >
-	<input type="hidden" name="p_writer" value="<%=obj.getName() %>">
-	 <input type="hidden" id="register-acceptor" name="p_acceptor">   	
 	<div class="card">
 		<div class="card-block">
-			<h4 class="card-title"><strong>기안문 등록</strong></h4>
+			<h4 class="card-title"><strong>결제 상세</strong></h4>
 		</div>
 		<ul class="list-group list-group-flush">
-    		<li class="list-group-item"> <strong>기안자: <%=obj.getName() %></strong> </li>
-    		<li class="list-group-item"><strong>기안자ID: <%=obj.getId() %></strong></li>
+    		<li class="list-group-item"> <strong>기안자: ${proposalVO.p_writer}</strong> </li>
+    		<li class="list-group-item"><strong>기안자ID: ${proposalVO.p_id}</strong></li>
     		<li class="list-group-item">
     			<strong>제목</strong> 
-    			<input type="text" id="register-title" name="p_title" class="form-control" value="" required="required">
+    			<input type="text" id="register-title" name="p_title" class="form-control" value="${proposalVO.p_title}" readonly="readonly">
     		</li>
     		<li class="list-group-item"><strong>내용</strong>
-    			<textarea rows="5" class="form-control" name="p_content" id="register-content" required="required"></textarea>
+    			<textarea rows="5" class="form-control" name="p_content" id="register-content" readonly="readonly">${proposalVO.p_content}</textarea>
     		</li>
+    		
     		<li class="list-group-item">
-    			<strong>상태: 기안</strong> 
+    			<strong>상태: ${proposalVO.p_status}</strong> 
     		</li>
 
     		<li class="list-group-item">
@@ -87,7 +84,7 @@
     		</li>
 
     		<li class="list-group-item">
-				<strong>승인자</strong> (승인자는 기안자와 달라야 합니다.)
+				<strong>승인자</strong>
 				<div style="color: red" >${error}</div>
 				 <select class="form-control" id="sel1">
 				 	<c:forEach items="${acceptors}" var="acceptor">
@@ -112,25 +109,6 @@
 		$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
 			self.location = "/member/logout";
-		});
-		
-		$("#btn_registerConfirm").on("click", function(){
-			var title = $('#register-title').val();
-			var contents = $('#register-content').val();
-			var writer = '<%=obj.getName() %>';
-			var opinion = $('#register-opinion').val();
-			var option = $("#sel1 option:selected").text();
-			// $("#register-acceptor").html("<input type='hidden' id='register-acceptor' name='p_acceptor' value='" + option + "'>");
-			$("#register-acceptor").val(option);
-			//alert(title.length + ": " + contents.length);
-			if (title.length == 0 || contents.length == 0 || writer.length == 0 || opinion.length == 0){
-				alert("내용을 입력해주세요.");
-			} else {
-				// alert("기안문이 전송되었습니다.");
-				formObj.attr("action", "/proposal/registerProposalPOST");
-				formObj.attr("method", "post");
-				formObj.submit();
-			}
 		});
 	});	
 	</script>

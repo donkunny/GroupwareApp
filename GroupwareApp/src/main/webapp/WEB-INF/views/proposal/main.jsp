@@ -1,3 +1,5 @@
+<%@page import="com.donkunny.proposal.ProposalVO"%>
+<%@page import="com.donkunny.member.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 <%@ page session="true" %>
@@ -84,6 +86,7 @@
 		<button type="button" class="btn btn-default" id="searchBtn" >조회</button>
 		<button type="button" class="btn btn-default" id="newBtn" >기안문 작성하기</button>
 	</div>
+	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
 	<br>
 	<table class="table table-hover">
 		<h4 align="center"><strong>결재 목록</strong></h4>
@@ -99,6 +102,8 @@
 		</thread>
 		<tbody>
 			<c:forEach items="${list}" var="proposalVO">
+				<c:set var="id" value="<%=obj.getId() %>" />
+				<c:if test="${proposalVO.p_id eq id}">
 				<tr>
 				<td>${proposalVO.pno}</td>
 				<td>${proposalVO.p_id}</td>
@@ -120,6 +125,7 @@
 					</c:otherwise>
 				</c:choose>
 				</tr>
+				</c:if>
 			</c:forEach>
 		</tbody>
 	</table>
