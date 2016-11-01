@@ -62,6 +62,7 @@
 				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
 				<li><a href="#">결재 관리</a></li>
+				<li><a href="#">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>

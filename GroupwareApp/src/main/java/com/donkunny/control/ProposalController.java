@@ -48,7 +48,7 @@ public class ProposalController {
 		model.addAttribute("acceptors", memberService.listMembers());
 	}
 	
-	@RequestMapping(value="registerProposalPOST", method=RequestMethod.POST)
+	@RequestMapping(value="/registerProposalPOST", method=RequestMethod.POST)
 	public String registerProposalPOST(ProposalVO pvo, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
 		logger.info("proposal register post..");
 		if(pvo.getP_acceptor().equals(pvo.getP_writer())){
@@ -65,5 +65,61 @@ public class ProposalController {
 	@RequestMapping(value="/readProposal", method=RequestMethod.GET)
 	public void readProposal(@RequestParam("pno")int pno, @ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception{
 		model.addAttribute(service.detailProposal(pno));
+	}
+	
+	@RequestMapping(value="/readProposalPOST", method=RequestMethod.POST)
+	public String readProposalPOST(ProposalVO pvo, @ModelAttribute("cri")SearchCriteria cri) throws Exception{
+		// logger.info(pvo.toString());
+		service.submitProposal(pvo);
+		return "redirect:/proposal/main";
+	}
+	
+	@RequestMapping(value="/waitinglist", method=RequestMethod.GET)
+	public void readWaitingList(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+		model.addAttribute("list", service.listProposalPage(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setPagination(service.proposalSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@RequestMapping(value="/completedlist", method=RequestMethod.GET)
+	public void readCompletedList(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+		model.addAttribute("list", service.listProposalPage(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setPagination(service.proposalSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@RequestMapping(value="/pendinglist", method=RequestMethod.GET)
+	public void readPendingList(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+		model.addAttribute("list", service.listProposalPage(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setPagination(service.proposalSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@RequestMapping(value="/resubmit", method=RequestMethod.GET)
+	public void resubmit(@RequestParam("pno")int pno, @ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+		model.addAttribute(service.detailProposal(pno));
+	}
+	
+	@RequestMapping(value="/resubmitPOST", method=RequestMethod.POST)
+	public String resubmitPOST(ProposalVO pvo, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
+		service.modifyProposal(pvo);
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		return "redirect:/proposal/main";
+	}
+	
+	@RequestMapping(value="/publicProposal", method=RequestMethod.GET)
+	public void publicProposal(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+		model.addAttribute("list", service.listProposalPage(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setPagination(service.proposalSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
 	}
 }

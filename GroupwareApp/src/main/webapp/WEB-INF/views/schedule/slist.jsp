@@ -64,7 +64,7 @@
 							<tr>
 								<td>${scheduleVO.sno}</td>
 								<td><a
-									href="/schedule/read?sno=${scheduleVO.sno}&page=${pageMaker.cri.page}&perPageNum=${cri.getPerPageNum()}">
+									href="/schedule/detailSchedule?sno=${scheduleVO.sno}&page=${pageMaker.cri.page}&perPageNum=${cri.getPerPageNum()}">
 										${scheduleVO.s_title} </a></td>
 								<td>${scheduleVO.s_id}</td>
 								<td>${scheduleVO.s_fromDate} ~ ${scheduleVO.s_toDate}</td>

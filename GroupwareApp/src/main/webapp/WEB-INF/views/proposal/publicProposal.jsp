@@ -94,8 +94,7 @@
 	<!-- 결재 목록 -->	
 	<div id="proposal_list" >
 	<!-- Search function -->
-	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
-	<br><h3 align="center"><strong>전체 결재 목록</strong></h3>
+	<br><h3 align="center"><strong>공람 목록</strong></h3>
 	<table class="table table-hover">
 		<br><div class="box-body">
 		<i class="fa fa-search" aria-hidden="true"></i>
@@ -147,42 +146,15 @@
 		</thread>
 		<tbody>
 			<c:forEach items="${list}" var="proposalVO">
-				<c:set var="id" value="<%=obj.getId() %>" />
-				<c:if test="${proposalVO.p_id eq id}">
+				<c:if test="${proposalVO.p_status eq '결재완료_공람'}">
 				<tr>
 				<td>${proposalVO.pno}</td>
 				<td>${proposalVO.p_id}</td>
 				<td>${proposalVO.p_writer}</td>
 				<td><a href="/proposal/readProposal?page=${cri.page}&perPageNum=${cri.perPageNum}&pno=${proposalVO.pno}">${proposalVO.p_title}</a>
 				</td>
-				<c:choose>
-					<c:when test="${proposalVO.p_status eq '기안' }">
-						<td>${proposalVO.p_status}</td>
-					</c:when>
-					<c:when test="${proposalVO.p_status eq '결재대기' }">
-						<td>${proposalVO.p_status}</td>
-					</c:when>
-					<c:when test="${proposalVO.p_status eq '결재보류' }">
-						<td style="color: blue"><strong>${proposalVO.p_status}</strong></td>
-					</c:when>
-					<c:otherwise>
-						<td style="color: red"><strong>${proposalVO.p_status}</strong></td>
-					</c:otherwise>
-				</c:choose>
-				<c:choose>
-					<c:when test="${proposalVO.p_status eq '기안' || proposalVO.p_status eq '재기안'}">
-						<td>-</td>
-					</c:when>
-					<c:when test="${proposalVO.p_status eq '결재대기' }">
-						<td>-</td>
-					</c:when>
-					<c:when test="${proposalVO.p_status eq '결재보류' }">
-						<td>-</td>
-					</c:when>
-					<c:otherwise>
-						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${proposalVO.p_acceptDate}" /></td>
-					</c:otherwise>
-				</c:choose>
+				<td style="color: red"><strong>${proposalVO.p_status}</strong></td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${proposalVO.p_acceptDate}" /></td>
 				</tr>
 				</c:if>
 			</c:forEach>

@@ -1,3 +1,4 @@
+<%@page import="com.donkunny.member.MemberVO"%>
 <%@page import="java.awt.DisplayMode"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Date"%>
@@ -126,7 +127,7 @@ Calendar cal = Calendar.getInstance();
 			position: absolute;
 			width: 180px;
 			margin-left: 10px;
-			padding-top: 30px;
+			padding-top: 120px;
 		}
 		
 		.table {
@@ -167,23 +168,23 @@ Calendar cal = Calendar.getInstance();
 				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
 				<li><a href="/proposal/main">결재 관리</a></li>
+				<li><a href="#">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
 	
 	<!-- tab bar -->
 	<ul class="nav nav-tabs" id="schedulerTab" role="tablist">
+		<!-- 검색 기능 넣기 -->
 		<li role="presentation" class="active" ><a href="#main" aria-controls="main">메인</a></li>
-		<li role="presentation"><a href="#daily" aria-controls="daily">일간</a></li>
-		<li role="presentation"><a href="#weekly" aria-controls="weekly">주간</a></li>
-		<li role="presentation"><a href="#search" aria-controls="search">검색</a></li>
+		<!-- <li role="presentation"><a href="#daily" aria-controls="daily">일간</a></li> -->
+		<!-- <li role="presentation"><a href="#daily" aria-controls="daily">주간</a></li> -->
 	</ul>
 	
 	<!-- Sidebar -->
 	<div class="list-group" id="shedulerBar" align="center">
  		<a class="list-group-item active">나의 일정</a>
   		<a href="#register" id="registerMySchedule" class="list-group-item list-group-item-action" >일정 등록</a>
-  		<a href="#modify" class="list-group-item list-group-item-action">일정 수정</a>
   		<a id="myscheduleList" class="list-group-item list-group-item-action">일정 목록</a>
 	</div>
 	
@@ -226,6 +227,7 @@ Calendar cal = Calendar.getInstance();
 	int num = -1;
 	String id_schedule = null;
 	List<ScheduleVO> list = (List<ScheduleVO>)request.getAttribute("scheduleList");
+	MemberVO obj = (MemberVO)session.getAttribute("memberVO");
 	String[] cal_list = new String[list.size()];
 	for(int i = 0; i<list.size(); i++){
 		cal_list[i] = list.get(i).getS_fromDate();
@@ -264,9 +266,17 @@ Calendar cal = Calendar.getInstance();
 					for(int i=0;i<cal_list.length;i++){
 						if(id_schedule.equals(cal_list[i])){
 							num = i;
+							if(list.get(i).getS_type() == 1 && obj.getId().equals(list.get(i).getS_id())){
 %>
-			<a id="detailSchedule" href="/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a>
+			<a style="color: #B22222" id="detailSchedule" href="/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a><br>
 <%
+							} else if(list.get(i).getS_type() == 1 && !(obj.getId().equals(list.get(i).getS_id()))){
+								
+							} else {
+%>
+			<a id="detailSchedule" href="/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a><br>
+<%								
+							}
 						}
 					}
 %>
@@ -290,11 +300,8 @@ Calendar cal = Calendar.getInstance();
 </td>
 <tr><td>
 </table>
-		</div>
-    	<div role="tabpanel" class="tab-pane" id="daily">2</div>
-    	<div role="tabpanel" class="tab-pane" id="weekly">3</div>
-    	<div role="tabpanel" class="tab-pane" id="search">4</div>
-	</div>
+	<br>
+	<p align="center">개인일정은 빨간색이고, 공유일정은 파란색입니다.</p>
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
 	<script type="text/javascript">
 		$(".logout").on("click", function(){

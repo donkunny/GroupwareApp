@@ -42,8 +42,8 @@
 					<th scope="row"><i class="fa fa-eye" aria-hidden="true"></i>일정 구분</th>
 					<td>
 						<div class="radio">
-							<label id="privateOpt"><input type="radio" name="optradio" value="1">개인 일정</label> <label id="publicOpt">
-							<input type="radio" name="optradio" value="0">공유 일정</label>
+							<label id="privateOpt"><input type="radio" name="s_type" value="1">개인 일정</label> 
+							<label id="publicOpt"><input type="radio" name="s_type" value="0">공유 일정</label>
 						</div>
 					</td>
 				</tr>
@@ -74,7 +74,7 @@
 				var content = $("#s_content").val();
 				var place = $("#s_place").val();
 				var attendee = $("#s_attendee").val();
-				var checked = $(':radio[name="optradio"]:checked').val();
+				var checked = $(':radio[name="s_type"]:checked').val();
 				var fromDate = $("#s_fromDate").val();
 				var toDate = $("#s_toDate").val();
 				e.preventDefault();

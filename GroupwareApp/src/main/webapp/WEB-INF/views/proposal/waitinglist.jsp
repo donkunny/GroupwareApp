@@ -77,7 +77,7 @@
  		<a href="/proposal/main" class="list-group-item list-group-item-action" >전체결재목록</a>
   		<a href="/proposal/waitinglist" class="list-group-item list-group-item-action" >결재대기목록</a>
   		<a href="/proposal/completedlist" class="list-group-item list-group-item-action">결재완료목록</a>
-  		<a href="/proposal/pendinglist" class="list-group-item list-group-item-action">결재보류목록</a>
+  		<a href="/pendinglist" class="list-group-item list-group-item-action">결재보류목록</a>
   	</div>
   	<div class="list-group" id="proposalBar2" align="center">
   		<a class="list-group-item active">개인/공람</a>
@@ -95,7 +95,7 @@
 	<div id="proposal_list" >
 	<!-- Search function -->
 	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
-	<br><h3 align="center"><strong>전체 결재 목록</strong></h3>
+	<br><h3 align="center"><strong>결재 대기 목록</strong></h3>
 	<table class="table table-hover">
 		<br><div class="box-body">
 		<i class="fa fa-search" aria-hidden="true"></i>
@@ -148,29 +148,16 @@
 		<tbody>
 			<c:forEach items="${list}" var="proposalVO">
 				<c:set var="id" value="<%=obj.getId() %>" />
-				<c:if test="${proposalVO.p_id eq id}">
+				<c:if test="${proposalVO.p_id eq id && proposalVO.p_status eq '결재대기'}">
 				<tr>
 				<td>${proposalVO.pno}</td>
 				<td>${proposalVO.p_id}</td>
 				<td>${proposalVO.p_writer}</td>
 				<td><a href="/proposal/readProposal?page=${cri.page}&perPageNum=${cri.perPageNum}&pno=${proposalVO.pno}">${proposalVO.p_title}</a>
 				</td>
+				<td>${proposalVO.p_status}</td>
 				<c:choose>
 					<c:when test="${proposalVO.p_status eq '기안' }">
-						<td>${proposalVO.p_status}</td>
-					</c:when>
-					<c:when test="${proposalVO.p_status eq '결재대기' }">
-						<td>${proposalVO.p_status}</td>
-					</c:when>
-					<c:when test="${proposalVO.p_status eq '결재보류' }">
-						<td style="color: blue"><strong>${proposalVO.p_status}</strong></td>
-					</c:when>
-					<c:otherwise>
-						<td style="color: red"><strong>${proposalVO.p_status}</strong></td>
-					</c:otherwise>
-				</c:choose>
-				<c:choose>
-					<c:when test="${proposalVO.p_status eq '기안' || proposalVO.p_status eq '재기안'}">
 						<td>-</td>
 					</c:when>
 					<c:when test="${proposalVO.p_status eq '결재대기' }">
@@ -180,7 +167,7 @@
 						<td>-</td>
 					</c:when>
 					<c:otherwise>
-						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${proposalVO.p_acceptDate}" /></td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${proposalVO.p_acceptDate}" /></td>
 					</c:otherwise>
 				</c:choose>
 				</tr>

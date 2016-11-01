@@ -55,14 +55,16 @@
 				<li><a href="/nboard/listAll">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
 				<li><a href="/proposal/main">결재 관리</a></li>
+				<li><a href="#">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
+	
 	<form role="form">
 	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
 	<input type="hidden" name="p_id" value="<%=obj.getId() %>" >
 	<input type="hidden" name="p_writer" value="<%=obj.getName() %>">
-	 <input type="hidden" id="register-acceptor" name="p_acceptor">   	
+	<input type="hidden" id="register-acceptor" name="p_acceptor">   	
 	<div class="card">
 		<div class="card-block">
 			<h4 class="card-title"><strong>기안문 등록</strong></h4>
@@ -128,7 +130,7 @@
 			if (title.length == 0 || contents.length == 0 || writer.length == 0 || opinion.length == 0){
 				alert("내용을 입력해주세요.");
 			} else {
-				// alert("기안문이 전송되었습니다.");
+				alert("기안문이 전송되었습니다.");
 				formObj.attr("action", "/proposal/registerProposalPOST");
 				formObj.attr("method", "post");
 				formObj.submit();

@@ -58,4 +58,9 @@ public class ProposalDAOImpl implements ProposalDAO{
 	public int countPaging() throws Exception {
 		return session.selectOne(namespace+".countPaging");
 	}
+
+	@Override
+	public void submitProposal(ProposalVO pvo) throws Exception {
+		session.update(namespace+".submitProposal", pvo);
+	}
 }

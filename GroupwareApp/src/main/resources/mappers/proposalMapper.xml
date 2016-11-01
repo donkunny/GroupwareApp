@@ -32,8 +32,8 @@
 	<!-- 기안 문서 수정하기 -->
 	<update id="updateProposal">
 		update tbl_proposal
-		set p_writer= #{p_writer}, p_title=#{p_title}, p_content=#{p_content}, p_reportOpinion=#{p_reportOpinion}, p_acceptor=#{p_acceptor} 
-		where pno = #{pno} and (p_status = '기안' or p_status = '반려') 
+		set p_writer= #{p_writer}, p_title=#{p_title}, p_content=#{p_content}, p_status=#{p_status}, p_reportOpinion=#{p_reportOpinion}, p_acceptor=#{p_acceptor} 
+		where pno = #{pno} 
 	</update>
 	
 	<select id="countPaging" resultType="int">
@@ -89,4 +89,11 @@
 		where pno > 0
 		<include refid="search"></include>
 	</select>
+	
+	<!-- 기안문 제출 -->
+	<update id="submitProposal">
+		update tbl_proposal
+		set p_status = #{p_status} 
+		where pno = #{pno}
+	</update>
 </mapper>

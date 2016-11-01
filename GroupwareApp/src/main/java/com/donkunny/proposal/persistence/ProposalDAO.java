@@ -13,6 +13,7 @@ public interface ProposalDAO {
 	public void deleteProposal(int pno) throws Exception;
 	public void modifyProposal(ProposalVO pvo) throws Exception;
 	public int countPaging() throws Exception;
+	public void submitProposal(ProposalVO pvo) throws Exception;
 	
 	// Searching function
 	public List<ProposalVO>	searchProposal(SearchCriteria cri) throws Exception;

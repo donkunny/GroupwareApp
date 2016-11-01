@@ -56,4 +56,9 @@ public class ProposalServiceImpl implements ProposalService{
 	public int countPaging() throws Exception {
 		return dao.countPaging();
 	}
+
+	@Override
+	public void submitProposal(ProposalVO pvo) throws Exception {
+		dao.submitProposal(pvo);
+	}
 }

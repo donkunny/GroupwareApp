@@ -8,26 +8,33 @@
 	<head>
 		<%@ include file="/WEB-INF/views/include/style.jsp" %>
 		<style type="text/css">
-			.table {
+			#register_table {
 			position: relative;
-			width: 80%;
+			width: 60%;
 			margin-top: 30px;
+			}
+			
+			#register_title {
+				margin-top: 200px;
 			}
 		</style>
 	</head>
 	<body>
 		<form role="form" id="schedule">
 		<input type="hidden" id="s_id" name="s_id" value="${memberVO.id}" >
+		<h3 align="center" id="register_title">자세한 일정 내용</h3>
 		<table align="center" id="register_table" class="table table-bordered">
-			<h3 align="center" id="register_title">자세한 일정 내용</h3>
 			<tbody>
 				<tr>
 					<th scope="row"><i class="fa fa-lightbulb-o" aria-hidden="true"></i> 제목</th>
 					<td><input id="s_title" type="text" class="form-control" name="s_title" value="${scheduleVO.s_title}" readonly="readonly"></td>
 				</tr>
 				<tr>
-					<th scope="row"><i class="fa fa-pencil-square-o"
-						aria-hidden="true"></i> 내용</th>
+					<th scope="row"><i class="fa fa-lightbulb-o" aria-hidden="true"></i>작성자</th>
+					<td><input id="s_id" type="text" class="form-control" name="s_id" value="${scheduleVO.s_id}" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th scope="row"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> 내용</th>
 					<td><textarea id="s_content" class="form-control" name="s_content" readonly="readonly">"${scheduleVO.s_content}"</textarea></td>
 				</tr>
 				<tr>

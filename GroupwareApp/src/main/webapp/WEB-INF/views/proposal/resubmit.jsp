@@ -59,10 +59,13 @@
 			</ul>
 		</div>
 	</nav>
-	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
+	<form role="form">
+	<input type="hidden" name="pno" value="${proposalVO.pno}">
+	<input type="hidden" name="p_status" value="재기안">
+	<input type="hidden" name="p_writer" value="${proposalVO.p_writer}">
 	<div class="card">
 		<div class="card-block">
-			<h3 class="card-title" align="center"><strong>결재 상세</strong></h3>
+			<h3 class="card-title" align="center"><strong>기안문 수정</strong></h3>
 		</div>
 		<br>
 		<ul class="list-group list-group-flush">
@@ -70,28 +73,14 @@
     		<li class="list-group-item"><strong>기안자ID: ${proposalVO.p_id}</strong></li>
     		<li class="list-group-item">
     			<strong>제목</strong> 
-    			<input type="text" id="register-title" name="p_title" class="form-control" value="${proposalVO.p_title}" readonly="readonly">
+    			<input type="text" id="register-title" name="p_title" class="form-control" value="${proposalVO.p_title}">
     		</li>
     		<li class="list-group-item"><strong>내용</strong>
-    			<textarea rows="5" class="form-control" name="p_content" id="register-content" readonly="readonly">${proposalVO.p_content}</textarea>
+    			<textarea rows="5" class="form-control" name="p_content" id="register-content" >${proposalVO.p_content}</textarea>
     		</li>
     		
     		<li class="list-group-item">
-    			<strong>상태: </strong>
-    			<c:choose>
-    			<c:when test="${proposalVO.p_status eq '기안' }">
-					<strong><i>${proposalVO.p_status}</i></strong>
-				</c:when>
-				<c:when test="${proposalVO.p_status eq '결재대기' }">
-					<strong><i>${proposalVO.p_status}</i></strong>
-				</c:when>
-				<c:when test="${proposalVO.p_status eq '결재보류' }">
-					<strong><i style="color: blue">${proposalVO.p_status}</i></strong>
-				</c:when>
-				<c:otherwise>
-					<strong><i style="color: red">${proposalVO.p_status}</i></strong>
-				</c:otherwise>
-				</c:choose>
+    			<strong>상태 <i>재기안</i></strong> 
     		</li>
     		
     		<li class="list-group-item"><strong>기안 날짜: </strong>
@@ -99,7 +88,7 @@
     		</li>
 
     		<li class="list-group-item"><strong>기안 의견</strong>
-				<textarea rows="5" class="form-control" name="p_content" id="register-content" readonly="readonly">${proposalVO.p_reportOpinion}</textarea>
+				<textarea rows="5" class="form-control" name="p_content" id="register-content">${proposalVO.p_reportOpinion}</textarea>
 			</li>
 			<br><br>
 			<li class="list-group-item">
@@ -111,13 +100,13 @@
 			<li class="list-group-item">
 				<strong>승인 날짜: </strong>
 				<c:choose>
-					<c:when test="${proposalVO.p_status eq '기안' }">
+					<c:when test="${proposalVO.p_status eq '기안' || proposalVO.p_status eq '재기안'}">
 						<strong><i>제출 대기 중입니다.</i></strong>
 					</c:when>
-					<c:when test="${proposalVO.p_status eq '결재대기' }">
+					<c:when test="${proposalVO.p_status eq '결재대기'}">
 						<strong><i>결재 대기 중입니다.</i></strong>
 					</c:when>
-					<c:when test="${proposalVO.p_status eq '결재보류' }">
+					<c:when test="${proposalVO.p_status eq '결재보류'}">
 						<strong><i style="color: blue">결재 보류 중입니다.</i></strong>
 					</c:when>
 					<c:otherwise>
@@ -126,36 +115,12 @@
 				</c:choose>			
 			</li>
   		</ul>
-  		<form role="form">
-  		<input type="hidden" name="pno" value="${proposalVO.pno}">
   		<div class="card-block" align="left">
     		<a href="/proposal/main?page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >목록</a>
-  			<c:set var="id" value="<%=obj.getId() %>" />
-  			<c:choose>
-				<c:when test="${proposalVO.p_status eq '기안'}">
-					<input type="hidden" name="p_status" value="결재대기">
-					<button class="btn btn-default" id="btn_submit" type="submit">제출</button>
-				</c:when>
-				<c:when test="${proposalVO.p_status eq '결재대기'}">
-					<input type="hidden" name="p_status" value="기안">
-					<button class="btn btn-default" id="btn_submit_cancel" type="submit">제출취소</button>
-				</c:when>
-				<c:when test="${proposalVO.p_status eq '결재보류'}">
-					<button class="btn btn-default" id="btn_resubmit" type="submit">재기안</button>
-				</c:when>
-				<c:when test="${proposalVO.p_status eq '결재완료'}">
-					<input type="hidden" name="p_status" value="결재완료_공람">
-					<button class="btn btn-default" id="btn_public_submit" type="submit">공람제출</button>
-				</c:when>
-				<c:when test="${proposalVO.p_status eq '결재완료_공람' && proposalVO.p_id eq id}">
-					<input type="hidden" name="p_status" value="결재완료">
-					<button class="btn btn-default" id="btn_public_submit_cancel" type="submit">공람제출취소</button>
-				</c:when>
-  			</c:choose>
+  			<button class="btn btn-default" id="btn_submit" type="submit">재기안</button>
   		</div>
-  		</form>
 	</div>
-	
+	</form>
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
 	<script type="text/javascript">
 	$(document).ready(function(){
@@ -163,35 +128,7 @@
 		
 		$("#btn_submit").on("click", function(){
 			alert("기안문을 승인자에게 제출합니다.");
-			formObj.attr("action", "/proposal/readProposalPOST");
-			formObj.attr("method", "post");
-			formObj.submit();
-		});
-		
-		$("#btn_submit_cancel").on("click", function(){
-			alert("기안문 제출을 취소합니다.");
-			formObj.attr("action", "/proposal/readProposalPOST");
-			formObj.attr("method", "post");
-			formObj.submit();
-		});
-		
-		$("#btn_resubmit").on("click", function(){
-			alert("기안문을 수정합니다");
-			formObj.attr("action", "/proposal/resubmit");
-			formObj.attr("method", "get");
-			formObj.submit();
-		});
-		
-		$("#btn_public_submit").on("click", function(){
-			alert("기안문을 공람 목록에 저장합니다");
-			formObj.attr("action", "/proposal/readProposalPOST");
-			formObj.attr("method", "post");
-			formObj.submit();
-		});
-		
-		$("#btn_public_submit_cancel").on("click", function(){
-			alert("기안문 공람을 취소합니다");
-			formObj.attr("action", "/proposal/readProposalPOST");
+			formObj.attr("action", "/proposal/resubmitPOST");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
