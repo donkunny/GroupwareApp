@@ -63,6 +63,7 @@
 	<input type="hidden" name="pno" value="${proposalVO.pno}">
 	<input type="hidden" name="p_status" value="재기안">
 	<input type="hidden" name="p_writer" value="${proposalVO.p_writer}">
+	<input type="hidden" name="p_acceptor" value="${proposalVO.p_acceptor}">
 	<div class="card">
 		<div class="card-block">
 			<h3 class="card-title" align="center"><strong>기안문 수정</strong></h3>
@@ -75,7 +76,7 @@
     			<strong>제목</strong> 
     			<input type="text" id="register-title" name="p_title" class="form-control" value="${proposalVO.p_title}">
     		</li>
-    		<li class="list-group-item"><strong>내용</strong>
+    		<li class="list-group-item"><strong>내용(500자)</strong>
     			<textarea rows="5" class="form-control" name="p_content" id="register-content" >${proposalVO.p_content}</textarea>
     		</li>
     		
@@ -87,15 +88,15 @@
     			<fmt:formatDate pattern="yyyy-MM-dd" value="${proposalVO.p_reportDate}" />
     		</li>
 
-    		<li class="list-group-item"><strong>기안 의견</strong>
-				<textarea rows="5" class="form-control" name="p_content" id="register-content">${proposalVO.p_reportOpinion}</textarea>
+    		<li class="list-group-item"><strong>기안 의견(300자)</strong>
+				<textarea rows="5" class="form-control" name="p_reportOpinion" id="register-opinion">${proposalVO.p_reportOpinion}</textarea>
 			</li>
 			<br><br>
 			<li class="list-group-item">
 				<strong>승인자: ${proposalVO.p_acceptor}</strong>
     		</li>
     		<li class="list-group-item"><strong>승인/반려 의견</strong>
-				<textarea rows="5" class="form-control" name="p_content" id="register-content" readonly="readonly">${proposalVO.p_acceptOpinion}</textarea>
+				<textarea rows="5" class="form-control" name="p_acceptOpinion" id="register-acceptOpinion" readonly="readonly">${proposalVO.p_acceptOpinion}</textarea>
 			</li>
 			<li class="list-group-item">
 				<strong>승인 날짜: </strong>
@@ -127,7 +128,7 @@
 		var formObj = $("form[role='form']");
 		
 		$("#btn_submit").on("click", function(){
-			alert("기안문을 승인자에게 제출합니다.");
+			alert("기안문을 저장합니다.");
 			formObj.attr("action", "/proposal/resubmitPOST");
 			formObj.attr("method", "post");
 			formObj.submit();
@@ -136,6 +137,27 @@
 		$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
 			self.location = "/member/logout";
+		});
+		
+		$("#register-opinion").on("keyup", function(){
+	        if($(this).val().length > 300) {
+				alert("300자까지만 허용됩니다.");
+				$(this).val($(this).val().substring(0, 300));
+	        }
+		});
+		
+		$("#register-content").on("keyup", function(){
+	        if($(this).val().length > 400) {
+				alert("500자까지만 허용됩니다.");
+				$(this).val($(this).val().substring(0, 500));
+	        }
+		});
+		
+		$("#register-title").on("keyup", function(){
+	        if($(this).val().length > 50) {
+				alert("50자까지만 허용됩니다.");
+				$(this).val($(this).val().substring(0, 50));
+	        }
 		});
 	});	
 	</script>

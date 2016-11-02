@@ -5,10 +5,25 @@
 	
 	<!-- 메인 결재 목록 화면 보이기 -->
 	<select id="proposal_list" resultType="ProposalVO">
-		select pno, p_id, p_writer, p_title, p_status, p_acceptDate
+		select pno, p_id, p_writer, p_title, p_acceptor, p_status, p_acceptDate, p_reportDate
 		from tbl_proposal
 		order by pno desc
 		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- 상태에 따른 목록 화면 보이기 -->
+	<select id="listByStatus" resultType="ProposalVO">
+		select * from tbl_proposal
+		where p_status = #{p_status}
+		order by pno desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- 상태와 ID에 따른 목록 화면 보이기 -->
+	<select id="listByStatusAndID" resultType="ProposalVO">
+		select * from tbl_proposal
+		where p_status = #{p_status} and p_id = #{p_id}
+		order by pno desc
 	</select>
 	
 	<!-- 상세 결재 화면 보이기 -->
@@ -96,4 +111,12 @@
 		set p_status = #{p_status} 
 		where pno = #{pno}
 	</update>
+	
+	<!-- 기안문 승인/반려 -->
+	<update id="acceptOrReject">
+		update tbl_proposal
+		set p_status = #{p_status}, p_acceptOpinion = #{p_acceptOpinion}
+		where pno = #{pno}
+	</update>
+	
 </mapper>

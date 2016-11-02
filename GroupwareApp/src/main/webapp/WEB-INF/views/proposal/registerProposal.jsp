@@ -76,7 +76,7 @@
     			<strong>제목</strong> 
     			<input type="text" id="register-title" name="p_title" class="form-control" value="" required="required">
     		</li>
-    		<li class="list-group-item"><strong>내용</strong>
+    		<li class="list-group-item"><strong>내용(500자)</strong>
     			<textarea rows="5" class="form-control" name="p_content" id="register-content" required="required"></textarea>
     		</li>
     		<li class="list-group-item">
@@ -84,7 +84,7 @@
     		</li>
 
     		<li class="list-group-item">
-    			<strong>기안의견</strong> 
+    			<strong>기안의견(300자)</strong> 
     			<textarea rows="5" class="form-control" name="p_reportOpinion" id="register-opinion" required="required"></textarea>
     		</li>
 
@@ -103,7 +103,7 @@
   		</ul>
   		<div class="card-block" align="left">
     		<a href="/proposal/main?page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >이전</a>
-   			<button class="btn btn-default" id="btn_registerConfirm" type="submit">제출</button>
+   			<button class="btn btn-default" id="btn_registerConfirm" type="submit">기안</button>
   		</div>
 	</div>
 	</form>
@@ -136,6 +136,28 @@
 				formObj.submit();
 			}
 		});
+		
+		$("#register-opinion").on("keyup", function(){
+	        if($(this).val().length > 300) {
+				alert("300자까지만 허용됩니다.");
+				$(this).val($(this).val().substring(0, 300));
+	        }
+		});
+		
+		$("#register-content").on("keyup", function(){
+	        if($(this).val().length > 400) {
+				alert("500자까지만 허용됩니다.");
+				$(this).val($(this).val().substring(0, 500));
+	        }
+		});
+		
+		$("#register-title").on("keyup", function(){
+	        if($(this).val().length > 50) {
+				alert("50자까지만 허용됩니다.");
+				$(this).val($(this).val().substring(0, 50));
+	        }
+		});
+		
 	});	
 	</script>
 </body>

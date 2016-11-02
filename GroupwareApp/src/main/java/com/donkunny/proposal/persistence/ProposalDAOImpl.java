@@ -21,7 +21,8 @@ public class ProposalDAOImpl implements ProposalDAO{
 	
 	@Override
 	public List<ProposalVO> listProposalPage(Criteria cri) throws Exception {
-		return session.selectList(namespace+".proposal_list", cri);
+		// return session.selectList(namespace+".proposal_list", cri);
+		return session.selectList(namespace+".searchProposal", cri);
 	}
 
 	@Override
@@ -63,4 +64,20 @@ public class ProposalDAOImpl implements ProposalDAO{
 	public void submitProposal(ProposalVO pvo) throws Exception {
 		session.update(namespace+".submitProposal", pvo);
 	}
+
+	@Override
+	public List<ProposalVO> listByStatus(Criteria cri, ProposalVO pvo) throws Exception {
+		return session.selectList(namespace+"listByStatus", cri);
+	}
+
+	@Override
+	public List<ProposalVO> listByStatusAndID(Criteria cri, ProposalVO pvo) throws Exception {
+		return session.selectList(namespace+".listByStatusAndID", cri);
+	}
+
+	@Override
+	public void acceptOrReject(ProposalVO pvo) throws Exception {
+		session.update(namespace + ".acceptOrReject", pvo);
+	}
+	
 }

@@ -86,9 +86,10 @@
   	
   	<div class="list-group" id="proposalBar3" align="center">
   		<a class="list-group-item active">승인</a>
-  		<a href="#" class="list-group-item list-group-item-action" >승인대기목록</a>
-  		<a href="#" class="list-group-item list-group-item-action">승인완료목록</a>
-  		<a href="#" class="list-group-item list-group-item-action">승인보류목록</a>
+  		<a href="/proposal/entireApprovalList" class="list-group-item list-group-item-action" >승인전체목록</a>
+  		<a href="/proposal/waitingApprovalList" class="list-group-item list-group-item-action" >승인대기목록</a>
+  		<a href="/proposal/acceptedApprovalList" class="list-group-item list-group-item-action">승인완료목록</a>
+  		<a href="/proposal/acceptedPendingList" class="list-group-item list-group-item-action">승인보류목록</a>
   	</div>
 
 	<!-- 결재 목록 -->	
@@ -134,13 +135,14 @@
 		<button type="button" class="btn btn-default" id="searchBtn" >조회</button>
 		<button type="button" class="btn btn-default" id="newBtn" >기안문 작성하기</button>
 	</div>
-		<br>
+	1<br>
 		<thread>
 			<tr>
 				<th>순번</th>
 				<th>ID</th>
 				<th>기안자</th>
 				<th>제목</th>
+				<th>승인자</th>
 				<th>기안상태</th>
 				<th>승인일시</th>
 			</tr>
@@ -153,14 +155,14 @@
 				<td>${proposalVO.pno}</td>
 				<td>${proposalVO.p_id}</td>
 				<td>${proposalVO.p_writer}</td>
-				<td><a href="/proposal/readProposal?page=${cri.page}&perPageNum=${cri.perPageNum}&pno=${proposalVO.pno}">${proposalVO.p_title}</a>
-				</td>
+				<td><a href="/proposal/readProposal?page=${cri.page}&perPageNum=${cri.perPageNum}&pno=${proposalVO.pno}">${proposalVO.p_title}</a></td>
+				<td>${proposalVO.p_acceptor}</td>
 				<c:choose>
-					<c:when test="${proposalVO.p_status eq '기안' }">
-						<td>${proposalVO.p_status}</td>
+					<c:when test="${proposalVO.p_status eq '기안' || proposalVO.p_status eq '재기안'}">
+						<td><strong>${proposalVO.p_status}</strong></td>
 					</c:when>
 					<c:when test="${proposalVO.p_status eq '결재대기' }">
-						<td>${proposalVO.p_status}</td>
+						<td><strong>${proposalVO.p_status}</strong></td>
 					</c:when>
 					<c:when test="${proposalVO.p_status eq '결재보류' }">
 						<td style="color: blue"><strong>${proposalVO.p_status}</strong></td>
@@ -221,6 +223,12 @@
 		$('#newBtn').on("click",function() {
 			self.location = "/proposal/registerProposal";				
 		});
+		
+		$("#searchBtn").on("click", function(event){
+			self.location = "main?page=1&perPageNum=10&searchType=" + $("select option:selected").val() + "&keyword=" + $('#keywordInput').val();;
+		});
+		
+		
 	</script>
 </body>
 </html>

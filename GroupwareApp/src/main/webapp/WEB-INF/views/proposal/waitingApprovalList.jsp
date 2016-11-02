@@ -89,14 +89,16 @@
   		<a href="/proposal/entireApprovalList" class="list-group-item list-group-item-action" >승인전체목록</a>
   		<a href="/proposal/waitingApprovalList" class="list-group-item list-group-item-action" >승인대기목록</a>
   		<a href="/proposal/acceptedApprovalList" class="list-group-item list-group-item-action">승인완료목록</a>
-   		<a href="/proposal/acceptedPendingList" class="list-group-item list-group-item-action">승인보류목록</a>
+  		<a href="/proposal/acceptedPendingList" class="list-group-item list-group-item-action">승인보류목록</a>
   	</div>
 
 	<!-- 결재 목록 -->	
 	<div id="proposal_list" >
 	<!-- Search function -->
 	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
-	<br><h3 align="center"><strong>결재 보류 목록</strong></h3>
+	<input type="hidden" name="p_status" value="결재대기">
+	<input type="hidden" name="p_id" value="<%=obj.getId() %>">
+	<br><h3 align="center"><strong>승인 대기 목록</strong></h3>
 	<table class="table table-hover">
 		<br><div class="box-body">
 		<i class="fa fa-search" aria-hidden="true"></i>
@@ -133,7 +135,6 @@
 		</div>
 		<input type="text" name="keyword" id="keywordInput" value="${cri.keyword }">
 		<button type="button" class="btn btn-default" id="searchBtn" >조회</button>
-		<button type="button" class="btn btn-default" id="newBtn" >기안문 작성하기</button>
 	</div>
 		<br>
 		<thread>
@@ -149,15 +150,15 @@
 		</thread>
 		<tbody>
 			<c:forEach items="${list}" var="proposalVO">
-				<c:set var="id" value="<%=obj.getId() %>" />
-				<c:if test="${proposalVO.p_id eq id && proposalVO.p_status eq '결재보류'}">
+				<c:set var="name" value="<%=obj.getName() %>" />
+				<c:if test="${proposalVO.p_status eq '결재대기' && proposalVO.p_acceptor eq name}">
 				<tr>
 				<td>${proposalVO.pno}</td>
 				<td>${proposalVO.p_id}</td>
 				<td>${proposalVO.p_writer}</td>
-				<td><a href="/proposal/readProposal?page=${cri.page}&perPageNum=${cri.perPageNum}&pno=${proposalVO.pno}">${proposalVO.p_title}</a></td>
+				<td><a href="/proposal/acceptOrRejectProposal?page=${cri.page}&perPageNum=${cri.perPageNum}&pno=${proposalVO.pno}">${proposalVO.p_title}</a></td>
 				<td>${proposalVO.p_acceptor}</td>
-				<td style="color: blue"><strong>${proposalVO.p_status}</strong></td>
+				<td><strong>${proposalVO.p_status}</strong></td>
 				<td>-</td>
 				</tr>
 				</c:if>
@@ -168,19 +169,19 @@
 			<ul class="pagination">
 				<c:if test="${pageMaker.prev}">
 					<li class="page-item"><a class="page-link"
-						href="pendinglist?page=${pageMaker.startPage -1}&perPageNum=${cri.getPerPageNum()}"> &laquo;</a>
+						href="main?page=${pageMaker.startPage -1}&perPageNum=${cri.getPerPageNum()}"> &laquo;</a>
 					</li>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="idx">
 					<li class="page-item"
 						<c:out value="${pageMaker.cri.page == idx?'class =active':'' }" />>
-						<a class="page-link" href="pendinglist?page=${idx}&perPageNum=${cri.getPerPageNum()}">${idx}</a>
+						<a class="page-link" href="main?page=${idx}&perPageNum=${cri.getPerPageNum()}">${idx}</a>
 					</li>
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 					<li class="page-item"><a class="page-link"
-						href="pendinglist?page=${pageMaker.endPage+1}&perPageNum=${cri.getPerPageNum()}">&raquo;</a>
+						href="main?page=${pageMaker.endPage+1}&perPageNum=${cri.getPerPageNum()}">&raquo;</a>
 					</li>
 				</c:if>
 			</ul>
@@ -194,12 +195,8 @@
 			self.location = "/member/logout";
 		});
 		
-		$('#newBtn').on("click",function() {
-			self.location = "/proposal/registerProposal";				
-		});
-		
 		$("#searchBtn").on("click", function(event){
-			self.location = "pendinglist?page=1&perPageNum=10&searchType=" + $("select option:selected").val() + "&keyword=" + $('#keywordInput').val();;
+			self.location = "waitingApprovalList?page=1&perPageNum=10&searchType=" + $("select option:selected").val() + "&keyword=" + $('#keywordInput').val();;
 		});
 	</script>
 </body>

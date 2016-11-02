@@ -75,7 +75,7 @@ public class ProposalController {
 	}
 	
 	@RequestMapping(value="/waitinglist", method=RequestMethod.GET)
-	public void readWaitingList(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+	public void readWaitingList(@ModelAttribute("cri")SearchCriteria cri, ProposalVO pvo, Model model) throws Exception {
 		model.addAttribute("list", service.listProposalPage(cri));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -116,6 +116,55 @@ public class ProposalController {
 	
 	@RequestMapping(value="/publicProposal", method=RequestMethod.GET)
 	public void publicProposal(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+		model.addAttribute("list", service.listProposalPage(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setPagination(service.proposalSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@RequestMapping(value="/waitingApprovalList", method=RequestMethod.GET)
+	public void listWaitingApprovalList(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+		model.addAttribute("list", service.listProposalPage(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setPagination(service.proposalSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@RequestMapping(value="/acceptOrRejectProposal", method=RequestMethod.GET)
+	public void acceptOrReject(@RequestParam("pno")int pno, @ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+		model.addAttribute(service.detailProposal(pno));
+	}
+	
+	@RequestMapping(value="/acceptOrRejectProposal", method=RequestMethod.POST)
+	public String acceptOrRejectPOST(ProposalVO pvo, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
+		service.acceptOrReject(pvo);
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		return "redirect:/proposal/entireApprovalList";
+	}
+	
+	@RequestMapping(value="/acceptedApprovalList", method=RequestMethod.GET)
+	public void acceptedApprovalList(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+		model.addAttribute("list", service.listProposalPage(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setPagination(service.proposalSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@RequestMapping(value="/acceptedPendingList", method=RequestMethod.GET)
+	public void acceptedPendingList(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+		model.addAttribute("list", service.listProposalPage(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setPagination(service.proposalSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@RequestMapping(value="/entireApprovalList", method=RequestMethod.GET)
+	public void entireApprovalList(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
 		model.addAttribute("list", service.listProposalPage(cri));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);

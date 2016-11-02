@@ -61,4 +61,19 @@ public class ProposalServiceImpl implements ProposalService{
 	public void submitProposal(ProposalVO pvo) throws Exception {
 		dao.submitProposal(pvo);
 	}
+
+	@Override
+	public List<ProposalVO> listByStatus(Criteria cri, ProposalVO pvo) throws Exception {
+		return dao.listByStatus(cri, pvo);
+	}
+
+	@Override
+	public List<ProposalVO> listByStatusAndID(Criteria cri, ProposalVO pvo) throws Exception {
+		return dao.listByStatusAndID(cri, pvo);
+	}
+
+	@Override
+	public void acceptOrReject(ProposalVO pvo) throws Exception {
+		dao.acceptOrReject(pvo);
+	}
 }
