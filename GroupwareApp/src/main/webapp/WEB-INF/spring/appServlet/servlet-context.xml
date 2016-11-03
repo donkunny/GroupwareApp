@@ -38,7 +38,18 @@
 			<mapping path="/schedule/slist"/>
 			<mapping path="/schedule/detailSchedule"/>
 			<mapping path="/proposal/main"/>
-			<mapping path="/proposal/registerProposal11"/>
+			<mapping path="/proposal/registerProposal"/>
+			<mapping path="/proposal/acceptedApprovalList"/>
+			<mapping path="/proposal/acceptedPendingList"/>
+			<mapping path="/proposal/acceptOrRejectProposal"/>
+			<mapping path="/proposal/completedlist"/>
+			<mapping path="/proposal/entireApprovalList"/>
+			<mapping path="/proposal/pendinglist"/>
+			<mapping path="/proposal/publicProposal"/>
+			<mapping path="/proposal/readProposal"/>
+			<mapping path="/proposal/resubmit"/>
+			<mapping path="/proposal/waitingApprovalList"/>
+			<mapping path="/proposal/waitinglist"/>
 						
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>

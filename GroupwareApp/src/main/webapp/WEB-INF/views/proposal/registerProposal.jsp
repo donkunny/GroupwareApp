@@ -101,7 +101,7 @@
     		</li>
   		</ul>
   		<div class="card-block" align="left">
-    		<a href="/proposal/main?page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >이전</a>
+    		<a href="/proposal/main?page=${cri.page}&perPageNum=${cri.perPageNum}&p_id=<%=obj.getId() %>" class="btn btn-default" id="btn_previous" type="submit" >이전</a>
    			<button class="btn btn-default" id="btn_registerConfirm" type="submit">기안</button>
   		</div>
 	</div>
