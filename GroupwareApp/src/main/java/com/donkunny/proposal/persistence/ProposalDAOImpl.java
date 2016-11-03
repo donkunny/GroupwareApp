@@ -66,12 +66,7 @@ public class ProposalDAOImpl implements ProposalDAO{
 	}
 
 	@Override
-	public List<ProposalVO> listByStatus(Criteria cri, ProposalVO pvo) throws Exception {
-		return session.selectList(namespace+"listByStatus", cri);
-	}
-
-	@Override
-	public List<ProposalVO> listByStatusAndID(Criteria cri, ProposalVO pvo) throws Exception {
+	public List<ProposalVO> listByStatusAndID(Criteria cri) throws Exception {
 		return session.selectList(namespace+".listByStatusAndID", cri);
 	}
 
@@ -79,5 +74,54 @@ public class ProposalDAOImpl implements ProposalDAO{
 	public void acceptOrReject(ProposalVO pvo) throws Exception {
 		session.update(namespace + ".acceptOrReject", pvo);
 	}
-	
+
+	@Override
+	public int countByStatusAndID(SearchCriteria cri) throws Exception {
+		return session.selectOne(namespace+".countByStatusAndID",cri);
+	}
+
+	@Override
+	public List<ProposalVO> listByStatus(Criteria cri) throws Exception {
+		return session.selectList(namespace+".listByStatus", cri);
+	}
+
+	@Override
+	public int countByStatus(SearchCriteria cri) throws Exception {
+		return session.selectOne(namespace+".countByStatus", cri);
+	}
+
+	@Override
+	public List<ProposalVO> listByStatusAndAcceptor(Criteria cri) throws Exception {
+		return session.selectList(namespace+".listByStatusAndAcceptor", cri);
+	}
+
+	@Override
+	public int countByStatusAndAcceptor(SearchCriteria cri) throws Exception {
+		return session.selectOne(namespace+".countByStatusAndAcceptor", cri);
+	}
+
+	@Override
+	public List<ProposalVO> listByID(Criteria cri) throws Exception {
+		return session.selectList(namespace+".listByID", cri);
+	}
+
+	@Override
+	public int countByID(SearchCriteria cri) throws Exception {
+		return session.selectOne(namespace+".countByID", cri);
+	}
+
+	@Override
+	public List<ProposalVO> listNotByStatus(Criteria cri) throws Exception {
+		return session.selectList(namespace+".listNotByStatus", cri);
+	}
+
+	@Override
+	public int countNotByStatus(SearchCriteria cri) throws Exception {
+		return session.selectOne(namespace+".countNotByStatus", cri);
+	}
+
+	@Override
+	public void submitProposalwithID(ProposalVO pvo) throws Exception {
+		session.update(namespace+".submitProposalwithID", pvo);
+	}
 }

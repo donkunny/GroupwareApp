@@ -48,6 +48,7 @@
 		<h5 class="logout" align="right" style="cursor:pointer">
 			로그아웃하기 <i class="fa fa-sign-out" aria-hidden="true"></i> </h5>
 	</div>
+	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -64,38 +65,37 @@
 				</li>
 				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="/proposal/main">결재 관리</a></li>
+				<li><a href="/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
 				<li><a href="#">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
 	<br>
-	
+
 	<!-- Sidebar -->
 	<div class="list-group" id="proposalBar" align="center">
  		<a class="list-group-item active">결재</a>
- 		<a href="/proposal/main" class="list-group-item list-group-item-action" >전체결재목록</a>
-  		<a href="/proposal/waitinglist" class="list-group-item list-group-item-action" >결재대기목록</a>
-  		<a href="/proposal/completedlist" class="list-group-item list-group-item-action">결재완료목록</a>
-  		<a href="/proposal/pendinglist" class="list-group-item list-group-item-action">결재보류목록</a>
+ 		<a href="/proposal/main?p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action" >전체결재목록</a>
+  		<a href="/proposal/waitinglist?p_status=결재대기&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action" >결재대기목록</a>
+  		<a href="/proposal/completedlist?p_status=결재완료&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action">결재완료목록</a>
+  		<a href="/proposal/pendinglist?p_status=결재보류&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action">결재보류목록</a>
   	</div>
   	<div class="list-group" id="proposalBar2" align="center">
   		<a class="list-group-item active">개인/공람</a>
-  		<a href="/proposal/publicProposal" class="list-group-item list-group-item-action" >공람목록</a>
+  		<a href="/proposal/publicProposal?p_status=결재완료_공람" class="list-group-item list-group-item-action" >공람목록</a>
   	</div>
-  	
+
   	<div class="list-group" id="proposalBar3" align="center">
   		<a class="list-group-item active">승인</a>
-  		<a href="/proposal/entireApprovalList" class="list-group-item list-group-item-action" >승인전체목록</a>
-  		<a href="/proposal/waitingApprovalList" class="list-group-item list-group-item-action" >승인대기목록</a>
-  		<a href="/proposal/acceptedApprovalList" class="list-group-item list-group-item-action">승인완료목록</a>
-  		<a href="/proposal/acceptedPendingList" class="list-group-item list-group-item-action">승인보류목록</a>
+  		<a href="/proposal/entireApprovalList?p_status=기안&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action" >승인전체목록</a>
+  		<a href="/proposal/waitingApprovalList?p_status=결재대기&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action" >승인대기목록</a>
+  		<a href="/proposal/acceptedApprovalList?p_status=결재완료&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action">승인완료목록</a>
+  		<a href="/proposal/acceptedPendingList?p_status=결재보류&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action">승인보류목록</a>
   	</div>
 
 	<!-- 결재 목록 -->	
 	<div id="proposal_list" >
 	<!-- Search function -->
-	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
 	<br><h3 align="center"><strong>전체 결재 목록</strong></h3>
 	<table class="table table-hover">
 		<br><div class="box-body">
@@ -135,7 +135,7 @@
 		<button type="button" class="btn btn-default" id="searchBtn" >조회</button>
 		<button type="button" class="btn btn-default" id="newBtn" >기안문 작성하기</button>
 	</div>
-	1<br>
+	<br>
 		<thread>
 			<tr>
 				<th>순번</th>
@@ -149,8 +149,6 @@
 		</thread>
 		<tbody>
 			<c:forEach items="${list}" var="proposalVO">
-				<c:set var="id" value="<%=obj.getId() %>" />
-				<c:if test="${proposalVO.p_id eq id}">
 				<tr>
 				<td>${proposalVO.pno}</td>
 				<td>${proposalVO.p_id}</td>
@@ -186,7 +184,6 @@
 					</c:otherwise>
 				</c:choose>
 				</tr>
-				</c:if>
 			</c:forEach>
 		</tbody>
 	</table>
@@ -194,19 +191,19 @@
 			<ul class="pagination">
 				<c:if test="${pageMaker.prev}">
 					<li class="page-item"><a class="page-link"
-						href="main?page=${pageMaker.startPage -1}&perPageNum=${cri.getPerPageNum()}"> &laquo;</a>
+						href="main?page=${pageMaker.startPage -1}&perPageNum=${cri.getPerPageNum()}&p_id=<%=obj.getId() %>"> &laquo;</a>
 					</li>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="idx">
 					<li class="page-item"
 						<c:out value="${pageMaker.cri.page == idx?'class =active':'' }" />>
-						<a class="page-link" href="main?page=${idx}&perPageNum=${cri.getPerPageNum()}">${idx}</a>
+						<a class="page-link" href="main?page=${idx}&perPageNum=${cri.getPerPageNum()}&p_id=<%=obj.getId() %>">${idx}</a>
 					</li>
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 					<li class="page-item"><a class="page-link"
-						href="main?page=${pageMaker.endPage+1}&perPageNum=${cri.getPerPageNum()}">&raquo;</a>
+						href="main?page=${pageMaker.endPage+1}&perPageNum=${cri.getPerPageNum()}&p_id=<%=obj.getId() %>">&raquo;</a>
 					</li>
 				</c:if>
 			</ul>
@@ -225,7 +222,7 @@
 		});
 		
 		$("#searchBtn").on("click", function(event){
-			self.location = "main?page=1&perPageNum=10&searchType=" + $("select option:selected").val() + "&keyword=" + $('#keywordInput').val();;
+			self.location = "main?page=1&perPageNum=10&searchType=" + $("select option:selected").val() + "&keyword=" + $('#keywordInput').val()+ "&p_id=" + "<%=obj.getId() %>";
 		});
 		
 		

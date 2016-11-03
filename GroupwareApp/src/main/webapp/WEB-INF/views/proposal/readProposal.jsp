@@ -37,7 +37,7 @@
 		<h5 class="logout" align="right" style="cursor:pointer">
 			로그아웃하기 <i class="fa fa-sign-out" aria-hidden="true"></i> </h5>
 	</div>
-	
+	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -52,14 +52,14 @@
 						<li><a href="#">회원 탈퇴하기</a></li>
 					</ul>
 				</li>
-				<li><a href="/nboard/listAll">공지 게시판</a></li>
+				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="/proposal/main">결재 관리</a></li>
+				<li><a href="/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
 				<li><a href="#">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
-	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
+	
 	<div class="card">
 		<div class="card-block">
 			<h3 class="card-title" align="center"><strong>결재 상세</strong></h3>
@@ -129,17 +129,19 @@
   		<form role="form">
   		<input type="hidden" name="pno" value="${proposalVO.pno}">
   		<div class="card-block" align="left">
-    		<a href="/proposal/main?page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >목록</a>
+    		<a href="/proposal/main?page=${cri.page}&perPageNum=${cri.perPageNum}&p_id=<%=obj.getId() %>" class="btn btn-default" id="btn_previous" type="submit" >목록</a>
   			<c:set var="id" value="<%=obj.getId() %>" />
   			<c:set var="name" value="<%=obj.getName() %>" />
   			<c:choose>
-				<c:when test="${proposalVO.p_status eq '기안' || proposalVO.p_status eq '재기안'}">
+				<c:when test="${proposalVO.p_status eq '기안'}">
 					<input type="hidden" name="p_status" value="결재대기">
+					<input type="hidden" name="p_id" value="<%=obj.getId() %>" >
 					<button class="btn btn-default" id="btn_modify" type="submit">수정</button>
 					<button class="btn btn-default" id="btn_submit" type="submit">제출</button>
 				</c:when>
 				<c:when test="${proposalVO.p_status eq '결재대기' && proposalVO.p_writer eq name}">
 					<input type="hidden" name="p_status" value="기안">
+					<input type="hidden" name="p_id" value="<%=obj.getId() %>" >
 					<button class="btn btn-default" id="btn_submit_cancel" type="submit">제출취소</button>
 				</c:when>
 				<c:when test="${proposalVO.p_status eq '결재대기' && proposalVO.p_acceptor eq name}">
@@ -151,10 +153,12 @@
 				</c:when>
 				<c:when test="${proposalVO.p_status eq '결재완료'}">
 					<input type="hidden" name="p_status" value="결재완료_공람">
+					<input type="hidden" name="p_id" value="<%=obj.getId() %>" >
 					<button class="btn btn-default" id="btn_public_submit" type="submit">공람제출</button>
 				</c:when>
 				<c:when test="${proposalVO.p_status eq '결재완료_공람' && proposalVO.p_id eq id}">
 					<input type="hidden" name="p_status" value="결재완료">
+					<input type="hidden" name="p_id" value="<%=obj.getId() %>" >
 					<button class="btn btn-default" id="btn_public_submit_cancel" type="submit">공람제출취소</button>
 				</c:when>
   			</c:choose>

@@ -10,7 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.donkunny.control.MemberController;
+import com.donkunny.controller.MemberController;
 import com.donkunny.member.MemberVO;
 
 /**

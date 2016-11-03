@@ -48,7 +48,6 @@
 		<h5 class="logout" align="right" style="cursor:pointer">
 			로그아웃하기 <i class="fa fa-sign-out" aria-hidden="true"></i> </h5>
 	</div>
-	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -65,38 +64,39 @@
 				</li>
 				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
+				<li><a href="/proposal/main">결재 관리</a></li>
 				<li><a href="#">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
 	<br>
-
+	
 	<!-- Sidebar -->
 	<div class="list-group" id="proposalBar" align="center">
  		<a class="list-group-item active">결재</a>
- 		<a href="/proposal/main?p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action" >전체결재목록</a>
-  		<a href="/proposal/waitinglist?p_status=결재대기&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action" >결재대기목록</a>
-  		<a href="/proposal/completedlist?p_status=결재완료&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action">결재완료목록</a>
-  		<a href="/proposal/pendinglist?p_status=결재보류&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action">결재보류목록</a>
+ 		<a href="/proposal/main" class="list-group-item list-group-item-action" >전체결재목록</a>
+  		<a href="/proposal/waitinglist" class="list-group-item list-group-item-action" >결재대기목록</a>
+  		<a href="/proposal/completedlist" class="list-group-item list-group-item-action">결재완료목록</a>
+  		<a href="/proposal/pendinglist" class="list-group-item list-group-item-action">결재보류목록</a>
   	</div>
   	<div class="list-group" id="proposalBar2" align="center">
   		<a class="list-group-item active">개인/공람</a>
-  		<a href="/proposal/publicProposal?p_status=결재완료_공람" class="list-group-item list-group-item-action" >공람목록</a>
-  	</div>
-
-  	<div class="list-group" id="proposalBar3" align="center">
-  		<a class="list-group-item active">승인</a>
-  		<a href="/proposal/entireApprovalList?p_status=기안&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action" >승인전체목록</a>
-  		<a href="/proposal/waitingApprovalList?p_status=결재대기&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action" >승인대기목록</a>
-  		<a href="/proposal/acceptedApprovalList?p_status=결재완료&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action">승인완료목록</a>
-  		<a href="/proposal/acceptedPendingList?p_status=결재보류&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action">승인보류목록</a>
+  		<a href="/proposal/publicProposal" class="list-group-item list-group-item-action" >공람목록</a>
   	</div>
   	
+  	<div class="list-group" id="proposalBar3" align="center">
+  		<a class="list-group-item active">승인</a>
+  		<a href="/proposal/entireApprovalList" class="list-group-item list-group-item-action" >승인전체목록</a>
+  		<a href="/proposal/waitingApprovalList" class="list-group-item list-group-item-action" >승인대기목록</a>
+  		<a href="/proposal/acceptedApprovalList" class="list-group-item list-group-item-action">승인완료목록</a>
+  		<a href="/proposal/acceptedPendingList" class="list-group-item list-group-item-action">승인보류목록</a>
+  	</div>
+
 	<!-- 결재 목록 -->	
 	<div id="proposal_list" >
 	<!-- Search function -->
-	<br><h3 align="center"><strong>승인 전체 목록</strong></h3>
+	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
+	<br><h3 align="center"><strong>전체 결재 목록</strong></h3>
 	<table class="table table-hover">
 		<br><div class="box-body">
 		<i class="fa fa-search" aria-hidden="true"></i>
@@ -133,8 +133,9 @@
 		</div>
 		<input type="text" name="keyword" id="keywordInput" value="${cri.keyword }">
 		<button type="button" class="btn btn-default" id="searchBtn" >조회</button>
+		<button type="button" class="btn btn-default" id="newBtn" >기안문 작성하기</button>
 	</div>
-		<br>
+	<br>
 		<thread>
 			<tr>
 				<th>순번</th>
@@ -152,13 +153,16 @@
 				<td>${proposalVO.pno}</td>
 				<td>${proposalVO.p_id}</td>
 				<td>${proposalVO.p_writer}</td>
-				<td><a href="/proposal/acceptOrRejectProposal?page=${cri.page}&perPageNum=${cri.perPageNum}&pno=${proposalVO.pno}">${proposalVO.p_title}</a></td>
+				<td><a href="/proposal/readProposal?page=${cri.page}&perPageNum=${cri.perPageNum}&pno=${proposalVO.pno}">${proposalVO.p_title}</a></td>
 				<td>${proposalVO.p_acceptor}</td>
 				<c:choose>
-					<c:when test="${proposalVO.p_status eq '결재대기'}">
+					<c:when test="${proposalVO.p_status eq '기안' || proposalVO.p_status eq '재기안'}">
 						<td><strong>${proposalVO.p_status}</strong></td>
 					</c:when>
-					<c:when test="${proposalVO.p_status eq '결재보류'}">
+					<c:when test="${proposalVO.p_status eq '결재대기' }">
+						<td><strong>${proposalVO.p_status}</strong></td>
+					</c:when>
+					<c:when test="${proposalVO.p_status eq '결재보류' }">
 						<td style="color: blue"><strong>${proposalVO.p_status}</strong></td>
 					</c:when>
 					<c:otherwise>
@@ -166,12 +170,18 @@
 					</c:otherwise>
 				</c:choose>
 				<c:choose>
-				 	<c:when test="${proposalVO.p_status eq '결재완료' || proposalVO.p_status eq '결재완료_공람'}">
-				 		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${proposalVO.p_acceptDate}" /></td>
-				 	</c:when>
-				 	<c:otherwise>
-				 		<td>-</td>
-				 	</c:otherwise>
+					<c:when test="${proposalVO.p_status eq '기안' || proposalVO.p_status eq '재기안'}">
+						<td>-</td>
+					</c:when>
+					<c:when test="${proposalVO.p_status eq '결재대기' }">
+						<td>-</td>
+					</c:when>
+					<c:when test="${proposalVO.p_status eq '결재보류' }">
+						<td>-</td>
+					</c:when>
+					<c:otherwise>
+						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${proposalVO.p_acceptDate}" /></td>
+					</c:otherwise>
 				</c:choose>
 				</tr>
 			</c:forEach>
@@ -181,19 +191,19 @@
 			<ul class="pagination">
 				<c:if test="${pageMaker.prev}">
 					<li class="page-item"><a class="page-link"
-						href="entireApprovalList?page=${pageMaker.startPage -1}&perPageNum=${cri.getPerPageNum()}&p_status=기안&p_acceptor=<%=obj.getName() %>"> &laquo;</a>
+						href="testlist?page=${pageMaker.startPage -1}&perPageNum=${cri.getPerPageNum()}"> &laquo;</a>
 					</li>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="idx">
 					<li class="page-item"
 						<c:out value="${pageMaker.cri.page == idx?'class =active':'' }" />>
-						<a class="page-link" href="entireApprovalList?page=${idx}&perPageNum=${cri.getPerPageNum()}&p_status=기안&p_acceptor=<%=obj.getName() %>">${idx}</a>
+						<a class="page-link" href="testlist?page=${idx}&perPageNum=${cri.getPerPageNum()}">${idx}</a>
 					</li>
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 					<li class="page-item"><a class="page-link"
-						href="entireApprovalList?page=${pageMaker.endPage+1}&perPageNum=${cri.getPerPageNum()}&p_status=기안&p_acceptor=<%=obj.getName() %>">&raquo;</a>
+						href="testlist?page=${pageMaker.endPage+1}&perPageNum=${cri.getPerPageNum()}">&raquo;</a>
 					</li>
 				</c:if>
 			</ul>
@@ -207,9 +217,14 @@
 			self.location = "/member/logout";
 		});
 		
-		$("#searchBtn").on("click", function(event){
-			self.location = "entireApprovalList?page=1&perPageNum=10&searchType=" + $("select option:selected").val() + "&keyword=" + $('#keywordInput').val() + "&p_status=기안&p_acceptor=" + "<%=obj.getName() %>";
+		$('#newBtn').on("click",function() {
+			self.location = "/proposal/registerProposal";				
 		});
+		
+		$("#searchBtn").on("click", function(event){
+			self.location = "testlist?p_id=admin" + "&p_status=기안"  + "&page=1&perPageNum=10&searchType=" + $("select option:selected").val() + "&keyword=" + $('#keywordInput').val();
+		});
+		
 	</script>
 </body>
 </html>

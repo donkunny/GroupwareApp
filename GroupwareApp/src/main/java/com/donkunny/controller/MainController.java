@@ -1,4 +1,4 @@
-package com.donkunny.control;
+package com.donkunny.controller;
 
 import javax.servlet.http.HttpSession;
 

@@ -37,7 +37,7 @@
 		<h5 class="logout" align="right" style="cursor:pointer">
 			로그아웃하기 <i class="fa fa-sign-out" aria-hidden="true"></i> </h5>
 	</div>
-	
+	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -52,16 +52,15 @@
 						<li><a href="#">회원 탈퇴하기</a></li>
 					</ul>
 				</li>
-				<li><a href="/nboard/listAll">공지 게시판</a></li>
+				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="/proposal/main">결재 관리</a></li>
+				<li><a href="/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
 				<li><a href="#">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
 	
 	<form role="form">
-	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
 	<input type="hidden" name="p_id" value="<%=obj.getId() %>" >
 	<input type="hidden" name="p_writer" value="<%=obj.getName() %>">
 	<input type="hidden" id="register-acceptor" name="p_acceptor">   	
@@ -137,26 +136,7 @@
 			}
 		});
 		
-		$("#register-opinion").on("keyup", function(){
-	        if($(this).val().length > 300) {
-				alert("300자까지만 허용됩니다.");
-				$(this).val($(this).val().substring(0, 300));
-	        }
-		});
-		
-		$("#register-content").on("keyup", function(){
-	        if($(this).val().length > 400) {
-				alert("500자까지만 허용됩니다.");
-				$(this).val($(this).val().substring(0, 500));
-	        }
-		});
-		
-		$("#register-title").on("keyup", function(){
-	        if($(this).val().length > 50) {
-				alert("50자까지만 허용됩니다.");
-				$(this).val($(this).val().substring(0, 50));
-	        }
-		});
+1
 		
 	});	
 	</script>

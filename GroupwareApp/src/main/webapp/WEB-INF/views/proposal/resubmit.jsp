@@ -37,7 +37,7 @@
 		<h5 class="logout" align="right" style="cursor:pointer">
 			로그아웃하기 <i class="fa fa-sign-out" aria-hidden="true"></i> </h5>
 	</div>
-	
+	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -52,16 +52,17 @@
 						<li><a href="#">회원 탈퇴하기</a></li>
 					</ul>
 				</li>
-				<li><a href="/nboard/listAll">공지 게시판</a></li>
+				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="/proposal/main">결재 관리</a></li>
+				<li><a href="/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
 				<li><a href="#">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
 	<form role="form">
+	<input type="hidden" name="p_id" value="${proposalVO.p_id}">
 	<input type="hidden" name="pno" value="${proposalVO.pno}">
-	<input type="hidden" name="p_status" value="재기안">
+	<input type="hidden" name="p_status" value="기안">
 	<input type="hidden" name="p_writer" value="${proposalVO.p_writer}">
 	<input type="hidden" name="p_acceptor" value="${proposalVO.p_acceptor}">
 	<div class="card">
@@ -117,7 +118,7 @@
 			</li>
   		</ul>
   		<div class="card-block" align="left">
-    		<a href="/proposal/main?page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >목록</a>
+    		<a href="/proposal/main?page=${cri.page}&perPageNum=${cri.perPageNum}&p_id=<%=obj.getId()%>" class="btn btn-default" id="btn_previous" type="submit" >목록</a>
   			<button class="btn btn-default" id="btn_submit" type="submit">재기안</button>
   		</div>
 	</div>

@@ -63,17 +63,62 @@ public class ProposalServiceImpl implements ProposalService{
 	}
 
 	@Override
-	public List<ProposalVO> listByStatus(Criteria cri, ProposalVO pvo) throws Exception {
-		return dao.listByStatus(cri, pvo);
-	}
-
-	@Override
-	public List<ProposalVO> listByStatusAndID(Criteria cri, ProposalVO pvo) throws Exception {
-		return dao.listByStatusAndID(cri, pvo);
+	public List<ProposalVO> listByStatusAndID(Criteria cri) throws Exception {
+		return dao.listByStatusAndID(cri);
 	}
 
 	@Override
 	public void acceptOrReject(ProposalVO pvo) throws Exception {
 		dao.acceptOrReject(pvo);
+	}
+
+	@Override
+	public int countByStatusAndID(SearchCriteria cri) throws Exception {
+		return dao.countByStatusAndID(cri);
+	}
+
+	@Override
+	public List<ProposalVO> listByStatus(Criteria cri) throws Exception {
+		return dao.listByStatus(cri);
+	}
+
+	@Override
+	public int countByStatus(SearchCriteria cri) throws Exception {
+		return dao.countByStatus(cri);
+	}
+
+	@Override
+	public List<ProposalVO> listByStatusAndAcceptor(Criteria cri) throws Exception {
+		return dao.listByStatusAndAcceptor(cri);
+	}
+
+	@Override
+	public int countByStatusAndAcceptor(SearchCriteria cri) throws Exception {
+		return dao.countByStatusAndAcceptor(cri);
+	}
+
+	@Override
+	public List<ProposalVO> listByID(Criteria cri) throws Exception {
+		return dao.listByID(cri);
+	}
+
+	@Override
+	public int countByID(SearchCriteria cri) throws Exception {
+		return dao.countByID(cri);
+	}
+
+	@Override
+	public List<ProposalVO> listNotByStatus(Criteria cri) throws Exception {
+		return dao.listNotByStatus(cri);
+	}
+
+	@Override
+	public int countNotByStatus(SearchCriteria cri) throws Exception {
+		return dao.countNotByStatus(cri);
+	}
+
+	@Override
+	public void submitProposalwithID(ProposalVO pvo) throws Exception {
+		dao.submitProposalwithID(pvo);
 	}
 }

@@ -151,6 +151,7 @@ Calendar cal = Calendar.getInstance();
 		<h5 class="logout" align="right" style="cursor:pointer">
 			로그아웃하기 <i class="fa fa-sign-out" aria-hidden="true"></i> </h5>
 	</div>
+	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>	
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -167,7 +168,7 @@ Calendar cal = Calendar.getInstance();
 				</li>
 				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="/proposal/main">결재 관리</a></li>
+				<li><a href="/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
 				<li><a href="#">문의하기</a></li>
 			</ul>
 		</div>
@@ -227,7 +228,6 @@ Calendar cal = Calendar.getInstance();
 	int num = -1;
 	String id_schedule = null;
 	List<ScheduleVO> list = (List<ScheduleVO>)request.getAttribute("scheduleList");
-	MemberVO obj = (MemberVO)session.getAttribute("memberVO");
 	String[] cal_list = new String[list.size()];
 	for(int i = 0; i<list.size(); i++){
 		cal_list[i] = list.get(i).getS_fromDate();

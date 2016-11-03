@@ -52,7 +52,7 @@
 						<li><a href="#">회원 탈퇴하기</a></li>
 					</ul>
 				</li>
-				<li><a href="/nboard/listAll">공지 게시판</a></li>
+				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
 				<li><a href="/proposal/main">결재 관리</a></li>
 				<li><a href="#">문의하기</a></li>
@@ -117,13 +117,14 @@
 				</c:choose>
 			</li>
   		</ul>
+  		<input type="hidden" name="p_acceptor" value="${proposalVO.p_acceptor}">
   		<input type="hidden" name="pno" value="${proposalVO.pno}">
   		<input type="hidden" name="p_status" id="p_status">
   		<div class="card-block" align="left">
-  			<a href="/proposal/entireApprovalList?page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >목록</a>
+  			<a href="/proposal/entireApprovalList?page=${cri.page}&perPageNum=${cri.perPageNum}&p_status=기안&p_acceptor=<%=obj.getName() %>" class="btn btn-default" id="btn_previous" type="submit" >목록</a>
   			<c:choose>
 				<c:when test="${proposalVO.p_status eq '결재대기' }">
-					<button class="btn btn-default" id="btn_submit_reject" type="submit">반려</button>
+					<button class="btn btn-default" id="btn_submit_reject" type="submit">보류</button>
 					<button class="btn btn-default" id="btn_submit_accept" type="submit">승인</button>
 				</c:when>
 				<c:when test="${proposalVO.p_status eq '결재완료'}">
