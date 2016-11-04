@@ -1,5 +1,7 @@
 package com.donkunny.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +18,7 @@ import com.donkunny.member.MemberVO;
 import com.donkunny.member.TempMemberVO;
 import com.donkunny.member.login.LoginDTO;
 import com.donkunny.member.service.MemberService;
+import com.donkunny.utils.Check;
 
 @Controller
 @RequestMapping("/member/*")
@@ -54,17 +57,50 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
-	public void registerMember(){
+	public void registerMember(HttpSession session) throws Exception{
 		logger.info("register members");
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String registerPost(TempMemberVO tvo) throws Exception{
-		service.register(tvo);
-		// logger.info(tvo.getT_id()+","+tvo.getT_id() +"," + tvo.getT_pwd() +"," + tvo.getT_email());
-		return "/member/registerConfirm";
+	public String registerPost(MemberVO tvo, RedirectAttributes rttr, Model model) throws Exception{
+		if(Check.check(tvo.getId(), 4, 21) && Check.mail(tvo.getEmail()) && Check.pwd(tvo.getPwd(), tvo.getPwd_confirm()) 
+				&& Check.check(tvo.getName(), 0, 10) && Check.check(tvo.getBirth(), 0, 30) && Check.tel(tvo.getTel())){
+			service.register(tvo);
+			return "/member/registerConfirm";
+		} else {
+			if(Check.pwd(tvo.getPwd(), tvo.getPwd_confirm()) == false)
+				rttr.addFlashAttribute("error_pwd", "비밀번호를 다시 입력해주세요.");
+			if(Check.check(tvo.getId(), 4, 21) == false)
+				rttr.addFlashAttribute("error_id", "아이디가 부적절합니다.");
+			if(Check.mail(tvo.getEmail()) == false)
+				rttr.addFlashAttribute("error_email", "이메일이 부적절합니다.");
+			if(Check.check(tvo.getName(), 0, 10) == false)
+				rttr.addFlashAttribute("error_name", " 이름을 10자 이내로 다시 입력해주세요.");
+			if(Check.check(tvo.getBirth(), 0, 30) == false)
+				rttr.addFlashAttribute("error_birth", "생일을 입력해주세요.");
+			if(Check.tel(tvo.getTel()) == false)
+				rttr.addFlashAttribute("error_tel", "전화번호가 부적절합니다.");
+			
+			return "redirect:/member/register";
+		}
 	}
-
+	
+	@RequestMapping(value="/compareId", method=RequestMethod.POST)
+	public String compareId(MemberVO tvo, RedirectAttributes rttr) throws Exception{
+		List<MemberVO> list = service.listMembers();
+		
+		for(int i = 0; i< list.size(); i++) {
+			if(list.get(i).getId().equals(tvo.getId())){
+				rttr.addFlashAttribute("compare_id", "동일한 아이디가 있습니다.");
+				return "redirect:/member/register";
+			}
+		}
+		rttr.addFlashAttribute("t_id", tvo.getId());
+		rttr.addFlashAttribute("compare_id", "사용가능한 ID 입니다.");
+		return "redirect:/member/register";
+	}
+	
+	
 	/*	
 	@RequestMapping(value="/registerConfirm", method=RequestMethod.GET)
 	public void registerConfirm(int tno, Model model) throws Exception{
@@ -75,8 +111,18 @@ public class MemberController {
 	@RequestMapping(value="/memberInfo", method=RequestMethod.GET)
 	public void checkMemberInfo(HttpSession session, Model model) throws Exception {
 		logger.info("member info...");
-		
 		model.addAttribute("memberVO", service.checkMemberInfo((MemberVO)session.getAttribute("memberVO")));
+	}
+	
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public void modifyInfo(HttpSession session, Model model) throws Exception {
+		model.addAttribute("memberVO", service.checkMemberInfo((MemberVO)session.getAttribute("memberVO")));
+	}
+	
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String modifyInfoPOST(MemberVO mvo, Model model) throws Exception {
+		service.updateMemberInfo(mvo);
+		return "redirect:/member/memberInfo";
 	}
 	
 }

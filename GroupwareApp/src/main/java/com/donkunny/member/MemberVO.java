@@ -5,6 +5,7 @@ import java.sql.Date;
 public class MemberVO {
 	private String id;
 	private String pwd;
+	private String pwd_confirm;
 	private String name;
 	private String email;
 	private String tel;
@@ -23,6 +24,12 @@ public class MemberVO {
 	}
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+	public String getPwd_confirm() {
+		return pwd_confirm;
+	}
+	public void setPwd_confirm(String pwd_confirm) {
+		this.pwd_confirm = pwd_confirm;
 	}
 	public String getName() {
 		return name;

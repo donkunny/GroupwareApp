@@ -18,8 +18,8 @@ public class MemberServiceImpl implements MemberService{
 	MemberDAO dao;
 	
 	@Override
-	public void register(TempMemberVO tvo) throws Exception {
-		dao.register(tvo);
+	public void register(MemberVO vo) throws Exception {
+		dao.register(vo);
 	}
 
 	@Override

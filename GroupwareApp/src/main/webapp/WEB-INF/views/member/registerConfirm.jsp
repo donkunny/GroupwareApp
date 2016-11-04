@@ -37,14 +37,14 @@
 		<!-- Username -->
 		<label class="control-label" for="username">사용자 ID</label>
 		<div class="controls">
-			<input type="text" id="t_id" name="t_id" placeholder=""	class="form-control input-sm" value="${tempMemberVO.t_id}" readonly="readonly">
+			<input type="text" id="t_id" name="t_id" placeholder=""	class="form-control input-sm" value="${memberVO.id}" readonly="readonly">
 		</div>
 	</div>
 	<!-- E-mail -->
 	<div class="control-group">
 		<label class="control-label" for="email">E-mail</label>
 		<div class="controls">
-			<input type="email" id="t_email" name="t_email" placeholder="이메일"	class="form-control input-sm" value="${tempMemberVO.t_email}" readonly="readonly">
+			<input type="email" id="t_email" name="t_email" placeholder="이메일"	class="form-control input-sm" value="${memberVO.email}" readonly="readonly">
 		</div>
 	</div>
 	
@@ -52,7 +52,7 @@
 	<div class="control-group">
     	<label class="control-label" for="password">비밀번호</label>
     	<div class="controls">
-    		<input type="password" id="t_pwd" name="t_pwd" class="form-control input-sm" value="${tempMemberVO.t_pwd}" readonly="readonly">
+    		<input type="password" id="t_pwd" name="t_pwd" class="form-control input-sm" value="${memberVO.pwd}" readonly="readonly">
     	</div>
     </div>
     </div>
@@ -60,24 +60,23 @@
 	 <div class="panel panel-default" >
 	 <div class="control-group">
 	 	<label class="control-label" for="name">이름</label>
-	 	<input type="text" id="t_name" name="t_name" class="form-control input-sm" value="${tempMemberVO.t_name}" readonly="readonly">
+	 	<input type="text" id="t_name" name="t_name" class="form-control input-sm" value="${memberVO.name}" readonly="readonly">
 	 </div>
 	 
 	
     <div class="control-group">
     	<label>생일</label>
-    	<input type="date" id="t_birth" name="t_birth" class="form-control" value="${tempMemberVO.t_birth}" readonly="readonly">
+    	<input type="date" id="t_birth" name="t_birth" class="form-control" value="${memberVO.birth}" readonly="readonly">
     </div>
     
     <div class="control-group">
     	<label>전화번호</label>
-    	<input type="text" id="t_tel" name="t_tel" class="form-control input-sm" value="${tempMemberVO.t_tel}" readonly="readonly">
+    	<input type="text" id="t_tel" name="t_tel" class="form-control input-sm" value="${memberVO.tel}" readonly="readonly">
     </div>
     
      <div class="control-group" id="submit-button" align="center">
 	    <!-- Button -->
    		<button class="btn btn-primary" type="submit">로그인 화면</button>
-   		<button class="btn btn-warning" type="submit">수정 화면</button>
    	</div>
     </div>
 	</fieldset>
@@ -93,10 +92,6 @@ $(document).ready(function() {
 		formObj.attr("action", "/member/login");
 		formObj.attr("method", "get");
 		formObj.submit();
-	});
-	
-	$(".btn-warning").on("click", function(){
-		// self.location = "/"	
 	});
 	
 });

@@ -7,9 +7,9 @@ import com.donkunny.member.TempMemberVO;
 import com.donkunny.member.login.LoginDTO;
 
 public interface MemberDAO {
-	public void register(TempMemberVO vo) throws Exception;
+	public void register(MemberVO vo) throws Exception;
 	public MemberVO confirmLogin(LoginDTO dto) throws Exception;
-	public void confirmMember(String t_id) throws Exception;
+	public void confirmMember(String id) throws Exception;
 	public void deleteWaitingMember(String t_id) throws Exception;
 	public void updateMemberInfo(MemberVO vo) throws Exception;
 	public void deleteMember(String id) throws Exception;

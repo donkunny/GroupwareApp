@@ -10,15 +10,15 @@
 
 	<!-- 회원가입 등록 -->
 	<insert id="register">
-		insert into tbl_temp_member (t_id, t_pwd, t_name, t_email, t_tel, t_birth)
-		values(#{t_id}, #{t_pwd}, #{t_name}, #{t_email}, #{t_tel}, #{t_birth})
+		insert into tbl_member (id, pwd, pwd_confirm, name, email, tel, birth)
+		values(#{id}, #{pwd}, #{pwd_confirm}, #{name}, #{email}, #{tel}, #{birth})
 	</insert>
 	
-	<!-- 준회원정보 확인 -->
-	<select id="readTMember" resultType="TempMemberVO" >
-		select t_id, t_pwd, t_name, t_email, t_regdate, t_birth, t_tel
-		from tbl_temp_member
-		where t_id = #{t_id}	
+	<!-- 회원정보 확인 -->
+	<select id="readTMember" resultType="MemberVO" >
+		select id, pwd, name, email, regdate, birth, t_tel
+		from tbl_member
+		where id = #{id}	
 	</select>
 	
 	<!-- 정회원정보 확인 -->
@@ -51,9 +51,9 @@
 	
 	<!-- 회원정보 수정 -->
 	<update id="updateMemberInfo">
-		update tbl_member set id = #{id}, pwd = #{pwd}, name = #{name}, email = #{email},
+		update tbl_member set id = #{id}, pwd = #{pwd}, pwd_confirm = #{pwd_confirm}, name = #{name}, email = #{email},
 		birth = #{birth}, tel = #{tel}
-		where m_id = #{m_id}
+		where id = #{id}
 	</update>
 	
 	<!-- 회원정보 삭제 -->

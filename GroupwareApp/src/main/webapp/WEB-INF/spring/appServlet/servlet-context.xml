@@ -29,6 +29,8 @@
 			<!-- 매핑 필요한 url 추가 -->
 			<mapping path="/main/mainPage" />
 			<!-- <mapping path="/nboard/listAll"/>  -->
+			<mapping path="/member/memberInfo"/>
+			<mapping path="/member/modify"/>
 			<mapping path="/nboard/listPage"/>
 			<mapping path="/nboard/read"/>
 			<mapping path="/nboard/register"/>

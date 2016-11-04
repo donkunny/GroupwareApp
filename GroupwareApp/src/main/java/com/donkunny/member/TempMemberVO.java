@@ -5,12 +5,12 @@ import java.sql.Date;
 public class TempMemberVO {
 	private String t_id;
 	private String t_pwd;
+	private String t_pwd_confirm;
 	private String t_name;
 	private String t_email;
 	private String t_tel;
 	private String t_birth;
 	private Date t_regdate;
-
 	public String getT_id() {
 		return t_id;
 	}
@@ -22,6 +22,12 @@ public class TempMemberVO {
 	}
 	public void setT_pwd(String t_pwd) {
 		this.t_pwd = t_pwd;
+	}
+	public String getT_pwd_confirm() {
+		return t_pwd_confirm;
+	}
+	public void setT_pwd_confirm(String t_pwd_confirm) {
+		this.t_pwd_confirm = t_pwd_confirm;
 	}
 	public String getT_name() {
 		return t_name;

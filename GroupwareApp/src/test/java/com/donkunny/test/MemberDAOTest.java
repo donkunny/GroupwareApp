@@ -32,7 +32,7 @@ public class MemberDAOTest {
 		temp.setT_email("test3@gmail.com");
 		temp.setT_tel("01012121214");
 		temp.setT_birth("1990-01-03");
-		dao.register(temp);
+		//dao.register(temp);
 		
 		logger.info(dao.toString());
 	}

@@ -11,23 +11,12 @@
 		.header {
 			padding-right: 10px;		
 		}
-	
-		.card {
+		
+		#sendEmail {
 			position: relative;
-			width: 80%;	
+			width: 40%;	
 			margin: 0 auto;
 			padding-top: 10px;
-		}
-		
-		#modify-title {
-			max-width: 400px;
-			width: 100%;
-			margin-top: 8px;
-		}
-		
-		#modify-content {
-			width: 100%;
-			margin-top: 8px;
 		}
 	</style>
 </head>
@@ -47,7 +36,7 @@
 				<li><a href="#">소개</a></li>
 				<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">회원정보</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">회원정보 보기</a></li>
+						<li><a href="/member/memberInfo">회원정보 보기</a></li>
 						<li><a href="#">회원정보 수정</a>
 						<li><a href="#">회원 탈퇴하기</a></li>
 					</ul>
@@ -59,54 +48,25 @@
 			</ul>
 		</div>
 	</nav>
-	<form role="form">
-	<input type="hidden" name="nno" value="${noticeBoardVO.nno}">
-	<input type="hidden" name="page" value="${cri.page}">
-	<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
-	<div class="card">
-		<div class="card-block">
-			<h4 class="card-title">${noticeBoardVO.nno}번 게시물</h4>
-		</div>
-		<ul class="list-group list-group-flush">
-    		<li class="list-group-item">
-    			<strong>제목</strong> 
-    			<input type="text" id="modify-title" name="n_title" class="form-control" value="${noticeBoardVO.n_title}">
-    		</li>
-    		
-    		<li class="list-group-item"><strong>내용</strong>
-    			<textarea rows="5" class="form-control" name="n_content" id="modify-content" >${noticeBoardVO.n_content}</textarea>
-    			<!-- <input type="text" id="modify-content" class="form-control" value="${noticeBoardVO.n_content}"> -->
-    		</li>
-    		<li class="list-group-item"><strong>작성자: </strong>${noticeBoardVO.n_id}</li>
-  		</ul>
-  		<div class="card-block" align="left">
-    		<a href="/nboard/read?nno=${noticeBoardVO.nno}&page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >이전</a>
-   			<button class="btn btn-default" id="btn_modify" type="submit">수정</button>
-  		</div>
-	</div>
-	</form>
-	
+	<br><br>
+	<h3 align="center"><strong>관리자에게 문의하기</strong></h3>
+	<br>
+	<h4 align="center"><strong>전송되었습니다.</strong></h4>	
 
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
 	<script type="text/javascript">
-	
-	$(document).ready(function(){
-		
-		var formObj = $("form[role='form']");
-		console.log(formObj);
-		
+		var formObj = $("form[role='form']");	
 		$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
 			self.location = "/member/logout";
 		});
 		
-		$("#btn_modify").on("click", function(){
-			alert("수정되었습니다.");
-			formObj.attr("action", "/nboard/modify");
+		$("#send_email").on("click", function(){
+			alert("메일이 전송되었습니다.");
+			formObj.attr("action", "/email/emailsender");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
-	});	
 	</script>
 </body>
 </html>

@@ -50,8 +50,8 @@
 				<li><a href="#">소개</a></li>
 				<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">회원정보</a>
 					<ul class="dropdown-menu">
-						<li><a href="/member/memberInfo">회원정보 보기</a></li>
-						<li><a href="/member/modify">회원정보 수정</a>
+						<li><a href="#">회원정보 보기</a></li>
+						<li><a href="#">회원정보 수정</a>
 						<li><a href="#">회원 탈퇴하기</a></li>
 					</ul>
 				</li>
@@ -66,7 +66,7 @@
 	<form class="form-horizontal" role="form">
 	<fieldset>
 	<div id="legend">
-    	<h3 align="center"><strong>회원가입 정보</strong></h3>
+    	<h3 align="center"><strong>회원가입 수정</strong></h3>
     </div>
     <div class="panel panel-default" >
 	<div class="control-group">
@@ -82,7 +82,7 @@
 		<i class="fa fa-envelope-o" aria-hidden="true"></i>
 		<label class="control-label" for="email">E-mail</label>
 		<div class="controls">
-			<input type="email" id="t_email" name="email" placeholder="이메일"	class="form-control input-sm" value="${memberVO.email}" readonly="readonly">
+			<input type="email" id="t_email" name="email" placeholder="이메일"	class="form-control input-sm" value="${memberVO.email}">
 		</div>
 	</div>
 	
@@ -91,7 +91,14 @@
 		<i class="fa fa-key" aria-hidden="true"></i>
     	<label class="control-label" for="password">비밀번호</label>
     	<div class="controls">
-    		<input type="password" id="t_pwd" name="pwd" class="form-control input-sm" value="${memberVO.pwd}" readonly="readonly">
+    		<input type="password" id="t_pwd" name="pwd" class="form-control input-sm" value="${memberVO.pwd}" >
+    	</div>
+    </div>
+    <div class="control-group">
+		<i class="fa fa-key" aria-hidden="true"></i>
+    	<label class="control-label" for="password">비밀번호 확인</label>
+    	<div class="controls">
+    		<input type="password" id="t_pwd_confirm" name="pwd_confirm" class="form-control input-sm" value="${memberVO.pwd_confirm}" >
     	</div>
     </div>
     <br>
@@ -101,32 +108,48 @@
 	 <div class="control-group">
 	 	<i class="fa fa-users" aria-hidden="true"></i>
 	 	<label class="control-label" for="name">이름</label>
-	 	<input type="text" id="t_name" name="name" class="form-control input-sm" value="${memberVO.name}" readonly="readonly">
+	 	<input type="text" id="t_name" name="name" class="form-control input-sm" value="${memberVO.name}" >
 	 </div>
 	 
 	
     <div class="control-group">
     	<i class="fa fa-birthday-cake" aria-hidden="true"></i>
     	<label>생일</label>
-    	<input type="date" id="t_birth" name="birth" class="form-control" value="${memberVO.birth}" readonly="readonly">
+    	<input type="date" id="t_birth" name="birth" class="form-control" value="${memberVO.birth}" >
     </div>
     
     <div class="control-group">
     	<i class="fa fa-mobile" aria-hidden="true"></i>
     	<label>전화번호</label>
-    	<input type="text" id="t_tel" name="tel" class="form-control input-sm" value="${memberVO.tel}" readonly="readonly">
+    	<input type="text" id="t_tel" name="tel" class="form-control input-sm" value="${memberVO.tel}" >
     </div>
     <br>
     </div>
+    <div id="modify" align="center">
+			<button class="btn btn-default" id="btn_modify" type="submit">수정</button>
+	</div>
 	</fieldset>
 	</form>
 
 
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
 	<script type="text/javascript">
-		$(".logout").on("click", function(){
+	var formObj = $("form[role='form']");	
+	$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
 			self.location = "/member/logout";
+		});
+		
+		$("#btn_modify").on("click", function(){
+			if($("#t_pwd_confirm").val() == $("#t_pwd").val()){
+				alert("수정되었습니다.");
+				formObj.attr("action", "/member/modify");
+				formObj.attr("method", "post");
+				formObj.submit();		
+			} else {
+				alert("비밀번호가 일치하지 않습니다.");
+			}
+		
 		});
 	</script>
 </body>

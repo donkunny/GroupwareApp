@@ -44,7 +44,7 @@
 				<li><a href="/nboard/listPage">공지 게시판</a></li>
 				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
 				<li><a href="/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
-				<li><a href="#">문의하기</a></li>
+				<li><a href="/email/emailsender">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -52,17 +52,18 @@
 	<h3 align="center"><strong>관리자에게 문의하기</strong></h3>
 	<br>
 	<form role="form" id="sendEmail">
-		<input type="hidden" name="receiver" value="관리자">
+		<input type="hidden" name="e_id" value="<%=obj.getId() %>">
+		<input type="hidden" name="e_mail" value="<%=obj.getEmail() %>">
 		<div class="form-group">
-			<strong>제목</strong> 
-    		<input type="text" id="register-title" name="subject" class="form-control" value="" required="required">
+			<strong>제목</strong>
+    		<input type="text" id="register-title" name="e_title" class="form-control" value="" required="required">
 		</div>
 		<div class="form-group">
 			<strong>작성자: </strong><%=obj.getId() %>
 		</div>
 		<div class="form-group">
 			<strong>내용</strong>
-    		<textarea rows="10" class="form-control" name="content" id="register-content" required="required"></textarea>
+    		<textarea rows="10" class="form-control" name="e_content" id="register-content" required="required"></textarea>
 		</div>
 		<button type="submit" id="send_email" class="btn btn-default">보내기</button>
 	</form>
@@ -76,10 +77,10 @@
 		});
 		
 		$("#send_email").on("click", function(){
-			alert("메일이 전송되었습니다.");
-			formObj.attr("action", "/email/emailsender");
+		    formObj.attr("action", "/email/emailsender");
 			formObj.attr("method", "post");
 			formObj.submit();
+			alert("문의가 관리자에게 전송되었습니다.");
 		});
 	</script>
 </body>

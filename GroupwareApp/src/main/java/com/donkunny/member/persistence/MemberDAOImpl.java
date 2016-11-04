@@ -20,8 +20,8 @@ public class MemberDAOImpl implements MemberDAO{
 	private static String namespace ="com.donkunny.mapper.MemberMapper";
 	
 	@Override
-	public void register(TempMemberVO tvo) throws Exception {
-		session.insert(namespace+".register", tvo);
+	public void register(MemberVO vo) throws Exception {
+		session.insert(namespace+".register", vo);
 	}
 
 	@Override
@@ -30,8 +30,8 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void confirmMember(String t_id) throws Exception {
-		session.insert(namespace+".confirmMember", t_id);
+	public void confirmMember(String id) throws Exception {
+		session.insert(namespace+".confirmMember", id);
 	}
 
 	@Override
