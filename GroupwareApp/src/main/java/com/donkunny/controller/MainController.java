@@ -16,7 +16,12 @@ public class MainController {
 	
 	@RequestMapping(value="/mainPage", method=RequestMethod.GET)
 	public void accessMain(HttpSession session) throws Exception{
-		logger.info("Access Main Success!");
+		// logger.info("Access Main Success!");
+
+	}
+	@RequestMapping(value="/introduce", method=RequestMethod.GET)
+	public void introduceDeveloper(HttpSession session) throws Exception{
+		//logger.info("Access Main Success!");
 
 	}
 	

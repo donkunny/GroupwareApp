@@ -41,21 +41,20 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/main/mainPage">Groupware</a>
+				<a class="navbar-brand" href="<%=pageContext.getServletContext().getContextPath()%>/main/mainPage">Groupware</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li><a href="#">소개</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/main/introduce">소개</a></li>
 				<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">회원정보</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">회원정보 보기</a></li>
-						<li><a href="#">회원정보 수정</a>
-						<li><a href="#">회원 탈퇴하기</a></li>
+						<li><a href="<%=pageContext.getServletContext().getContextPath()%>/member/memberInfo">회원정보 보기</a></li>
+						<li><a href="<%=pageContext.getServletContext().getContextPath()%>/member/modify">회원정보 수정</a>
 					</ul>
 				</li>
-				<li><a href="/nboard/listPage">공지 게시판</a></li>
-				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="/proposal/main">결재 관리</a></li>
-				<li><a href="/email/emailsender">문의하기</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/nboard/listPage">공지 게시판</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/schedule/scheduleCalendar">업무 일정</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/main">결재 관리</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/email/emailsender">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -121,7 +120,7 @@
   		<input type="hidden" name="pno" value="${proposalVO.pno}">
   		<input type="hidden" name="p_status" id="p_status">
   		<div class="card-block" align="left">
-  			<a href="/proposal/entireApprovalList?page=${cri.page}&perPageNum=${cri.perPageNum}&p_status=기안&p_acceptor=<%=obj.getName() %>" class="btn btn-default" id="btn_previous" type="submit" >목록</a>
+  			<a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/entireApprovalList?page=${cri.page}&perPageNum=${cri.perPageNum}&p_status=기안&p_acceptor=<%=obj.getName() %>" class="btn btn-default" id="btn_previous" type="submit" >목록</a>
   			<c:choose>
 				<c:when test="${proposalVO.p_status eq '결재대기' }">
 					<button class="btn btn-default" id="btn_submit_reject" type="submit">보류</button>
@@ -145,7 +144,7 @@
 		$("#btn_submit_reject").on("click", function(){
 			$("#p_status").val("결재보류");
 			alert("기안문을 보류합니다");
-			formObj.attr("action", "/proposal/acceptOrRejectProposal");
+			formObj.attr("action", "<%=pageContext.getServletContext().getContextPath()%>/proposal/acceptOrRejectProposal");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
@@ -153,7 +152,7 @@
 		$("#btn_submit_accept").on("click", function(){
 			$("#p_status").val("결재완료");
 			alert("기안문을 승인합니다.");
-			formObj.attr("action", "/proposal/acceptOrRejectProposal");
+			formObj.attr("action", "<%=pageContext.getServletContext().getContextPath()%>/proposal/acceptOrRejectProposal");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
@@ -161,7 +160,7 @@
 		$("#btn_accept_cancel").on("click", function(){
 			$("#p_status").val("결재대기");
 			alert("승인을 취소합니다.");
-			formObj.attr("action", "/proposal/acceptOrRejectProposal");
+			formObj.attr("action", "<%=pageContext.getServletContext().getContextPath()%>/proposal/acceptOrRejectProposal");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
@@ -169,14 +168,14 @@
 		$("#btn_pending_cancel").on("click", function(){
 			$("#p_status").val("결재대기");
 			alert("보류를 취소합니다.");
-			formObj.attr("action", "/proposal/acceptOrRejectProposal");
+			formObj.attr("action", "<%=pageContext.getServletContext().getContextPath()%>/proposal/acceptOrRejectProposal");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
 		
 		$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
-			self.location = "/member/logout";
+			self.location = "<%=pageContext.getServletContext().getContextPath()%>/member/logout";
 		});
 	});	
 	</script>

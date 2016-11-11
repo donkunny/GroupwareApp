@@ -93,7 +93,7 @@
 				} else {
 					// 나의 일정 리스트로 이동
 					alert(id +"님 등록되었습니다.");
-					formObj.attr("action", "/schedule/register");
+					formObj.attr("action", "<%=pageContext.getServletContext().getContextPath()%>/schedule/register");
 					formObj.attr("method", "post");
 					formObj.submit();
 				}

@@ -107,7 +107,7 @@
     <!-- Button -->
 	    <div class="controls">
     	    <button class="btn btn-success" type="submit">등록</button>
-    	    <a href="/member/login" class="btn btn-warning" id="btn_previous" type="submit" >이전</a>
+    	    <a href="<%=pageContext.getServletContext().getContextPath()%>/member/login" class="btn btn-warning" id="btn_previous" type="submit" >이전</a>
          </div>
      </div>
 	</fieldset>
@@ -122,7 +122,7 @@ $(document).ready(function() {
 	$("#compareId").on("click", function(){
 		var id = $("#t_id").val().length;
 		if(id > 4 && id < 20){
-			formObj.attr("action", "/member/compareId");
+			formObj.attr("action", "<%=pageContext.getServletContext().getContextPath()%>/member/compareId");
 			formObj.attr("method", "post");
 			formObj.submit();	
 		} else {
@@ -132,7 +132,7 @@ $(document).ready(function() {
 	
 	$(".btn-success").on("click", function() {
 		if($("#compareId").attr('disabled')){
-			formObj.attr("action", "/member/register");
+			formObj.attr("action", "<%=pageContext.getServletContext().getContextPath()%>/member/register");
 			formObj.attr("method", "post");
 			formObj.submit();
 		} else {

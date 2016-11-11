@@ -31,14 +31,17 @@
 			<!-- <mapping path="/nboard/listAll"/>  -->
 			<mapping path="/member/memberInfo"/>
 			<mapping path="/member/modify"/>
+			
 			<mapping path="/nboard/listPage"/>
 			<mapping path="/nboard/read"/>
 			<mapping path="/nboard/register"/>
 			<mapping path="/nboard/modify"/>
+			
 			<mapping path="/schedule/scheduleCalendar"/>
 			<mapping path="/schedule/myRegister"/>
 			<mapping path="/schedule/slist"/>
 			<mapping path="/schedule/detailSchedule"/>
+			
 			<mapping path="/proposal/main"/>
 			<mapping path="/proposal/registerProposal"/>
 			<mapping path="/proposal/acceptedApprovalList"/>
@@ -53,6 +56,11 @@
 			<mapping path="/proposal/waitingApprovalList"/>
 			<mapping path="/proposal/waitinglist"/>
 						
+			<mapping path="/email/emailsender"/>
+			<mapping path="/email/emailsenderPost"/>
+			
+			<mapping path="/main/mainPage"/>
+			<mapping path="/main/introduce"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 	</interceptors>

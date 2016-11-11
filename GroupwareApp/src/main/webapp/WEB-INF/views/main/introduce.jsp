@@ -11,24 +11,6 @@
 		.header {
 			padding-right: 10px;		
 		}
-		
-		.card {
-			position: relative;
-			width: 50%;	
-			margin: 0 auto;
-			padding-top: 10px;
-		}
-		
-		#modify-title {
-			max-width: 400px;
-			width: 100%;
-			margin-top: 8px;
-		}
-		
-		#modify-content {
-			width: 100%;
-			margin-top: 8px;
-		}
 	</style>
 </head>
 <body>
@@ -58,57 +40,15 @@
 			</ul>
 		</div>
 	</nav>
-	<form role="form">
-	<input type="hidden" name="n_id" value="<%=obj.getId() %>" >
-	<div class="card">
-		<div class="card-block">
-			<h4 class="card-title"><strong>게시물 등록</strong></h4>
-		</div>
-		<ul class="list-group list-group-flush">
-    		<li class="list-group-item">
-    			<strong>제목</strong> 
-    			<input type="text" id="register-title" name="n_title" class="form-control" value="" required="required">
-    		</li>
-    		
-    		<li class="list-group-item"><strong>내용</strong>
-    			<textarea rows="20" class="form-control" name="n_content" id="register-content" required="required"></textarea>
-    			<!-- <input type="text" id="modify-content" class="form-control" value="${noticeBoardVO.n_content}"> -->
-    		</li>
-    		<li class="list-group-item"><strong>작성자: </strong><%=obj.getId() %></li>
-  		</ul>
-  		<div class="card-block" align="left">
-    		<a href="<%=pageContext.getServletContext().getContextPath()%>/nboard/listPage?page=${cri.page}&perPageNum=${cri.perPageNum}" class="btn btn-default" id="btn_previous" type="submit" >이전</a>
-   			<button class="btn btn-default" id="btn_registerConfirm" type="submit">확인</button>
-  		</div>
-	</div>
-	</form>
+	<img alt="theme" align="middle" src="<%=pageContext.getServletContext().getContextPath()%>/resources/images/developer.png">
+	<img alt="introduce" align="middle" src="<%=pageContext.getServletContext().getContextPath()%>/resources/images/process.png">
 	
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
 	<script type="text/javascript">
-	
-	$(document).ready(function(){
-		
-		var formObj = $("form[role='form']");
-
 		$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
 			self.location = "/member/logout";
 		});
-		
-		$("#btn_registerConfirm").on("click", function(){
-			var title = $('#register-title').val();
-			var contents = $('#register-content').val();
-			//alert(title.length + ": " + contents.length);
-			if(title.length == 0 || contents.length == 0){
-				alert("제목 또는 내용을 입력해주세요.");
-			} else {
-				alert("등록되었습니다.");
-				formObj.attr("action", "<%=pageContext.getServletContext().getContextPath()%>/nboard/register");
-				formObj.attr("method", "post");
-				formObj.submit();
-			}
-		});
-	});	
 	</script>
 </body>
 </html>

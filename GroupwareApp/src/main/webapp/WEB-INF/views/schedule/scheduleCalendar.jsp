@@ -155,21 +155,20 @@ Calendar cal = Calendar.getInstance();
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/main/mainPage">Groupware</a>
+				<a class="navbar-brand" href="<%=pageContext.getServletContext().getContextPath()%>/main/mainPage">Groupware</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li><a href="#">소개</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/main/introduce">소개</a></li>
 				<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">회원정보</a>
 					<ul class="dropdown-menu">
-						<li><a href="/member/memberInfo">회원정보 보기</a></li>
-						<li><a href="#">회원정보 수정</a>
-						<li><a href="#">회원 탈퇴하기</a></li>
+						<li><a href="<%=pageContext.getServletContext().getContextPath()%>/member/memberInfo">회원정보 보기</a></li>
+						<li><a href="<%=pageContext.getServletContext().getContextPath()%>/member/modify">회원정보 수정</a>
 					</ul>
 				</li>
-				<li><a href="/nboard/listPage">공지 게시판</a></li>
-				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
-				<li><a href="/email/emailsender">문의하기</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/nboard/listPage">공지 게시판</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/schedule/scheduleCalendar">업무 일정</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/email/emailsender">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -195,9 +194,9 @@ Calendar cal = Calendar.getInstance();
 			<h3><strong>월간 업무 일정</strong></h3>
 			<!-- 테이블 만들기 -->
 			<!--날짜 네비게이션  -->
-			<a href="scheduleCalendar?month=<%=currMonth%>&year=<%=currYear%>&action=0"><font size="3">&#60;&#60;</font></a>
+			<a href="<%=pageContext.getServletContext().getContextPath()%>/schedule/scheduleCalendar?month=<%=currMonth%>&year=<%=currYear%>&action=0"><font size="3">&#60;&#60;</font></a>
 			<b style="font-size: 20px"><%=getDateName (cal.get(cal.MONTH)) + " " + cal.get(cal.YEAR)%></b>
-			<a href="scheduleCalendar?month=<%=currMonth%>&year=<%=currYear%>&action=1"><font size="3">&#62;&#62;</font></a>
+			<a href="<%=pageContext.getServletContext().getContextPath()%>/schedule/scheduleCalendar?month=<%=currMonth%>&year=<%=currYear%>&action=1"><font size="3">&#62;&#62;</font></a>
 			
 			<br><br>
 			<table border="0" width="520" bordercolorlight="#C0C0C0" bordercolordark="#808080" style="border-collapse: collapse" bordercolor="#111111" cellpadding="0" cellspacing="0">
@@ -268,13 +267,13 @@ Calendar cal = Calendar.getInstance();
 							num = i;
 							if(list.get(i).getS_type() == 1 && obj.getId().equals(list.get(i).getS_id())){
 %>
-			<a style="color: #B22222" id="detailSchedule" href="/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a><br>
+			<a style="color: #B22222" id="<%=pageContext.getServletContext().getContextPath()%>/schedule/detailSchedule" href="/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a><br>
 <%
 							} else if(list.get(i).getS_type() == 1 && !(obj.getId().equals(list.get(i).getS_id()))){
 								
 							} else {
 %>
-			<a id="detailSchedule" href="/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a><br>
+			<a id="detailSchedule" href="<%=pageContext.getServletContext().getContextPath()%>/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a><br>
 <%								
 							}
 						}
@@ -306,7 +305,7 @@ Calendar cal = Calendar.getInstance();
 	<script type="text/javascript">
 		$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
-			self.location = "/member/logout";
+			self.location = "<%=pageContext.getServletContext().getContextPath()%>/member/logout";
 		});
 		
 		$('#schedulerTab a').click(function (e) {
@@ -315,11 +314,11 @@ Calendar cal = Calendar.getInstance();
 		});
 	
 		$("#registerMySchedule").bind("click", function(){
-			window.open('/schedule/myRegister', '나의 일정 등록', 'width=800, height=700');
+			window.open('<%=pageContext.getServletContext().getContextPath()%>/schedule/myRegister', '나의 일정 등록', 'width=800, height=700');
 		});
 		
 		$("#myscheduleList").click(function(){
-			window.open('/schedule/slist', '나의 일정 보기', 'width=800, height=700');
+			window.open('<%=pageContext.getServletContext().getContextPath()%>/schedule/slist', '나의 일정 보기', 'width=800, height=700');
 		});
 		
 		$("#detailSchedule").click(function(){

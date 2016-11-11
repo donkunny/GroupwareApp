@@ -64,7 +64,7 @@
 							<tr>
 								<td>${scheduleVO.sno}</td>
 								<td><a
-									href="/schedule/detailSchedule?sno=${scheduleVO.sno}&page=${pageMaker.cri.page}&perPageNum=${cri.getPerPageNum()}">
+									href="<%=pageContext.getServletContext().getContextPath()%>/schedule/detailSchedule?sno=${scheduleVO.sno}&page=${pageMaker.cri.page}&perPageNum=${cri.getPerPageNum()}">
 										${scheduleVO.s_title} </a></td>
 								<td>${scheduleVO.s_id}</td>
 								<td>${scheduleVO.s_fromDate} ~ ${scheduleVO.s_toDate}</td>
@@ -83,17 +83,17 @@
 					<ul class="pagination">
 						<c:if test="${pageMaker.prev}">
 							<li class="page-item"><a class="page-link"
-								href="slist?page=${pageMaker.startPage -1}&perPageNum=${cri.getPerPageNum()}">&laquo;</a></li>
+								href="<%=pageContext.getServletContext().getContextPath()%>/schedule/slist?page=${pageMaker.startPage -1}&perPageNum=${cri.getPerPageNum()}">&laquo;</a></li>
 						</c:if>
 						<c:forEach begin="${pageMaker.startPage}"
 							end="${pageMaker.endPage }" var="idx">
 							<li class="page-item"
 								<c:out value="${pageMaker.criSchedule.getPage == idx?'class =active':'' }" />>
-								<a class="page-link" href="slist?page=${idx}&perPageNum=${cri.getPerPageNum()}">${idx}</a>
+								<a class="page-link" href="<%=pageContext.getServletContext().getContextPath()%>/schedule/slist?page=${idx}&perPageNum=${cri.getPerPageNum()}">${idx}</a>
 							</li>
 						</c:forEach>
 						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-							<li class="page-item"><a class="page-link" href="slist?page=${pageMaker.endPage+1}&perPageNum=${cri.getPerPageNum()}">&raquo;</a>
+							<li class="page-item"><a class="page-link" href="<%=pageContext.getServletContext().getContextPath()%>/schedule/slist?page=${pageMaker.endPage+1}&perPageNum=${cri.getPerPageNum()}">&raquo;</a>
 							</li>
 						</c:if>
 					</ul>

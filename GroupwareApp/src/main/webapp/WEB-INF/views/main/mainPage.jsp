@@ -23,25 +23,27 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/main/mainPage">Groupware</a>
+				<a class="navbar-brand" href="<%=pageContext.getServletContext().getContextPath()%>/main/mainPage">Groupware</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li><a href="#">소개</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/main/introduce">소개</a></li>
 				<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">회원정보</a>
 					<ul class="dropdown-menu">
-						<li><a href="/member/memberInfo">회원정보 보기</a></li>
-						<li><a href="/member/modify">회원정보 수정</a>
-						<li><a href="#">회원 탈퇴하기</a></li>
+						<li><a href="<%=pageContext.getServletContext().getContextPath()%>/member/memberInfo">회원정보 보기</a></li>
+						<li><a href="<%=pageContext.getServletContext().getContextPath()%>/member/modify">회원정보 수정</a>
 					</ul>
 				</li>
-				<li><a href="/nboard/listPage">공지 게시판</a></li>
-				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
-				<li><a href="/email/emailsender">문의하기</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/nboard/listPage">공지 게시판</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/schedule/scheduleCalendar">업무 일정</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/email/emailsender">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
-
+	<img alt="theme" align="middle" src="<%=pageContext.getServletContext().getContextPath()%>/resources/images/theme.png">
+	<img alt="introduce" align="middle" src="<%=pageContext.getServletContext().getContextPath()%>/resources/images/introduce.png">
+	<img alt="environment" align="middle" src="<%=pageContext.getServletContext().getContextPath()%>/resources/images/environment.png">
+	
 	<%@ include file="/WEB-INF/views/include/script.jsp" %>
 	<script type="text/javascript">
 		$(".logout").on("click", function(){

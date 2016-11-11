@@ -89,7 +89,7 @@ $(document).ready(function() {
 	console.log(formObj);
 	$(".btn-primary").on("click", function() {
 		alert("확인되었습니다."+ $('#t_id').val() +"님");
-		formObj.attr("action", "/member/login");
+		formObj.attr("action", "<%=pageContext.getServletContext().getContextPath()%>/member/login");
 		formObj.attr("method", "get");
 		formObj.submit();
 	});

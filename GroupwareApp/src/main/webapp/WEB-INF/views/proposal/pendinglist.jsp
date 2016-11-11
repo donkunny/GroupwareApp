@@ -52,21 +52,20 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/main/mainPage">Groupware</a>
+				<a class="navbar-brand" href="<%=pageContext.getServletContext().getContextPath()%>/main/mainPage">Groupware</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li><a href="#">소개</a></li>
-				<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">회원정보</a>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/main/introduce">소개</a></li>
+				<li><a class="dropdown-toggle" data-toggle="dropdown" href="<%=pageContext.getServletContext().getContextPath()%>/main/introduce">회원정보</a>
 					<ul class="dropdown-menu">
-						<li><a href="/member/memberInfo">회원정보 보기</a></li>
-						<li><a href="#">회원정보 수정</a>
-						<li><a href="#">회원 탈퇴하기</a></li>
+						<li><a href="<%=pageContext.getServletContext().getContextPath()%>/member/memberInfo">회원정보 보기</a></li>
+						<li><a href="<%=pageContext.getServletContext().getContextPath()%>/member/modify">회원정보 수정</a>
 					</ul>
 				</li>
-				<li><a href="/nboard/listPage">공지 게시판</a></li>
-				<li><a href="/schedule/scheduleCalendar">업무 일정</a></li>
-				<li><a href="/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
-				<li><a href="/email/emailsender">문의하기</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/nboard/listPage">공지 게시판</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/schedule/scheduleCalendar">업무 일정</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/email/emailsender">문의하기</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -75,22 +74,22 @@
 	<!-- Sidebar -->
 	<div class="list-group" id="proposalBar" align="center">
  		<a class="list-group-item active">결재</a>
- 		<a href="/proposal/main?p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action" >전체결재목록</a>
-  		<a href="/proposal/waitinglist?p_status=결재대기&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action" >결재대기목록</a>
-  		<a href="/proposal/completedlist?p_status=결재완료&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action">결재완료목록</a>
-  		<a href="/proposal/pendinglist?p_status=결재보류&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action">결재보류목록</a>
+ 		<a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/main?p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action" >전체결재목록</a>
+  		<a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/waitinglist?p_status=결재대기&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action" >결재대기목록</a>
+  		<a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/completedlist?p_status=결재완료&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action">결재완료목록</a>
+  		<a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/pendinglist?p_status=결재보류&p_id=<%=obj.getId()%>" class="list-group-item list-group-item-action">결재보류목록</a>
   	</div>
   	<div class="list-group" id="proposalBar2" align="center">
   		<a class="list-group-item active">개인/공람</a>
-  		<a href="/proposal/publicProposal?p_status=결재완료_공람" class="list-group-item list-group-item-action" >공람목록</a>
+  		<a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/publicProposal?p_status=결재완료_공람" class="list-group-item list-group-item-action" >공람목록</a>
   	</div>
 
   	<div class="list-group" id="proposalBar3" align="center">
   		<a class="list-group-item active">승인</a>
-  		<a href="/proposal/entireApprovalList?p_status=기안&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action" >승인전체목록</a>
-  		<a href="/proposal/waitingApprovalList?p_status=결재대기&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action" >승인대기목록</a>
-  		<a href="/proposal/acceptedApprovalList?p_status=결재완료&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action">승인완료목록</a>
-  		<a href="/proposal/acceptedPendingList?p_status=결재보류&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action">승인보류목록</a>
+  		<a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/entireApprovalList?p_status=기안&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action" >승인전체목록</a>
+  		<a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/waitingApprovalList?p_status=결재대기&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action" >승인대기목록</a>
+  		<a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/acceptedApprovalList?p_status=결재완료&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action">승인완료목록</a>
+  		<a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/acceptedPendingList?p_status=결재보류&p_acceptor=<%=obj.getName()%>" class="list-group-item list-group-item-action">승인보류목록</a>
   	</div>
 
 	<!-- 결재 목록 -->	
@@ -153,7 +152,7 @@
 				<td>${proposalVO.pno}</td>
 				<td>${proposalVO.p_id}</td>
 				<td>${proposalVO.p_writer}</td>
-				<td><a href="/proposal/readProposal?page=${cri.page}&perPageNum=${cri.perPageNum}&pno=${proposalVO.pno}">${proposalVO.p_title}</a></td>
+				<td><a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/readProposal?page=${cri.page}&perPageNum=${cri.perPageNum}&pno=${proposalVO.pno}">${proposalVO.p_title}</a></td>
 				<td>${proposalVO.p_acceptor}</td>
 				<td style="color: blue"><strong>${proposalVO.p_status}</strong></td>
 				<td>-</td>
@@ -165,19 +164,19 @@
 			<ul class="pagination">
 				<c:if test="${pageMaker.prev}">
 					<li class="page-item"><a class="page-link"
-						href="pendinglist?page=${pageMaker.startPage -1}&perPageNum=${cri.getPerPageNum()}&p_status=결재보류&p_id=<%=obj.getId() %>"> &laquo;</a>
+						href="<%=pageContext.getServletContext().getContextPath()%>/proposal/pendinglist?page=${pageMaker.startPage -1}&perPageNum=${cri.getPerPageNum()}&p_status=결재보류&p_id=<%=obj.getId() %>"> &laquo;</a>
 					</li>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="idx">
 					<li class="page-item"
 						<c:out value="${pageMaker.cri.page == idx?'class =active':'' }" />>
-						<a class="page-link" href="pendinglist?page=${idx}&perPageNum=${cri.getPerPageNum()}&p_status=결재보류&p_id=<%=obj.getId() %>">${idx}</a>
+						<a class="page-link" href="<%=pageContext.getServletContext().getContextPath()%>/proposal/pendinglist?page=${idx}&perPageNum=${cri.getPerPageNum()}&p_status=결재보류&p_id=<%=obj.getId() %>">${idx}</a>
 					</li>
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 					<li class="page-item"><a class="page-link"
-						href="pendinglist?page=${pageMaker.endPage+1}&perPageNum=${cri.getPerPageNum()}&p_status=결재보류&p_id=<%=obj.getId() %>">&raquo;</a>
+						href="<%=pageContext.getServletContext().getContextPath()%>/proposal/pendinglist?page=${pageMaker.endPage+1}&perPageNum=${cri.getPerPageNum()}&p_status=결재보류&p_id=<%=obj.getId() %>">&raquo;</a>
 					</li>
 				</c:if>
 			</ul>
@@ -188,15 +187,15 @@
 	<script type="text/javascript">
 		$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
-			self.location = "/member/logout";
+			self.location = "<%=pageContext.getServletContext().getContextPath()%>/member/logout";
 		});
 		
 		$('#newBtn').on("click",function() {
-			self.location = "/proposal/registerProposal";				
+			self.location = "<%=pageContext.getServletContext().getContextPath()%>/proposal/registerProposal";				
 		});
 		
 		$("#searchBtn").on("click", function(event){
-			self.location = "pendinglist?page=1&perPageNum=10&searchType=" + $("select option:selected").val() + "&keyword=" + $('#keywordInput').val() + "&p_status=결재보류&p_id=" + "<%=obj.getId() %>";
+			self.location = "<%=pageContext.getServletContext().getContextPath()%>/proposal/pendinglist?page=1&perPageNum=10&searchType=" + $("select option:selected").val() + "&keyword=" + $('#keywordInput').val() + "&p_status=결재보류&p_id=" + "<%=obj.getId() %>";
 		});
 	</script>
 </body>
