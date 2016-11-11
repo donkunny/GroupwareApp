@@ -27,40 +27,40 @@
 	<interceptors>
 		<interceptor>
 			<!-- 매핑 필요한 url 추가 -->
-			<mapping path="/main/mainPage" />
+			<mapping path="/GroupwareApp/main/mainPage" />
 			<!-- <mapping path="/nboard/listAll"/>  -->
-			<mapping path="/member/memberInfo"/>
-			<mapping path="/member/modify"/>
+			<mapping path="/GroupwareApp/member/memberInfo"/>
+			<mapping path="/GroupwareApp/member/modify"/>
 			
-			<mapping path="/nboard/listPage"/>
-			<mapping path="/nboard/read"/>
-			<mapping path="/nboard/register"/>
-			<mapping path="/nboard/modify"/>
+			<mapping path="/GroupwareApp/nboard/listPage"/>
+			<mapping path="/GroupwareApp/nboard/read"/>
+			<mapping path="/GroupwareApp/nboard/register"/>
+			<mapping path="/GroupwareApp/nboard/modify"/>
 			
-			<mapping path="/schedule/scheduleCalendar"/>
-			<mapping path="/schedule/myRegister"/>
-			<mapping path="/schedule/slist"/>
-			<mapping path="/schedule/detailSchedule"/>
+			<mapping path="/GroupwareApp/schedule/scheduleCalendar"/>
+			<mapping path="/GroupwareApp/schedule/myRegister"/>
+			<mapping path="/GroupwareApp/schedule/slist"/>
+			<mapping path="/GroupwareApp/schedule/detailSchedule"/>
 			
-			<mapping path="/proposal/main"/>
-			<mapping path="/proposal/registerProposal"/>
-			<mapping path="/proposal/acceptedApprovalList"/>
-			<mapping path="/proposal/acceptedPendingList"/>
-			<mapping path="/proposal/acceptOrRejectProposal"/>
-			<mapping path="/proposal/completedlist"/>
-			<mapping path="/proposal/entireApprovalList"/>
-			<mapping path="/proposal/pendinglist"/>
-			<mapping path="/proposal/publicProposal"/>
-			<mapping path="/proposal/readProposal"/>
-			<mapping path="/proposal/resubmit"/>
-			<mapping path="/proposal/waitingApprovalList"/>
-			<mapping path="/proposal/waitinglist"/>
+			<mapping path="/GroupwareApp/proposal/main"/>
+			<mapping path="/GroupwareApp/proposal/registerProposal"/>
+			<mapping path="/GroupwareApp/proposal/acceptedApprovalList"/>
+			<mapping path="/GroupwareApp/proposal/acceptedPendingList"/>
+			<mapping path="/GroupwareApp/proposal/acceptOrRejectProposal"/>
+			<mapping path="/GroupwareApp/proposal/completedlist"/>
+			<mapping path="/GroupwareApp/proposal/entireApprovalList"/>
+			<mapping path="/GroupwareApp/proposal/pendinglist"/>
+			<mapping path="/GroupwareApp/proposal/publicProposal"/>
+			<mapping path="/GroupwareApp/proposal/readProposal"/>
+			<mapping path="/GroupwareApp/proposal/resubmit"/>
+			<mapping path="/GroupwareApp/proposal/waitingApprovalList"/>
+			<mapping path="/GroupwareApp/proposal/waitinglist"/>
 						
-			<mapping path="/email/emailsender"/>
-			<mapping path="/email/emailsenderPost"/>
+			<mapping path="/GroupwareApp/email/emailsender"/>
+			<mapping path="/GroupwareApp/email/emailsenderPost"/>
 			
-			<mapping path="/main/mainPage"/>
-			<mapping path="/main/introduce"/>
+			<mapping path="/GroupwareApp/main/mainPage"/>
+			<mapping path="/GroupwareApp/main/introduce"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 	</interceptors>
