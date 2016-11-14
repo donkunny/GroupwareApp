@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.donkunny.mapper.EmailMapper">
+	<insert id="sendPost">
+		insert into tbl_email (e_id, e_title, e_content, e_mail)
+		values(#{e_id}, #{e_title}, #{e_content}, #{e_mail})
+	</insert>
+</mapper>

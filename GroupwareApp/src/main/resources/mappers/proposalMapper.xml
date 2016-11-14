@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.donkunny.mapper.proposalMapper">
+	
+	<!-- 메인 결재 목록 화면 보이기 -->
+	<select id="proposal_list" resultType="ProposalVO">
+		select pno, p_id, p_writer, p_title, p_acceptor, p_status, p_acceptDate, p_reportDate
+		from tbl_proposal
+		order by pno desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+
+<!-- =======결재 기안 페이지에 필요한 SQL=========== -->	
+	<select id="listByStatusAndID" resultType="ProposalVO">
+		select * from tbl_proposal
+		where p_status = #{p_status} and p_id = #{p_id}
+		<include refid="search"></include>
+		order by pno desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="countByStatusAndID" resultType="int">
+		select count(pno) from tbl_proposal
+		where p_status = #{p_status} and p_id = #{p_id}
+		<include refid="search"></include>
+	</select>
+	
+	<select id="listByID" resultType="ProposalVO">
+		select * from tbl_proposal
+		where p_id = #{p_id}
+		<include refid="search"></include>
+		order by pno desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="countByID" resultType="int">
+		select count(pno) from tbl_proposal
+		where p_id = #{p_id}
+		<include refid="search"></include>
+	</select>
+	
+	<select id="listByStatusAndAcceptor" resultType="ProposalVO">
+		select * from tbl_proposal
+		where p_status = #{p_status} and p_acceptor = #{p_acceptor}
+		<include refid="search"></include>
+		order by pno desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="countByStatusAndAcceptor" resultType="int">
+		select count(pno) from tbl_proposal
+		where p_status = #{p_status} and p_acceptor = #{p_acceptor}
+		<include refid="search"></include>
+	</select>
+	
+	<select id="listByStatus" resultType="ProposalVO">
+		select * from tbl_proposal
+		where p_status = #{p_status}
+		<include refid="search"></include>
+		order by pno desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="countByStatus" resultType="int">
+		select count(pno) from tbl_proposal
+		where p_status = #{p_status}
+		<include refid="search"></include>
+	</select>
+	
+	<select id="listNotByStatus" resultType="ProposalVO">
+		select * from tbl_proposal
+		where p_status != #{p_status} and p_acceptor = #{p_acceptor}
+		<include refid="search"></include>
+		order by pno desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="countNotByStatus" resultType="int">
+		select count(pno) from tbl_proposal
+		where p_status != #{p_status} and p_acceptor = #{p_acceptor}
+		<include refid="search"></include>
+	</select>
+	
+	
+<!-- =========================================== -->	
+	
+	<!-- 상세 결재 화면 보이기 -->
+	<select id="proposal_detail_list" resultType="ProposalVO">
+		select * from tbl_proposal
+		where pno = #{pno}
+	</select>
+
+	<!-- 기안 문서 작성하기 -->
+	<insert id="writeProposal">
+		insert into tbl_proposal(p_id, p_writer, p_title, p_content, p_reportOpinion, p_acceptor)
+		values(#{p_id}, #{p_writer}, #{p_title}, #{p_content}, #{p_reportOpinion}, #{p_acceptor})
+	</insert>
+
+	<!-- 기안 문서 삭제하기 -->
+	<delete id="deleteProposal">
+		delete from tbl_board
+		where pno = #{pno}
+	</delete>
+	
+	<!-- 기안 문서 수정하기 -->
+	<update id="updateProposal">
+		update tbl_proposal
+		set p_id=#{p_id}, p_writer= #{p_writer}, p_title=#{p_title}, p_content=#{p_content}, p_status=#{p_status}, p_reportOpinion=#{p_reportOpinion}, p_acceptor=#{p_acceptor} 
+		where pno = #{pno} 
+	</update>
+	
+	<select id="countPaging" resultType="int">
+		select count(pno) from tbl_proposal
+		where pno > 0
+	</select>
+	
+	<!-- 기안 문서 검색하기 -->
+	<sql id="search">
+		<if test="searchType != null" >
+			<if test="searchType == 't'.toString()">
+				and p_title like CONCAT('%', #{keyword}, '%')			
+			</if>
+			
+			<if test="searchType == 'c'.toString()">
+				and p_content like CONCAT('%', #{keyword}, '%')			
+			</if>
+			
+			<if test="searchType == 'w'.toString()">
+				and p_id like CONCAT('%', #{keyword}, '%')			
+			</if>
+			
+			<if test="searchType == 'tc'.toString()">
+				and ( p_title like CONCAT('%', #{keyword}, '%')
+				OR p_content like CONCAT('%', #{keyword}, '%'))			
+			</if>
+			
+			<if test="searchType == 'cw'.toString()">
+				and ( p_content like CONCAT('%', #{keyword}, '%')
+				OR p_writer like CONCAT('%', #{keyword}, '%'))			
+			</if>
+			
+			<if test="searchType == 'tcw'.toString()">
+				and ( p_title like CONCAT('%', #{keyword}, '%')
+				OR p_content like CONCAT('%', #{keyword}, '%')
+				OR p_writer like CONCAT('%', #{keyword}, '%'))			
+			</if>
+		</if>
+	</sql>
+	
+	<select id="searchProposal" resultType="ProposalVO">
+		select *
+		from tbl_proposal
+		where pno > 0
+		<include refid="search"></include>
+		order by pno desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="search_proposalCount" resultType="int">
+		select count(pno)
+		from tbl_proposal
+		where pno > 0
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 기안문 제출 -->
+	<update id="submitProposal">
+		update tbl_proposal
+		set p_status = #{p_status} 
+		where pno = #{pno}
+	</update>
+	
+	<!-- ID를 통한 기안문 제출 -->
+	<update id="submitProposalwithID">
+		update tbl_proposal
+		set p_status = #{p_status}, p_id = #{p_id}
+		where pno = #{pno}
+	</update>
+	
+	<!-- 기안문 승인/반려 -->
+	<update id="acceptOrReject">
+		update tbl_proposal
+		set p_acceptor=#{p_acceptor}, p_status = #{p_status}, p_acceptOpinion = #{p_acceptOpinion}
+		where pno = #{pno}
+	</update>
+	
+</mapper>

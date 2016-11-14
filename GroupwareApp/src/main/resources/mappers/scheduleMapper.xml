@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.donkunny.mapper.scheduleMapper">
+	
+	<!-- 스케줄 등록 -->
+	<insert id="registerSchedule">
+		insert into tbl_schedule(s_id, s_fromDate, s_toDate, s_title, s_content, s_attendee, s_place, s_type)
+		values(#{s_id}, #{s_fromDate}, #{s_toDate}, #{s_title}, #{s_content}, #{s_attendee}, #{s_place}, #{s_type})
+	</insert>
+	
+	<!-- 스케줄 수정 -->
+	<update id="modifySchedule">
+		update tbl_schedule
+		set s_fromDate = #{s_fromDate}, s_toDate=#{s_toDate}, s_title=#{s_title}, s_content = #{s_content}, s_attendee=#{s_attendee}, s_place=#{s_place}, s_type=#{s_type}
+		where sno = #{sno}
+	</update>
+	
+	<!-- 하나의 스케줄 읽기 -->
+	<select id="readOneSchedule" resultType="ScheduleVO">
+		select * 
+		from tbl_schedule
+		where sno =#{sno}
+	</select>
+	
+	<!-- 스케줄 삭제 -->
+	<delete id="deleteOneSchedule">
+		delete from tbl_schedule
+		where sno = #{sno}	
+	</delete>
+	
+	<!-- 나의 과거 스케줄 히스토리 보기 -->
+	<select id="readMySchedule" resultType="ScheduleVO">
+		select * from tbl_schedule
+		where sno > 0
+		order by sno desc
+	</select>
+	
+	<!-- 나의 목록 리스트 화면 보이기 -->
+	<select id="listPage" resultType="ScheduleVO">
+		select * from tbl_schedule
+		where sno > 0 and s_id = #{s_id}
+		order by sno desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- 게시글 개수 확인 -->
+	<select id="countPaging" resultType="int">
+		select count(sno)
+		from tbl_schedule
+		where sno > 0 and s_id = #{s_id}
+	</select>
+	
+	<!-- 한달 스케줄 보기(Monthly) -->
+	
+	<!-- 사용자별 스케줄 보기 -->
+	
+	<!-- 날짜별 스케줄 보기(Weekly) -->
+	
+	<!-- Search -->
+	
+	
+	
+</mapper>

@@ -1,0 +1,71 @@
+<%@page import="com.donkunny.member.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/include/header.jsp" %>
+<%@ page session="true" %>
+
+<!doctype html>
+<html>
+<head>
+	<%@ include file="/WEB-INF/views/include/style.jsp" %>
+	<style type="text/css">
+		.header {
+			padding-right: 10px;		
+		}
+		
+		#sendEmail {
+			position: relative;
+			width: 40%;	
+			margin: 0 auto;
+			padding-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<h5 align="right"><strong>${memberVO.id}</strong>님 환영합니다.</h5>
+		<h5 class="logout" align="right" style="cursor:pointer">
+			로그아웃하기 <i class="fa fa-sign-out" aria-hidden="true"></i> </h5>
+	</div>
+	<% MemberVO obj = (MemberVO)session.getAttribute("memberVO"); %>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/main/mainPage">Groupware</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/main/introduce">소개</a></li>
+				<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">회원정보</a>
+					<ul class="dropdown-menu">
+						<li><a href="<%=pageContext.getServletContext().getContextPath()%>/member/memberInfo">회원정보 보기</a></li>
+						<li><a href="<%=pageContext.getServletContext().getContextPath()%>/member/modify">회원정보 수정</a>
+					</ul>
+				</li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/nboard/listPage">공지 게시판</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/schedule/scheduleCalendar">업무 일정</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/proposal/main?p_id=<%=obj.getId()%>">결재 관리</a></li>
+				<li><a href="<%=pageContext.getServletContext().getContextPath()%>/email/emailsender">문의하기</a></li>
+			</ul>
+		</div>
+	</nav>
+	<br><br>
+	<h3 align="center"><strong>관리자에게 문의하기</strong></h3>
+	<br>
+	<h4 align="center"><strong>전송되었습니다.</strong></h4>	
+
+	<%@ include file="/WEB-INF/views/include/script.jsp" %>
+	<script type="text/javascript">
+		var formObj = $("form[role='form']");	
+		$(".logout").on("click", function(){
+			alert("로그아웃 되었습니다.");
+			self.location = "<%=pageContext.getServletContext().getContextPath()%>/member/logout";
+		});
+		
+		$("#send_email").on("click", function(){
+			alert("메일이 전송되었습니다.");
+			formObj.attr("action", "<%=pageContext.getServletContext().getContextPath()%>/email/emailsender");
+			formObj.attr("method", "post");
+			formObj.submit();
+		});
+	</script>
+</body>
+</html>
