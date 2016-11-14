@@ -136,13 +136,13 @@
 	var formObj = $("form[role='form']");	
 	$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
-			self.location = "/member/logout";
+			self.location = "<%=pageContext.getServletContext().getContextPath()%>/member/logout";
 		});
 		
 		$("#btn_modify").on("click", function(){
 			if($("#t_pwd_confirm").val() == $("#t_pwd").val()){
 				alert("수정되었습니다.");
-				formObj.attr("action", "/member/modify");
+				formObj.attr("action", "<%=pageContext.getServletContext().getContextPath()%>/member/modify");
 				formObj.attr("method", "post");
 				formObj.submit();		
 			} else {

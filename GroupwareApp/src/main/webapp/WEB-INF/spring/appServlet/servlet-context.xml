@@ -57,7 +57,7 @@
 			<mapping path="/GroupwareApp/proposal/waitinglist"/>
 						
 			<mapping path="/GroupwareApp/email/emailsender"/>
-			<mapping path="/GroupwareApp/email/emailsenderPost"/>
+			<mapping path="/email/emailsenderPost"/>
 			
 			<mapping path="/GroupwareApp/main/mainPage"/>
 			<mapping path="/GroupwareApp/main/introduce"/>

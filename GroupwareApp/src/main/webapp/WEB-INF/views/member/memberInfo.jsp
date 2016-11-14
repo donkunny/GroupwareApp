@@ -125,7 +125,7 @@
 	<script type="text/javascript">
 		$(".logout").on("click", function(){
 			alert("로그아웃 되었습니다.");
-			self.location = "/member/logout";
+			self.location = "<%=pageContext.getServletContext().getContextPath()%>/member/logout";
 		});
 	</script>
 </body>

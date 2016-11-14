@@ -267,13 +267,13 @@ Calendar cal = Calendar.getInstance();
 							num = i;
 							if(list.get(i).getS_type() == 1 && obj.getId().equals(list.get(i).getS_id())){
 %>
-			<a style="color: #B22222" id="<%=pageContext.getServletContext().getContextPath()%>/schedule/detailSchedule" href="/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a><br>
+			<a style="color: #B22222" id="detailSchedule1" href="<%=pageContext.getServletContext().getContextPath()%>/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a><br>
 <%
 							} else if(list.get(i).getS_type() == 1 && !(obj.getId().equals(list.get(i).getS_id()))){
 								
 							} else {
 %>
-			<a id="detailSchedule" href="<%=pageContext.getServletContext().getContextPath()%>/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a><br>
+			<a id="detailSchedule2" href="<%=pageContext.getServletContext().getContextPath()%>/schedule/detailSchedule?sno=<%=list.get(num).getSno() %>" target="_blank" ><strong><%=list.get(num).getS_title() %></strong></a><br>
 <%								
 							}
 						}

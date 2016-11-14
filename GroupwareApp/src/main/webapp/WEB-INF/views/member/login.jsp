@@ -38,7 +38,7 @@
 				<h5><i class="fa fa-user" aria-hidden="true"></i>
 				아직 회원이 아니세요? <a href="<%=pageContext.getServletContext().getContextPath()%>/member/register">회원가입</a></h5>
 				<br>
-				<h5><Strong>테스트용 아이디/ 비밀번호: test/test</Strong></h5>
+				<h5><Strong>테스트용 아이디/ 비밀번호: testuser/123456</Strong></h5>
 		</div><!-- /container -->
 	</form>
 </body>
